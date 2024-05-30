@@ -7,11 +7,9 @@
 # dependencies
 node_modules
 
-.gitignore
 
 # next.js
 .next/
-out/
 build
 
 # misc
