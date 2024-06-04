@@ -1,15 +1,12 @@
+import { QueryClient } from '@tanstack/react-query';
+import { ConfigProvider } from 'antd';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
+import { Inter } from 'next/font/google';
 import './globals.css';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import token from '../methods/themeConfig';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-});
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,10 +18,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const queryClient = new QueryClient();
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+      <body className={inter.className}>
+        <AntdRegistry>
+          <ConfigProvider theme={token}>{children}</ConfigProvider>
+        </AntdRegistry>
       </body>
     </html>
   );
