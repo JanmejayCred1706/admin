@@ -13,7 +13,10 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    '@typescript-eslint/no-explicit-any': 'error',
+    'react/no-unescaped-entities': 'off', // this rule eslint through a error for not using react in every react component
+    '@typescript-eslint/no-explicit-any': 'error', // this rule for restrict any type in the code base
+    '@next/next/no-page-custom-font': 'off', // for some custom fonts (in docs)
+
     // Add your custom ESLint rules here
   },
 };

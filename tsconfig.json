@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": false,
+    "allowJs": true,
     // "checkJs": true, // this line when we import any file in js  this parameter remove the warning
+    "noImplicitAny": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,

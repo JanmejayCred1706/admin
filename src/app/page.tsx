@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 
 export default function Home() {
-  const variable: any = 89;
+  let data: any = true;
   return (
     <div className="App">
       <Button type="primary" className="ml-10">
