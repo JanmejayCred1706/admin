@@ -2,6 +2,7 @@
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
+    // "checkJs": true, // this line when we import any file in js  this parameter remove the warning
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -19,8 +20,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["components/*"]
+      "@components/*": ["src/components/*"]
+      // "@level2/*": ["src/components/check/level2/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
