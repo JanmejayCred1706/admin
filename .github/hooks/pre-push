@@ -1,0 +1,12 @@
+#!/bin/bash
+
+npm run lint
+
+# Abort the push if the linting command fails
+if [ $? -ne 0 ]; then
+    echo "Error: ESLint found issues. Aborting push."
+    exit 1
+fi
+
+# If the linting command passes, allow the push to proceed
+exit 0
