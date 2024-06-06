@@ -1,3 +1,4 @@
+import LeftNav from '@ui/LeftNav';
 import React from 'react';
 
 const Dashboard = ({ children }: { children: React.ReactNode }) => {
@@ -5,7 +6,7 @@ const Dashboard = ({ children }: { children: React.ReactNode }) => {
     <section>
       {/* Include shared UI here e.g. a header or sidebar */}
       <nav></nav>
-
+      <LeftNav />
       {children}
     </section>
   );

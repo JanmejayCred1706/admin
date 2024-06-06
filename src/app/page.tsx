@@ -1,11 +1,7 @@
 import Login from '@login/page';
+import Dashboard from '@dashboard/page';
+import LeftNav from '@ui/LeftNav';
 
 export default function Home() {
-  const data: any = 90;
-  return (
-    <>
-      <Login />
-      {data}
-    </>
-  );
+  return <></>;
 }

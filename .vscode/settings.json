@@ -32,5 +32,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.requireConfig": true,
-  "cSpell.words": ["antd", "tanstack"]
+  "cSpell.words": ["antd", "Garantie", "Sider", "tanstack"]
 }

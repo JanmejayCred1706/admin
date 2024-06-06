@@ -80,20 +80,6 @@ module.exports = {
         },
       },
     },
-    env: {
-      browser: true,
-      es2021: true,
-      node: true,
-    },
     // Add your custom ESLint rules here
   },
-  overrides: [
-    {
-      files: ['src/**/*.tsx', 'src/**/*.ts'],
-      rules: {
-        // Set to error for specific files or patterns
-        '@typescript-eslint/no-explicit-any': 'error',
-      },
-    },
-  ],
 };
