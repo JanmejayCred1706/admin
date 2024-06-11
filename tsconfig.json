@@ -25,7 +25,8 @@
       "@components/*": ["src/components/*"],
       "@ui/*": ["src/components/ui/*"],
       "@login/*": ["src/app/login/*"],
-      "@dashboard/*": ["src/app/dashboard/*"]
+      "@dashboard/*": ["src/app/dashboard/*"],
+      "@methods/*": ["src/methods/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
