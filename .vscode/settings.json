@@ -2,8 +2,7 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    // "source.fixAll.eslint": "explicit"
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "eslint.alwaysShowStatus": true,
   "eslint.validate": [
@@ -32,5 +31,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.requireConfig": true,
-  "cSpell.words": ["antd", "Garantie", "Sider", "tanstack"]
+  "cSpell.words": ["antd", "Garantie", "Sider", "tanstack"],
+  "css.lint.unknownAtRules": "ignore"
 }

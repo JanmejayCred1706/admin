@@ -15,6 +15,7 @@ const config: Config = {
       priLightGrey: '#8898A9',
       priBlue: '#3C63FB',
       priViolet: '#172A4D',
+      priRed: '#DA5D59',
     },
     extend: {
       backgroundImage: {
