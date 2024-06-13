@@ -1,3 +1,9 @@
+import { BasicLayout } from '@components/Component';
+
 export default function Home() {
-  return <>hello home page</>;
+  return (
+    <BasicLayout>
+      <div>Bill is a cat.</div>
+    </BasicLayout>
+  );
 }

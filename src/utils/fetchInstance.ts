@@ -9,6 +9,7 @@ const getToken = async (): Promise<string> => {
   return ''; // Placeholder return, modify as needed
 };
 
+let timeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone;
 const fetchInstance = async (
   url: string,
   options: RequestInit = {}
@@ -16,12 +17,9 @@ const fetchInstance = async (
   const token: string = await getToken();
 
   const defaultHeaders: Record<string, string> = {
+    date: timeZone,
     'Content-type': 'application/json',
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': 'true',
-    'Access-Control-Allow-Methods': 'GET,DELETE,PATCH,POST,PUT',
-    'Access-Control-Allow-Headers':
-      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
   };
 
   if (token) {
@@ -33,7 +31,14 @@ const fetchInstance = async (
     headers: {
       ...defaultHeaders,
       ...options.headers,
+      method: 'POST',
     },
+    body: JSON.stringify({
+      email: 'admin@garantie.in',
+      password: 'Garantie@1',
+      user_type: 'admin',
+      grant_type: 'password',
+    }),
   };
 
   //   if (config?.navigateTo) {

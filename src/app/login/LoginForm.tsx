@@ -11,7 +11,7 @@ const LoginForm: FC<LoginFormProps> = () => {
     console.log(data, 'data');
     try {
       const data = await fetchInstance('user/login', {
-        method: 'GET', // or 'POST', 'PUT', etc.
+        method: 'POST', // or 'POST', 'PUT', etc.
       });
       console.log('Data', data);
     } catch (error) {
@@ -38,7 +38,7 @@ const LoginForm: FC<LoginFormProps> = () => {
           name="email"
           rules={[
             {
-              required: true,
+              // required: true,
               message: 'Please input your email!',
             },
             // {
@@ -58,7 +58,7 @@ const LoginForm: FC<LoginFormProps> = () => {
           name="password"
           rules={[
             {
-              required: true,
+              // required: true,
               message: 'Please input your password!',
             },
           ]}

@@ -1,0 +1,9 @@
+.ant-layout-sider{
+    background-color: #fff !important;
+}
+.ant-layout .ant-layout-sider-trigger{
+    display: none !important;
+}
+.anticon anticon-menu{
+    @apply cursor-pointer
+}
