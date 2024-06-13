@@ -32,24 +32,26 @@ function getItem(
 }
 const items: MenuItem[] = [
   getItem('Dashboard', '1', <PieChartOutlined />, [
-    getItem('Home', '/dashboard'),
+    getItem('Home', '/admin/dashboard'),
   ]),
   getItem('Plans', '2', <DesktopOutlined />, [
-    getItem('All Plans', '/'),
-    getItem('Cancelled Plans', '22'),
+    getItem('All Plans', '/admin/plans/all-plans'),
+    getItem('Cancelled Plans', '/admin/plans/cancel-plans'),
   ]),
   getItem('Retailers', '3', <UserOutlined />, [
-    getItem('Active Retailers', '31'),
-    getItem('All Retailers', '32'),
+    getItem('Active Retailers', '/admin/retailers/active-retailers'),
+    getItem('All Retailers', '/admin/retailers/all-retailers'),
   ]),
   getItem('Service Centers', '4', <TeamOutlined />, [
-    getItem('All Service Centers', '41'),
+    getItem('All Service Centers', '/admin/service-center/all-service-center'),
   ]),
   getItem('Report', '5', <FileOutlined />, [
     getItem('Billing Report', '51'),
     getItem('Waterfall Report', '52'),
   ]),
-  getItem('Claims', '6', <FileOutlined />, [getItem('All Claims', '61')]),
+  getItem('Claims', '6', <FileOutlined />, [
+    getItem('All Claims', '/admin/claims/all-claims'),
+  ]),
   getItem('Settings', '7', <FileOutlined />, [
     getItem('Users', '71'),
     getItem('Config', '72'),
@@ -78,7 +80,10 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
           {!collapsed && (
             <Image src="/logo.png" height={120} width={120} alt="logo" />
           )}
-          <MenuOutlined onClick={() => setCollapsed(!collapsed)} />
+          <MenuOutlined
+            onClick={() => setCollapsed(!collapsed)}
+            className="pointer"
+          />
         </div>
         <Menu
           // theme="dark"

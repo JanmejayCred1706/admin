@@ -4,5 +4,8 @@
 .login-form{
  @apply w-full 
 }
+.pointer{
+  @apply cursor-pointer
+}
 
 

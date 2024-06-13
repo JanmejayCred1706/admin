@@ -25,7 +25,7 @@
       "@components/*": ["src/components/*"],
       "@ui/*": ["src/components/ui/*"],
       "@login/*": ["src/app/login/*"],
-      "@dashboard/*": ["src/app/dashboard/*"],
+      "@dashboard/*": ["src/app/admin/dashboard/*"],
       "@methods/*": ["src/methods/*"],
       "@style/*": ["src/style/*"],
       "@core/*": ["src/components/core/*"]
