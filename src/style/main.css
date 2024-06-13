@@ -1,6 +1,9 @@
 .display-center {
   @apply flex justify-center items-center
 }
+.display-between {
+  @apply flex justify-between items-center
+}
 .login-form{
  @apply w-full 
 }

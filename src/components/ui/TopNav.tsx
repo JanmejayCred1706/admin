@@ -1,6 +1,15 @@
 import { UserOutlined } from '@ant-design/icons';
 import { TopNavProps } from '@ui/UiInterfaces'; // Ensure this path is correct
-import { Avatar, Layout, Select, Space, Typography, theme } from 'antd';
+import {
+  Avatar,
+  Dropdown,
+  Layout,
+  MenuProps,
+  Select,
+  Space,
+  Typography,
+  theme,
+} from 'antd';
 import React from 'react';
 
 const TopNav: React.FC<TopNavProps> = () => {
@@ -19,6 +28,20 @@ const TopNav: React.FC<TopNavProps> = () => {
   const handleChange = (value: any) => {
     console.log(value);
   };
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          // href="https://www.antgroup.com"
+        >
+          Sign-out
+        </a>
+      ),
+    },
+  ];
   return (
     <Header
       style={{
@@ -68,7 +91,13 @@ const TopNav: React.FC<TopNavProps> = () => {
           <Typography style={{ fontSize: '1.5rem', color: '#fff' }}>
             Admin
           </Typography>
-          <Avatar size="large" icon={<UserOutlined />} />
+          <Dropdown
+            menu={{ items }}
+            placement="bottomRight"
+            arrow={{ pointAtCenter: true }}
+          >
+            <Avatar size="large" icon={<UserOutlined />} />
+          </Dropdown>
         </Space>
       </div>
     </Header>
