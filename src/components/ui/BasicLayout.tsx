@@ -13,6 +13,7 @@ import {
 import { BreadCrumbNav, FooterNav, TopNav } from '@components/Component';
 import { Layout, Menu, MenuProps, theme } from 'antd';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -30,9 +31,11 @@ function getItem(
   } as MenuItem;
 }
 const items: MenuItem[] = [
-  getItem('Dashboard', '1', <PieChartOutlined />, [getItem('Home', '11')]),
+  getItem('Dashboard', '1', <PieChartOutlined />, [
+    getItem('Home', '/dashboard'),
+  ]),
   getItem('Plans', '2', <DesktopOutlined />, [
-    getItem('All Plans', '21'),
+    getItem('All Plans', '/'),
     getItem('Cancelled Plans', '22'),
   ]),
   getItem('Retailers', '3', <UserOutlined />, [
@@ -59,6 +62,11 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const { Content, Sider } = Layout;
+  const router = useRouter();
+  const redirection = (path: string) => {
+    // navigate(path);
+    router.push(path, { scroll: false });
+  };
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
@@ -70,13 +78,14 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
           {!collapsed && (
             <Image src="/logo.png" height={120} width={120} alt="logo" />
           )}
-          <MenuOutlined onClick={() => setCollapsed(!collapsed)} className="" />
+          <MenuOutlined onClick={() => setCollapsed(!collapsed)} />
         </div>
         <Menu
           // theme="dark"
           defaultSelectedKeys={['1']}
           mode="inline"
           items={items}
+          onClick={({ key }) => redirection(key)}
         />
       </Sider>
       <Layout>

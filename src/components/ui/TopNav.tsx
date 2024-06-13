@@ -27,7 +27,9 @@ const TopNav: React.FC<TopNavProps> = () => {
         }}
       >
         <Space size={16}>
-          <Typography style={{ fontSize: '1.5rem' }}>Admin</Typography>
+          <Typography style={{ fontSize: '1.5rem', color: '#fff' }}>
+            Admin
+          </Typography>
           <Avatar size="large" icon={<UserOutlined />} />
         </Space>
       </div>

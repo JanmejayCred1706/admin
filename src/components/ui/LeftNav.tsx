@@ -54,6 +54,9 @@ const LeftNav = (props: leftNavProps) => {
         defaultSelectedKeys={['1']}
         mode="inline"
         items={items}
+        onClick={({ key }) => {
+          console.log(key, 'key');
+        }}
       />
     </Sider>
   );

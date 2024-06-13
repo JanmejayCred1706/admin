@@ -5,8 +5,16 @@ import React from 'react';
 const FooterNav = (props: FooterNavProps) => {
   const { Footer } = Layout;
   return (
-    <Footer style={{ textAlign: 'center' }}>
-      Ant Design ©{new Date().getFullYear()} Created by Ant UED
+    <Footer
+      style={{
+        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'space-between',
+        backgroundColor: '#F8F9FE',
+      }}
+    >
+      <div>©{new Date().getFullYear()} Garantie</div>
+      <div>About us</div>
     </Footer>
   );
 };
