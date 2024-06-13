@@ -30,7 +30,7 @@ const DataTable: React.FC<DataTableProps> = ({
   let defaultPage: number = 1;
   const defaultPageNo = defaultPage ? defaultPage : 1;
   const getTotalPageCount =
-    count > defaultPageNo * 10 ? defaultPageNo * 10 : count;
+    count > defaultPageNo * 20 ? defaultPageNo * 20 : count;
 
   return (
     <div>
@@ -41,7 +41,7 @@ const DataTable: React.FC<DataTableProps> = ({
           count && pageNo
             ? {
                 current: +defaultPageNo,
-                pageSize: 10,
+                pageSize: 20,
                 total: count,
                 position: ['none', 'bottomRight'],
                 onChange: (page) => {
@@ -52,10 +52,11 @@ const DataTable: React.FC<DataTableProps> = ({
             : false
         }
         dataSource={data}
+        scroll={{ y: 1000 }}
         style={{ textAlign: 'center', marginTop: '2rem' }}
       />
       <p className="mt-[-3rem]">
-        Showing {defaultPageNo * 10 - 9}-{getTotalPageCount} of {count}
+        Showing {defaultPageNo * 20 - 9}-{getTotalPageCount} of {count}
       </p>
     </div>
   );
