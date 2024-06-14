@@ -3,19 +3,35 @@ import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { FormDataInterface, LoginFormProps } from '@login/LoginInterface';
 import { Button, Form, Input } from 'antd';
 import { FC } from 'react';
-import fetchInstance from 'src/utils/fetchInstance';
 
 const LoginForm: FC<LoginFormProps> = () => {
   const emailPattern = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
-  const onFinish: (data: FormDataInterface) => void = async (data) => {
-    console.log(data, 'data');
+  const onFinish: (data: FormDataInterface) => void = async (formData) => {
+    console.log('...');
+    const payload = {
+      email: 'admin@garantie.in',
+      grant_type: 'password',
+      password: 'Garantie@1',
+      user_type: 'admin',
+    };
     try {
-      const data = await fetchInstance('user/login', {
-        method: 'POST', // or 'POST', 'PUT', etc.
+      const response = await fetch('https://qa.garantie.in//api/user/login', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(payload),
       });
-      console.log('Data', data);
-    } catch (error) {
-      console.error('data', error);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log(result, 'result');
+      // setData(result);
+    } catch (err) {
+      // setError((err as Error).message);
     }
   };
   return (

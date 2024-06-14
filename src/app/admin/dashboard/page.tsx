@@ -1,7 +1,7 @@
 import LeftNav from '@ui/LeftNav';
 import React from 'react';
 
-const Dashboard = ({ children }: { children: React.ReactNode }) => {
+const Dashboard = () => {
   return <>Hello Dashboard</>;
 };
 

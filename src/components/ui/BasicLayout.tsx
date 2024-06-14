@@ -78,7 +78,13 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
       >
         <div className="demo-logo-vertical m-4 flex justify-between">
           {!collapsed && (
-            <Image src="/logo.png" height={120} width={120} alt="logo" />
+            <Image
+              src="/logo.png"
+              height={120}
+              width={120}
+              alt="logo"
+              priority
+            />
           )}
           <MenuOutlined
             onClick={() => setCollapsed(!collapsed)}

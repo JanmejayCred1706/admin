@@ -15,7 +15,9 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
     <ConfigProvider theme={theme}>
       <AntdRegistry>
         <StyleProvider>
-          <BasicLayout>{children}</BasicLayout>
+          {/* <BasicLayout> */}
+          {children}
+          {/* </BasicLayout> */}
         </StyleProvider>
       </AntdRegistry>
     </ConfigProvider>
