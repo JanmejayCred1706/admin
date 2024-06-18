@@ -1,11 +1,15 @@
 import { create } from 'zustand';
 
-interface BearState {
-  bears: number;
-  increase: (by: number) => void;
-}
+type CartStore = {
+  cart: number;
+  add: () => void;
+  remove: () => void;
+  removeAll: () => void;
+};
 
-const useBearStore = create<BearState>()((set) => ({
-  bears: 0,
-  increase: (by) => set((state) => ({ bears: state.bears + by })),
+export const useCartStore = create<CartStore>((set) => ({
+  cart: 0,
+  add: () => set((state) => ({ cart: state.cart + 1 })),
+  remove: () => set((state) => ({ cart: state.cart - 1 })),
+  removeAll: () => set({ cart: 0 }),
 }));

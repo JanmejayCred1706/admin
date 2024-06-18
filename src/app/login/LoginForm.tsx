@@ -3,8 +3,16 @@ import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { FormDataInterface, LoginFormProps } from '@login/LoginInterface';
 import { Button, Form, Input } from 'antd';
 import { FC } from 'react';
+import { useCartStore } from 'src/utils/Store';
+import { useStore } from 'zustand';
 
+interface AppState {
+  bears: string;
+  // Add other properties as needed
+}
 const LoginForm: FC<LoginFormProps> = () => {
+  const { cart } = useCartStore();
+  console.log(cart, 'bears');
   const emailPattern = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
   const onFinish: (data: FormDataInterface) => void = async (formData) => {
     console.log('...');
@@ -37,7 +45,7 @@ const LoginForm: FC<LoginFormProps> = () => {
   return (
     <div className="h-[35rem] w-[35rem] bg-priWhite display-center mt-[-10%] rounded-2xl flex-col relative">
       <p className="text-priLightGrey text-2xl font-bold absolute top-10">
-        Sign in to Admin
+        Sign in to Admin {cart}
       </p>
       <Form
         name="basic"

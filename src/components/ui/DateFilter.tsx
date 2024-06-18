@@ -4,7 +4,7 @@ import { Button, Dropdown, Form, Space } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 // import { toast } from 'react-toastify';
-import { disableFutureDates } from 'src/utils/utils';
+import { disableFutureDates } from 'src/utils/functions/utils';
 
 interface DateFilterProps {
   startDate: string;
