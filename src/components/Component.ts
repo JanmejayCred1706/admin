@@ -1,4 +1,5 @@
 import InputField from '@core/InputField';
+import SelectField from '@core/SelectField';
 import DateField from '@core/DateField';
 import DataTable from '@core/DataTable';
 import LeftNav from '@ui/LeftNav';
@@ -9,6 +10,7 @@ import BasicLayout from '@ui/BasicLayout';
 
 export {
   InputField,
+  SelectField,
   DateField,
   DataTable,
   LeftNav,

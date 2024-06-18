@@ -3,7 +3,8 @@ import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { FormDataInterface, LoginFormProps } from '@login/LoginInterface';
 import { Button, Form, Input } from 'antd';
 import { FC } from 'react';
-import { useCartStore } from 'src/utils/Store';
+import { useAppStore } from 'src/utils/Store';
+import fetchInstance from 'src/utils/fetchInstance';
 import { useStore } from 'zustand';
 
 interface AppState {
@@ -11,7 +12,7 @@ interface AppState {
   // Add other properties as needed
 }
 const LoginForm: FC<LoginFormProps> = () => {
-  const { cart } = useCartStore();
+  const { cart } = useAppStore();
   console.log(cart, 'bears');
   const emailPattern = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
   const onFinish: (data: FormDataInterface) => void = async (formData) => {
@@ -30,6 +31,7 @@ const LoginForm: FC<LoginFormProps> = () => {
         method: 'POST',
         body: JSON.stringify(payload),
       });
+      // const response = await fetchInstance('/api/user/login'); this for instance format
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

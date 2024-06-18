@@ -28,7 +28,8 @@
       "@dashboard/*": ["src/app/admin/dashboard/*"],
       "@methods/*": ["src/methods/*"],
       "@style/*": ["src/style/*"],
-      "@core/*": ["src/components/core/*"]
+      "@core/*": ["src/components/core/*"],
+      "@functions/*": ["src/utils/functions/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

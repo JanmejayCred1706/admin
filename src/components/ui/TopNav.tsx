@@ -1,4 +1,6 @@
 import { UserOutlined } from '@ant-design/icons';
+import { SelectField } from '@components/Component';
+import { states } from '@functions/Layout';
 import { TopNavProps } from '@ui/UiInterfaces'; // Ensure this path is correct
 import {
   Avatar,
@@ -11,22 +13,19 @@ import {
   theme,
 } from 'antd';
 import React from 'react';
+import { useAppStore } from 'src/utils/Store';
 
 const TopNav: React.FC<TopNavProps> = () => {
   const { Header } = Layout;
+  const { updateState, currentState } = useAppStore();
+  console.log(currentState, 'current');
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const states = [
-    { id: 12, name: 'Gujarat', code: 'GJ', category: 'gj' },
-    { id: 14, name: 'Himachal Pradesh', code: 'HP', category: 'hp' },
-    { id: 33, name: 'Uttar Pradesh', code: 'UP', category: 'up' },
-    { id: 29, name: 'Rajasthan', code: 'RJ', category: 'rj' },
-    { id: 20, name: 'Madhya Pradesh', code: 'MP', category: 'mp' },
-  ];
   const handleChange = (value: any) => {
-    console.log(value);
+    console.log(value, 'value');
+    updateState(value);
   };
   const items: MenuProps['items'] = [
     {
