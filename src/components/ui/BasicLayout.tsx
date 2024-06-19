@@ -1,6 +1,6 @@
 'use client';
 import { LayoutProps } from '@ui/UiInterfaces';
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 
 import {
   DesktopOutlined,
@@ -14,6 +14,8 @@ import { BreadCrumbNav, FooterNav, TopNav } from '@components/Component';
 import { Layout, Menu, MenuProps, theme } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { getCookies } from '@utils/cookies';
+import withAuth from '@core/withAuth';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -69,54 +71,68 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
     // navigate(path);
     router.push(path, { scroll: false });
   };
+  const token = localStorage.getItem('token');
+  console.log(token);
+
+  React.useEffect(() => {
+    if (!token) {
+      router.push('/login');
+    }
+  }, [token, router]);
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
-      >
-        <div className="demo-logo-vertical m-4 flex justify-between">
-          {!collapsed && (
-            <Image
-              src="/logo.png"
-              height={120}
-              width={120}
-              alt="logo"
-              priority
+    <>
+      {/* {token ? ( */}
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(value) => setCollapsed(value)}
+        >
+          <div className="demo-logo-vertical m-4 flex justify-between">
+            {!collapsed && (
+              <Image
+                src="/logo.png"
+                height={120}
+                width={120}
+                alt="logo"
+                priority
+              />
+            )}
+            <MenuOutlined
+              onClick={() => setCollapsed(!collapsed)}
+              className="pointer"
             />
-          )}
-          <MenuOutlined
-            onClick={() => setCollapsed(!collapsed)}
-            className="pointer"
-          />
-        </div>
-        <Menu
-          // theme="dark"
-          defaultSelectedKeys={['1']}
-          mode="inline"
-          items={items}
-          onClick={({ key }) => redirection(key)}
-        />
-      </Sider>
-      <Layout>
-        <TopNav />
-        <Content style={{ margin: '0 16px' }}>
-          <BreadCrumbNav />
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            {children}
           </div>
-        </Content>
-        <FooterNav />
+          <Menu
+            // theme="dark"
+            defaultSelectedKeys={['1']}
+            mode="inline"
+            items={items}
+            onClick={({ key }) => redirection(key)}
+          />
+        </Sider>
+        <Layout>
+          <TopNav />
+          <Content style={{ margin: '0 16px' }}>
+            <BreadCrumbNav />
+            <div
+              style={{
+                padding: 24,
+                minHeight: 360,
+                background: colorBgContainer,
+                borderRadius: borderRadiusLG,
+              }}
+            >
+              {children}
+            </div>
+          </Content>
+          <FooterNav />
+        </Layout>
       </Layout>
-    </Layout>
+      {/* // ) : (
+      //   <div>{children}</div>
+      // )} */}
+    </>
   );
 };
 

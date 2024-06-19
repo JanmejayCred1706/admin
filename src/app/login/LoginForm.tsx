@@ -1,53 +1,49 @@
 'use client';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { FormDataInterface, LoginFormProps } from '@login/LoginInterface';
+import { postData } from '@api/layoutApi';
+import {
+  FormDataInterface,
+  LoginFormProps,
+  loginPayloadInterface,
+} from '@login/LoginInterface';
+import { addCookies, getCookies } from '@utils/cookies';
 import { Button, Form, Input } from 'antd';
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { useAppStore } from 'src/utils/Store';
-import fetchInstance from 'src/utils/fetchInstance';
-import { useStore } from 'zustand';
 
 interface AppState {
   bears: string;
   // Add other properties as needed
 }
 const LoginForm: FC<LoginFormProps> = () => {
+  const router = useRouter();
   const { cart } = useAppStore();
-  console.log(cart, 'bears');
+
   const emailPattern = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
   const onFinish: (data: FormDataInterface) => void = async (formData) => {
-    console.log('...');
-    const payload = {
-      email: 'admin@garantie.in',
-      grant_type: 'password',
-      password: 'Garantie@1',
-      user_type: 'admin',
-    };
     try {
-      const response = await fetch('https://qa.garantie.in//api/user/login', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify(payload),
-      });
-      // const response = await fetchInstance('/api/user/login'); this for instance format
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      const payload: loginPayloadInterface = {
+        user_type: 'admin',
+        grant_type: 'password',
+        ...formData,
+      };
+      const response = await postData(payload);
+      localStorage.setItem('token', response?.data?.token);
+      addCookies(['token'], [response?.data?.token]);
+      console.log(response?.success, '..');
+      if (response?.success) {
+        router.push('/');
       }
-
-      const result = await response.json();
-      console.log(result, 'result');
-      // setData(result);
     } catch (err) {
-      // setError((err as Error).message);
+      console.log('error :', err);
     }
   };
+
   return (
     <div className="h-[35rem] w-[35rem] bg-priWhite display-center mt-[-10%] rounded-2xl flex-col relative">
       <p className="text-priLightGrey text-2xl font-bold absolute top-10">
-        Sign in to Admin {cart}
+        Sign in to Admin
       </p>
       <Form
         name="basic"
@@ -64,7 +60,7 @@ const LoginForm: FC<LoginFormProps> = () => {
           name="email"
           rules={[
             {
-              // required: true,
+              required: true,
               message: 'Please input your email!',
             },
             // {
@@ -84,7 +80,7 @@ const LoginForm: FC<LoginFormProps> = () => {
           name="password"
           rules={[
             {
-              // required: true,
+              required: true,
               message: 'Please input your password!',
             },
           ]}

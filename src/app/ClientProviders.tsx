@@ -3,21 +3,30 @@
 
 import { StyleProvider } from '@ant-design/cssinjs';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ConfigProvider } from 'antd';
 import 'antd/dist/reset.css'; // Ensure Ant Design styles are reset
 import { ReactNode } from 'react';
 import theme from 'src/methods/themeConfig';
 import './globals.css';
+import queryClient from '@utils/queryClient';
 import { BasicLayout } from '@components/Component';
 
 export default function ClientProviders({ children }: { children: ReactNode }) {
+  // const queryClient = new QueryClient();
   return (
     <ConfigProvider theme={theme}>
-      <AntdRegistry>
-        <StyleProvider>
-          <BasicLayout>{children}</BasicLayout>
-        </StyleProvider>
-      </AntdRegistry>
+      <QueryClientProvider client={queryClient}>
+        <AntdRegistry>
+          <StyleProvider>
+            <BasicLayout>
+              {children}
+              <ReactQueryDevtools initialIsOpen={false} />
+            </BasicLayout>
+          </StyleProvider>
+        </AntdRegistry>
+      </QueryClientProvider>
     </ConfigProvider>
   );
 }

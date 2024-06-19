@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "checkJs": true, // this line when we import any file in js  this parameter remove the warning
@@ -29,7 +30,9 @@
       "@methods/*": ["src/methods/*"],
       "@style/*": ["src/style/*"],
       "@core/*": ["src/components/core/*"],
-      "@functions/*": ["src/utils/functions/*"]
+      "@functions/*": ["src/utils/functions/*"],
+      "@utils/*": ["src/utils/*"],
+      "@api/*": ["src/utils/api/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

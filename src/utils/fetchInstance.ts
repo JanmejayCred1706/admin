@@ -1,60 +1,71 @@
-export const baseURL: string = process.env.NEXT_PUBLIC_BASE_URL || '';
-console.log(baseURL);
-let navigationRoute: string | null = null;
+// utils/fetchInstance.ts
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+console.log(BASE_URL);
 
-const token: string = '';
-const getToken = async (): Promise<string> => {
-  //   const { token } = getAdminInfo();
-  //   return token;
-  return ''; // Placeholder return, modify as needed
-};
+interface FetchOptions extends RequestInit {
+  headers?: HeadersInit;
+  body?: any;
+}
 
-let timeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone;
-const fetchInstance = async (
-  url: string,
-  options: RequestInit = {}
-): Promise<any> => {
-  const token: string = await getToken();
+const fetchInstance = async (endpoint: string, options: FetchOptions = {}) => {
+  const token = process.env.NEXT_PUBLIC_AUTH_TOKEN; // Replace with your token logic
 
-  const defaultHeaders: Record<string, string> = {
-    date: timeZone,
-    'Content-type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    // 'Access-Control-Allow-Methods:': 'GET,POST,OPTIONS,PUT,DELETE,PATCH',
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+    ...options.headers,
   };
 
-  //   if (token) {
-  //     defaultHeaders.Authorization = `Bearer ${token}`;
-  //   }
+  const url = new URL(`${BASE_URL}${endpoint}`);
 
-  const config: RequestInit = {
+  if (options.body && options.method === 'GET') {
+    Object.keys(options.body).forEach((key) =>
+      url.searchParams.append(key, options.body[key])
+    );
+    delete options.body;
+  }
+
+  const response = await fetch(url.toString(), {
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify(''),
-  };
-
-  //   if (config?.navigateTo) {
-  //     navigationRoute = config?.navigateTo;
-  //     delete config?.navigateTo;
-  //   }
-
-  try {
-    const response: Response = await fetch(`${baseURL}${url}`, config);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    return response.json();
-  } catch (error) {
-    // Handle errors globally
-    console.error('Fetch error:', error);
-    // console.log(error.message);
+    headers,
+    body: options.body ? JSON.stringify(options.body) : undefined,
+  });
+  console.log(response);
+  if (!response.ok) {
+    const error = new Error('An error occurred while fetching the data.');
+    (error as any).info = await response.json();
+    (error as any).status = response.status;
     throw error;
   }
+  return response.json();
+};
+
+fetchInstance.get = (
+  endpoint: string,
+  params: any = {},
+  options: FetchOptions = {}
+) => {
+  return fetchInstance(endpoint, { ...options, method: 'GET', body: params });
+};
+
+fetchInstance.post = (
+  endpoint: string,
+  data: any,
+  options: FetchOptions = {}
+) => {
+  return fetchInstance(endpoint, { ...options, method: 'POST', body: data });
+};
+
+fetchInstance.patch = (
+  endpoint: string,
+  data: any,
+  options: FetchOptions = {}
+) => {
+  return fetchInstance(endpoint, { ...options, method: 'PATCH', body: data });
+};
+
+fetchInstance.delete = (endpoint: string, options: FetchOptions = {}) => {
+  return fetchInstance(endpoint, { ...options, method: 'DELETE' });
 };
 
 export default fetchInstance;
