@@ -109,7 +109,7 @@ const DateFilter: React.FC<DateFilterProps> = ({
   const items = [
     {
       label: (
-        <Form form={form} className="relative top-2 flex gap-x-4">
+        <Form form={form} className="relative top-2 flex gap-x-2">
           <div className="flex flex-col">
             <p>From</p>
             <DateField
@@ -186,7 +186,7 @@ const DateFilter: React.FC<DateFilterProps> = ({
       trigger={['click']}
       open={visibility}
       onOpenChange={() => setVisibility(!visibility)}
-      className="customButton rounded-lg p-4 text-xs"
+      // className="customButton rounded-lg p-4 text-xs"
     >
       <a href="" onClick={(e) => e.preventDefault()}>
         <Space>

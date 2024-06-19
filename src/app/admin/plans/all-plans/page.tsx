@@ -1,6 +1,6 @@
 'use client';
 import { ExportOutlined, SearchOutlined } from '@ant-design/icons';
-import { DataTable } from '@components/Component';
+import { DataTable, MixedHeadContent } from '@components/Component';
 import DateFilter from '@ui/DateFilter';
 import { Input, Space, Tag } from 'antd';
 import Title from 'antd/es/typography/Title';
@@ -10,12 +10,11 @@ import type { TableProps } from 'antd';
 type Props = {};
 
 const AllPlans = (props: Props) => {
-  const searchInputRef = useRef(null);
-  const [startDate, setStartDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
   const [pageNo, setPageNo] = useState<number>(1);
   let count: number = 100;
-  const handleChange = () => {};
+  const handleChange = (e: any) => {
+    // console.log(e.target.value);
+  };
 
   interface DataType {
     key: string;
@@ -287,22 +286,7 @@ const AllPlans = (props: Props) => {
   ];
   return (
     <>
-      <div className="display-between">
-        <Title level={3}>My Properties</Title>
-        <Space>
-          <Input
-            placeholder="Search"
-            prefix={
-              <SearchOutlined className="site-form-item-icon text-[#0c344e]" />
-            }
-            className="inputHover h-10 border"
-            onChange={handleChange}
-            ref={searchInputRef}
-          />
-          {/* <DateFilter {...{ startDate, endDate, setStartDate, setEndDate }} /> */}
-          {/* <ExportOutlined style={{ fontSize: '32px' }} /> */}
-        </Space>
-      </div>
+      <MixedHeadContent titleHeader="All Plans" />
       <DataTable
         {...{
           columns,

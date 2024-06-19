@@ -27,8 +27,8 @@ const DateField: React.FC<DateFieldProps> = ({
     <Form.Item
       label={label}
       name={name}
-      className="p-0"
-      style={{ borderBottom: '1px solid #D4D4D4' }}
+      // className="p-0"
+      // style={{ borderBottom: '1px solid #D4D4D4' }}
       rules={[
         {
           required: required,
@@ -48,7 +48,7 @@ const DateField: React.FC<DateFieldProps> = ({
               : false;
           }
         }}
-        style={{ padding: '0', width: width || '18rem' }}
+        // style={{ padding: '0', width: width || '18rem' }}
         disabled={disabled}
       />
     </Form.Item>
