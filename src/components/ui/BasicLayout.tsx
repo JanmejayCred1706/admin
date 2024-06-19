@@ -121,6 +121,8 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
                   minHeight: 360,
                   background: colorBgContainer,
                   borderRadius: borderRadiusLG,
+                  height: 'calc(100vh - 14rem)',
+                  overflow: 'scroll',
                 }}
               >
                 {children}

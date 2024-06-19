@@ -11,6 +11,7 @@ const FooterNav = (props: FooterNavProps) => {
         display: 'flex',
         justifyContent: 'space-between',
         backgroundColor: '#F8F9FE',
+        height: '5rem',
       }}
     >
       <div>©{new Date().getFullYear()} Garantie</div>
