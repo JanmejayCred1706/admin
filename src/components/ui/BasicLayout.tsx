@@ -1,6 +1,6 @@
 'use client';
 import { LayoutProps } from '@ui/UiInterfaces';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
   DesktopOutlined,
@@ -14,8 +14,6 @@ import { BreadCrumbNav, FooterNav, TopNav } from '@components/Component';
 import { Layout, Menu, MenuProps, theme } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { getCookies } from '@utils/cookies';
-import withAuth from '@core/withAuth';
 
 type MenuItem = Required<MenuProps>['items'][number];
 

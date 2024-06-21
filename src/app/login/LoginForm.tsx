@@ -6,7 +6,7 @@ import {
   LoginFormProps,
   loginPayloadInterface,
 } from '@login/LoginInterface';
-import { addCookies, getCookies } from '@utils/cookies';
+import { addCookies } from '@utils/cookies';
 import { Button, Form, Input } from 'antd';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';

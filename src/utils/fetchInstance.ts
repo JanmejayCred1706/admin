@@ -7,8 +7,20 @@ interface FetchOptions extends RequestInit {
   body?: any;
 }
 
+const responseInterceptor = async (response: Response) => {
+  const res = await response.json();
+  console.log(res, 'response');
+  if (!response.ok) {
+    const error = new Error('An error occurred while fetching the data.');
+    (error as any).info = res;
+    (error as any).status = response.status;
+    throw error;
+  }
+  return res;
+};
+
 const fetchInstance = async (endpoint: string, options: FetchOptions = {}) => {
-  const token = process.env.NEXT_PUBLIC_AUTH_TOKEN; // Replace with your token logic
+  const token = localStorage.getItem('token');
 
   const headers = {
     'Content-Type': 'application/json',
@@ -30,14 +42,11 @@ const fetchInstance = async (endpoint: string, options: FetchOptions = {}) => {
     headers,
     body: options.body ? JSON.stringify(options.body) : undefined,
   });
-  console.log(response);
-  if (!response.ok) {
-    const error = new Error('An error occurred while fetching the data.');
-    (error as any).info = await response.json();
-    (error as any).status = response.status;
-    throw error;
-  }
-  return response.json();
+
+  // Pass the response through the interceptor
+  const data = await responseInterceptor(response);
+
+  return { data, response };
 };
 
 fetchInstance.get = (
