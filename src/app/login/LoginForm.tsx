@@ -10,6 +10,7 @@ import { addCookies } from '@utils/cookies';
 import { Button, Form, Input } from 'antd';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
+import usePostRequest from 'src/hooks/usePostRequest';
 import { useAppStore } from 'src/utils/Store';
 
 interface AppState {
@@ -19,25 +20,22 @@ interface AppState {
 const LoginForm: FC<LoginFormProps> = () => {
   const router = useRouter();
   const { cart } = useAppStore();
-
   const emailPattern = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
-  const onFinish: (data: FormDataInterface) => void = async (formData) => {
-    try {
-      const payload: loginPayloadInterface = {
-        user_type: 'admin',
-        grant_type: 'password',
-        ...formData,
-      };
-      const response = await postData(payload);
-      localStorage.setItem('token', response?.data?.token);
-      addCookies(['token'], [response?.data?.token]);
-      console.log(response?.success, '..');
-      if (response?.success) {
-        router.push('/');
-      }
-    } catch (err) {
-      console.log('error :', err);
+  const mutation = usePostRequest('user/login', {}, (data) => {
+    localStorage.setItem('token', data?.data?.token);
+    addCookies(['token'], [data?.data?.token]);
+    if (data?.success) {
+      router.push('/');
     }
+  });
+
+  const onFinish: (data: FormDataInterface) => void = async (formData) => {
+    const payload: loginPayloadInterface = {
+      user_type: 'admin',
+      grant_type: 'password',
+      ...formData,
+    };
+    mutation.mutate(payload);
   };
 
   return (

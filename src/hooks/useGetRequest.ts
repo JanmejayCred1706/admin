@@ -4,7 +4,7 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from '@tanstack/react-query';
-import fetchInstance from '../utils/fetchInstance';
+import fetchInstance from '@utils/fetchInstance';
 
 interface FetchData {
   data: any;
@@ -24,10 +24,10 @@ const useGetRequest = (
         params,
         options
       );
-      console.log('Fetched data:', data); // Debugging log
+      // console.log('Fetched data:', data); // Debugging log
       return data;
     } catch (error) {
-      console.error('Fetch error:', error);
+      // console.error('Fetch error:', error);
       throw error;
     }
   };
@@ -40,7 +40,7 @@ const useGetRequest = (
     cacheTime: 10 * 60 * 1000, // 10 minutes
     refetchOnWindowFocus: false, // Disable refetch on window focus
     onError: (error: any) => {
-      console.error('Error fetching data:', error);
+      // console.error('Error fetching data:', error);
     },
   };
 
