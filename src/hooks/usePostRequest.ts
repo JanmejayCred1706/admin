@@ -34,7 +34,7 @@ const usePostRequest = (
   const mutationOptions: UseMutationOptions<any, Error, any, unknown> = {
     mutationFn: postData,
     onSuccess: (data) => {
-      console.log('Success:', data);
+      // console.log('Success:', data);
       if (onSuccess) {
         onSuccess(data);
       }

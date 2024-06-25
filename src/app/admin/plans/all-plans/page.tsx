@@ -1,36 +1,57 @@
 'use client';
 import { DataTable, MixedHeadContent } from '@components/Component';
-import { planListingData } from '@functions/planFn';
-import type { TableProps } from 'antd';
-import { Button, Space, Tag } from 'antd';
-import { useEffect, useState } from 'react';
+import { planListingData, sequenceFn } from '@functions/planFn';
+import { useAppStore } from '@utils/Store';
+import { PageDataProps } from '@utils/globalInterface';
+import { useEffect, useState, useMemo } from 'react';
 import useGetRequest from 'src/hooks/useGetRequest';
 
 type Props = {};
 
 const AllPlans = (props: Props) => {
-  const [pageNo, setPageNo] = useState<number>(1);
-  const [plan, setPlan] = useState([]);
+  const { currentState } = useAppStore();
+  console.log(currentState, 'current');
 
-  const handleChange = (e: any) => {
-    // console.log(e.target.value);
-  };
+  const [pageData, setPageData] = useState<PageDataProps>({
+    startPage: 1,
+    current: 1,
+    limit: 25,
+  });
 
-  const [stateParam, setStateParam] = useState(0);
+  // Using useMemo to memoize params, so it changes only when dependencies change
+  const params = useMemo(
+    () => ({
+      page: pageData.current - 1,
+      state_id: currentState,
+    }),
+    [pageData, currentState]
+  );
 
   const {
     data: listingData,
     error,
     isLoading,
     refetch,
-  } = useGetRequest('v2/orders', { page: stateParam }, {}, [stateParam]);
+  } = useGetRequest('v2/orders', params, {}, [params]);
+
   console.log(listingData, '>>>');
-  let count: number = listingData?.data?.total_count;
-  const { data, columns } = planListingData(listingData?.data?.policies);
+
+  let count: number = listingData?.data?.total_count || 0;
+  let order = sequenceFn();
+
+  const { data: rawData, columns } = planListingData(
+    listingData?.data?.policies || [],
+    order
+  );
+
+  // Ensure `data` is always an array
+  const data = rawData || [];
+
   useEffect(() => {
-    // Example of manual refetching if needed
+    // Refetch only if necessary
     refetch();
-  }, [stateParam, refetch]);
+  }, [params, refetch]);
+
   return (
     <>
       <MixedHeadContent titleHeader="All Plans" />
@@ -39,10 +60,8 @@ const AllPlans = (props: Props) => {
           columns,
           data,
           count,
-          pageNo,
-          setPageNo,
-          // searchParams,
-          // setSearchParam,
+          pageData,
+          setPageData,
         }}
       />
     </>

@@ -1,6 +1,6 @@
 // utils/fetchInstance.ts
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-console.log(BASE_URL);
+// console.log(BASE_URL);
 
 interface FetchOptions extends RequestInit {
   headers?: HeadersInit;
@@ -9,7 +9,7 @@ interface FetchOptions extends RequestInit {
 
 const responseInterceptor = async (response: Response) => {
   const res = await response.json();
-  console.log(res, 'response');
+  // console.log(res, 'response');
   if (!response.ok) {
     const error = new Error('An error occurred while fetching the data.');
     (error as any).info = res;

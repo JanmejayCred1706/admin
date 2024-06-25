@@ -1,62 +1,62 @@
+import { PageDataProps } from '@utils/globalInterface';
 import { Table, TableProps } from 'antd';
 import React from 'react';
-// import { useLocation } from 'react-router-dom';
-// import { getUrlPageNo } from 'utils/UtilsIndex';
 
 interface DataTableProps {
   columns: TableProps<any>['columns'];
-  data?: any[];
+  data: any[];
   rowSelection?: TableProps<any>['rowSelection'];
   count: number;
-  pageNo: number;
-  setPageNo: (pageNo: number) => void;
-  setSearchParam?: (params: { page: number }) => void;
   bordered?: boolean;
+  pageData: PageDataProps;
+  setPageData: React.Dispatch<React.SetStateAction<PageDataProps>>;
 }
 
 const DataTable: React.FC<DataTableProps> = ({
   columns,
-  data = [],
+  data,
   rowSelection,
   count,
-  pageNo,
-  setPageNo,
-  setSearchParam,
   bordered,
+  pageData,
+  setPageData,
 }) => {
-  //   const { search } = useLocation();
-  //   const defaultPage = getUrlPageNo(search);
-  let search: string = '';
-  let defaultPage: number = 1;
-  const defaultPageNo = defaultPage ? defaultPage : 1;
   const getTotalPageCount =
-    count > defaultPageNo * 20 ? defaultPageNo * 20 : count;
-
+    count > pageData.current * pageData.limit
+      ? pageData.current * pageData.limit
+      : count;
+  const currentPageValue = pageData.current * pageData.limit - 24;
+  const onPageChange = (page: number) => {
+    setPageData((prev) => ({
+      ...prev,
+      current: page,
+    }));
+  };
   return (
     <div>
       <Table
         columns={columns}
         rowSelection={rowSelection ?? undefined}
         pagination={
-          count && pageNo
+          count && pageData.current
             ? {
-                current: +defaultPageNo,
-                pageSize: 20,
+                current: pageData.current,
+                pageSize: pageData.limit,
                 total: count,
                 position: ['none', 'bottomRight'],
                 onChange: (page) => {
-                  setPageNo(page);
-                  setSearchParam({ page });
+                  onPageChange(page);
                 },
               }
             : false
         }
         dataSource={data}
-        scroll={{ y: 1000 }}
+        scroll={{ x: 'max-content' }}
         style={{ textAlign: 'center', marginTop: '2rem' }}
       />
       <p className="mt-[-3rem]">
-        Showing {defaultPageNo * 20 - 9}-{getTotalPageCount} of {count}
+        Showing {currentPageValue}-{getTotalPageCount} of &nbsp;
+        {count}
       </p>
     </div>
   );

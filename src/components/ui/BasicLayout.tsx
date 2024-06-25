@@ -35,7 +35,7 @@ const items: MenuItem[] = [
     getItem('Home', '/admin/dashboard'),
   ]),
   getItem('Plans', '2', <DesktopOutlined />, [
-    getItem('All Plans', '/admin/plans/all-plans'),
+    getItem('All Plans', '/admin/plans/all-plans?page=1'),
     getItem('Cancelled Plans', '/admin/plans/cancel-plans'),
   ]),
   getItem('Retailers', '3', <UserOutlined />, [
@@ -70,7 +70,6 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
     router.push(path, { scroll: false });
   };
   const token = localStorage.getItem('token');
-  console.log(token);
 
   React.useEffect(() => {
     if (!token) {

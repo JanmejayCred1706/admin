@@ -1,4 +1,3 @@
-// hooks/useGetRequest.ts
 import {
   useQuery,
   UseQueryOptions,
@@ -24,10 +23,8 @@ const useGetRequest = (
         params,
         options
       );
-      // console.log('Fetched data:', data); // Debugging log
       return data;
     } catch (error) {
-      // console.error('Fetch error:', error);
       throw error;
     }
   };
@@ -35,12 +32,15 @@ const useGetRequest = (
   const queryOptions: UseQueryOptions<any, Error> = {
     queryKey: [endpoint, params, ...dependencies],
     queryFn: fetchData,
-    retry: 3, // Number of retries on failure
+    retry: 0, // Retry only once on failure
     staleTime: 5 * 60 * 1000, // 5 minutes
     cacheTime: 10 * 60 * 1000, // 10 minutes
     refetchOnWindowFocus: false, // Disable refetch on window focus
+    onSuccess: (data) => {
+      console.log('Data fetched successfully:', data);
+    },
     onError: (error: any) => {
-      // console.error('Error fetching data:', error);
+      console.error('Error fetching data:', error);
     },
   };
 

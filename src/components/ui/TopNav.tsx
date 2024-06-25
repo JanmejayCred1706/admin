@@ -24,7 +24,7 @@ const TopNav: React.FC<TopNavProps> = () => {
   } = theme.useToken();
 
   const handleChange = (value: any) => {
-    console.log(value, 'value');
+    console.log(value, 'current');
     updateState(value);
   };
   const items: MenuProps['items'] = [
@@ -68,7 +68,7 @@ const TopNav: React.FC<TopNavProps> = () => {
               textAlign: 'center',
               borderRadius: '6px',
             }}
-            allowClear
+            // allowClear
             onChange={handleChange}
             showSearch
             filterOption={(input, options) => {

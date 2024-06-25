@@ -1,7 +1,18 @@
 import { TableProps } from 'antd';
+import { ColumnsType } from 'antd/lib/table';
+import { ReactNode } from 'react';
+import {
+  PieChartOutlined,
+  DesktopOutlined,
+  UserOutlined,
+  TeamOutlined,
+  FileOutlined,
+} from '@ant-design/icons';
+import { modifyListingData } from '@functions/globalFn';
 
 interface DataType {
   key: string;
+  refId: number;
   name: string;
   age: number;
   address: string;
@@ -19,81 +30,96 @@ interface MyObjectArray {
   data: MyObject[];
 }
 
-export const planListingData = (listing: any) => {
-  console.log(listing, '>>');
-  const columns: TableProps<DataType>['columns'] = [
+export const planListingData = (listingData: any, keys: string[]) => {
+  const defColumns: ColumnsType<DataType> = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Ref Id',
+      dataIndex: 'refId',
+      key: 'refId',
       render: (text) => <a>{text}</a>,
     },
+    { title: 'Customer Name', dataIndex: 'customerName', key: 'customerName' },
+    { title: 'Plan', dataIndex: 'plan', key: 'plan' },
+    { title: 'Plan Number', dataIndex: 'planNo', key: 'planNo' },
+    { title: 'Premium', dataIndex: 'premium', key: 'premium' },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'Retailer Commission',
+      dataIndex: 'commission',
+      key: 'commission',
+    },
+    { title: 'Vivo Margin', dataIndex: 'vivoMargin', key: 'vivoMargin' },
+    { title: 'State Margin', dataIndex: 'stateMargin', key: 'stateMargin' },
+    {
+      title: 'Garantie Margin',
+      dataIndex: 'garantieMargin',
+      key: 'garantieMargin',
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'Retailers Type',
+      dataIndex: 'retailersType',
+      key: 'retailersType',
+    },
+    {
+      title: 'Retailers Code',
+      dataIndex: 'retailersCode',
+      key: 'retailersCode',
+    },
+    { title: 'Child Code', dataIndex: 'childCode', key: 'childCode' },
+    { title: 'Promoter Id', dataIndex: 'promoterId', key: 'promoterId' },
+    { title: 'Start Date', dataIndex: 'startDate', key: 'startDate' },
+    { title: 'End Date', dataIndex: 'endDate', key: 'endDate' },
+    {
+      title: 'Plan Purchase Date',
+      dataIndex: 'planPurchaseDate',
+      key: 'planPurchaseDate',
     },
   ];
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
+  let defData: any =
+    listingData?.length > 1 &&
+    listingData?.map((cur: any, id: any) => {
+      return {
+        key: cur.id,
+        refId: cur.id,
+        customerName: cur.name,
+        plan: cur.product_name,
+        planNo: cur.policy_number,
+        premium: cur.premium,
+        commission: cur.commission,
+        vivoMargin: cur.oem_commission_part,
+        stateMargin: cur.state_commission_part,
+        garantieMargin: cur.garantie_commission,
+        retailersType: '',
+        retailersCode: cur.code,
+        childCode: cur.store_code,
+        promoterId: cur.promoter_id,
+        startDate: '',
+        endDate: '',
+        planPurchaseDate: '',
+      };
+    });
+  const { columns, data } = modifyListingData(defData, keys, defColumns);
   return { columns, data };
 };
 
-// // @functions/planFn.ts
-// export const planListingData = (listingData: any) => {
-//   console.log(planListingData);
-//   if (!listingData) {
-//     return { data: [], columns: [] };
-//   }
-
-//   // Assuming listingData.items is an array of plan objects
-//   const data = listingData.items || [];
-
-//   // Define the columns for the DataTable
-//   const columns = [
-//     {
-//       title: 'ID',
-//       dataIndex: 'id',
-//       key: 'id',
-//     },
-//     {
-//       title: 'Name',
-//       dataIndex: 'name',
-//       key: 'name',
-//     },
-//     {
-//       title: 'Price',
-//       dataIndex: 'price',
-//       key: 'price',
-//     },
-//     // Add more columns as needed
-//   ];
-
-//   return { data, columns };
-// };
+export const sequenceFn = () => {
+  let order = [];
+  order = [
+    'refId',
+    'customerName',
+    'plan',
+    'planNo',
+    'premium',
+    'commission',
+    'vivoMargin',
+    'stateMargin',
+    'garantieMargin',
+    'retailersType',
+    'retailersCode',
+    'childCode',
+    'promoterId',
+    'startDate',
+    'endDate',
+    'planPurchaseDate',
+  ];
+  return order;
+};
