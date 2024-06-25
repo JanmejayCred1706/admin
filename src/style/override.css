@@ -4,6 +4,6 @@
 .ant-layout .ant-layout-sider-trigger{
     display: none !important;
 }
-.anticon anticon-menu{
+.anticon {
     @apply cursor-pointer
 }

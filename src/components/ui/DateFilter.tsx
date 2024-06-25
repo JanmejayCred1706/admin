@@ -1,23 +1,19 @@
 import { DownOutlined } from '@ant-design/icons';
 import { DateField } from '@components/Component';
+import { DateFilterProps } from '@utils/globalInterface';
 import { Button, Dropdown, Form, Space } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
-// import { toast } from 'react-toastify';
 import { disableFutureDates } from 'src/utils/functions/utils';
 
-interface DateFilterProps {
-  startDate: string;
-  endDate: string;
-  setStartDate: (date: string) => void;
-  setEndDate: (date: string) => void;
+interface DateFilterCompProps {
+  dateFilter: DateFilterProps;
+  setDateFilter: React.Dispatch<React.SetStateAction<DateFilterProps>>;
 }
 
-const DateFilter: React.FC<DateFilterProps> = ({
-  startDate,
-  endDate,
-  setStartDate,
-  setEndDate,
+const DateFilterComponent: React.FC<DateFilterCompProps> = ({
+  dateFilter,
+  setDateFilter,
 }) => {
   const dateFormat = 'YYYY/MM/DD';
   const [visibility, setVisibility] = useState<boolean>(false);
@@ -26,40 +22,40 @@ const DateFilter: React.FC<DateFilterProps> = ({
   const to: Dayjs | undefined = Form.useWatch('to', form);
 
   const subtractDaysFromDate = (daysToSubtract: number): void => {
-    let endDate = dayjs().toISOString();
-    let fromDate = dayjs().subtract(daysToSubtract, 'days').toISOString();
-    if (!daysToSubtract) {
-      endDate = dayjs().hour(23).toISOString();
-    }
-    form.setFieldsValue({ from: '', to: '' });
-    setEndDate(endDate);
-    setStartDate(fromDate);
+    const endDate = dayjs().toISOString();
+    const fromDate = daysToSubtract
+      ? dayjs().subtract(daysToSubtract, 'days').toISOString()
+      : dayjs().hour(23).toISOString();
+
+    form.setFieldsValue({ from: dayjs(fromDate), to: dayjs(endDate) });
+    setDateFilter({ start: fromDate, end: endDate });
     setVisibility(false);
   };
 
   const subtractMonthsFromDate = (monthsToSubtract: number): void => {
-    let endDate = dayjs().toISOString();
-    let fromDate = dayjs()
+    const endDate = dayjs().toISOString();
+    const fromDate = dayjs()
       .subtract(monthsToSubtract, 'months')
       .startOf('month')
       .toISOString();
-    if (monthsToSubtract >= 1) {
-      endDate = dayjs()
-        .subtract(monthsToSubtract, 'months')
-        .endOf('month')
-        .toISOString();
-    }
+    const actualEndDate =
+      monthsToSubtract >= 1
+        ? dayjs()
+            .subtract(monthsToSubtract, 'months')
+            .endOf('month')
+            .toISOString()
+        : endDate;
+
     form.setFieldsValue({
-      from: fromDate,
-      to: endDate,
+      from: dayjs(fromDate),
+      to: dayjs(actualEndDate),
     });
-    setEndDate(endDate);
-    setStartDate(fromDate);
+    setDateFilter({ start: fromDate, end: actualEndDate });
     setVisibility(false);
   };
 
   const disableBeforeStartDate = (current: Dayjs | undefined): boolean => {
-    if (startDate && from) {
+    if (dateFilter.start && from) {
       const fromDate = dayjs(from);
 
       if (!fromDate.isValid()) {
@@ -86,9 +82,8 @@ const DateFilter: React.FC<DateFilterProps> = ({
       from: dayjs(initialStartDate),
       to: dayjs(initialEndDate),
     });
-    setStartDate(initialStartDate);
-    setEndDate(initialEndDate);
-  }, [form, setStartDate, setEndDate]);
+    setDateFilter({ start: initialStartDate, end: initialEndDate });
+  }, [form, setDateFilter]);
 
   useEffect(() => {
     if (from && to) {
@@ -100,11 +95,10 @@ const DateFilter: React.FC<DateFilterProps> = ({
         form.setFieldsValue({ from: '', to: '' });
         return;
       }
-      setStartDate(fromDate);
-      setEndDate(toDate);
+      setDateFilter({ start: fromDate, end: toDate });
       setVisibility(false);
     }
-  }, [from, to, form, setStartDate, setEndDate]);
+  }, [from, to, form, setDateFilter]);
 
   const items = [
     {
@@ -186,12 +180,16 @@ const DateFilter: React.FC<DateFilterProps> = ({
       trigger={['click']}
       open={visibility}
       onOpenChange={() => setVisibility(!visibility)}
-      // className="customButton rounded-lg p-4 text-xs"
+      className="customBtn"
     >
-      <a href="" onClick={(e) => e.preventDefault()}>
+      <a
+        href=""
+        onClick={(e) => e.preventDefault()}
+        className="block px-4 py-2"
+      >
         <Space>
-          {dayjs(startDate).format(dateFormat)} -{' '}
-          {dayjs(endDate).format(dateFormat)}
+          {dayjs(dateFilter.start).format(dateFormat)} -{' '}
+          {dayjs(dateFilter.end).format(dateFormat)}
           <DownOutlined />
         </Space>
       </a>
@@ -199,4 +197,4 @@ const DateFilter: React.FC<DateFilterProps> = ({
   );
 };
 
-export default React.memo(DateFilter);
+export default React.memo(DateFilterComponent);

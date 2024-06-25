@@ -2,7 +2,7 @@
 import { DataTable, MixedHeadContent } from '@components/Component';
 import { planListingData, sequenceFn } from '@functions/planFn';
 import { useAppStore } from '@utils/Store';
-import { PageDataProps } from '@utils/globalInterface';
+import { DateFilterProps, PageDataProps } from '@utils/globalInterface';
 import { useEffect, useState, useMemo } from 'react';
 import useGetRequest from 'src/hooks/useGetRequest';
 
@@ -10,6 +10,10 @@ type Props = {};
 
 const AllPlans = (props: Props) => {
   const { currentState } = useAppStore();
+  const [dateFilter, setDateFilter] = useState<DateFilterProps>({
+    start: '',
+    end: '',
+  });
   console.log(currentState, 'current');
 
   const [pageData, setPageData] = useState<PageDataProps>({
@@ -26,6 +30,7 @@ const AllPlans = (props: Props) => {
     }),
     [pageData, currentState]
   );
+  console.log();
 
   const {
     data: listingData,
@@ -54,7 +59,13 @@ const AllPlans = (props: Props) => {
 
   return (
     <>
-      <MixedHeadContent titleHeader="All Plans" />
+      <MixedHeadContent
+        titleHeader="All Plans"
+        {...{ dateFilter, setDateFilter }}
+        searchPlaceHolder="Search"
+        exportUrl="v2/orders"
+        exportPayload={params}
+      />
       <DataTable
         {...{
           columns,

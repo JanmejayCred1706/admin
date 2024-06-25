@@ -10,5 +10,17 @@
 .pointer{
   @apply cursor-pointer
 }
+.customBtn{
+  @apply rounded-lg p-[14px] text-xs bg-primary text-priWhite 
+  /* transition: background-color 0.3s ease; */
+}
+.customBtn:hover,
+.customBtn:focus,
+.customBtn:active {
+  @apply text-priWhite; /* Change background color on hover, focus, and active states */
+}
+.iconBorder{
+  @apply p-2 rounded-lg border-[#000] border-[1px] text-[20px]
+}
 
 
