@@ -35,15 +35,26 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
   exportPayload,
   filter,
 }) => {
-  const handleExport = () => {
-    console.log('clicked');
-    const {
-      data: listingData,
-      error,
-      isLoading,
-      refetch,
-    } = useGetRequest(exportUrl, exportPayload, {}, [exportPayload]);
+  let payloadForExport = {
+    ...exportPayload,
+    export: 1,
   };
+  const { data, error, isLoading, refetch } = useGetRequest(
+    exportUrl,
+    payloadForExport,
+    {},
+    [payloadForExport]
+  );
+
+  const handleExport = async () => {
+    try {
+      const { data } = await refetch();
+      console.log('Export data:', data);
+    } catch (err) {
+      console.error('Error exporting data:', err);
+    }
+  };
+
   return (
     <div className="display-between">
       <Title level={3}>{titleHeader}</Title>
@@ -67,6 +78,11 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
           <DateFilter dateFilter={dateFilter} setDateFilter={setDateFilter} />
         )}
       </Space>
+      {/* {isLoading && <p>Loading...</p>}
+      {error && <p>{error.message}</p>} */}
+      {/* {listingData && <div> */}
+      {/* Render your data here */}
+      {/* </div>} */}
     </div>
   );
 };

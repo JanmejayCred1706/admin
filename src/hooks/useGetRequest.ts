@@ -32,11 +32,12 @@ const useGetRequest = (
   const queryOptions: UseQueryOptions<any, Error> = {
     queryKey: [endpoint, params, ...dependencies],
     queryFn: fetchData,
-    retry: 0, // Retry only once on failure
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    cacheTime: 10 * 60 * 1000, // 10 minutes
-    refetchOnWindowFocus: false, // Disable refetch on window focus
-    onSuccess: (data) => {
+    retry: 0,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    enabled: false, // Disable automatic fetching
+    onSuccess: (data: any) => {
       console.log('Data fetched successfully:', data);
     },
     onError: (error: any) => {
