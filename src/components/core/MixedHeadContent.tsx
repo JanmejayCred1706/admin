@@ -75,7 +75,7 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
         )}
 
         {dateFilter && setDateFilter && (
-          <DateFilter dateFilter={dateFilter} setDateFilter={setDateFilter} />
+          <DateFilter {...{ dateFilter, setDateFilter }} />
         )}
       </Space>
       {/* {isLoading && <p>Loading...</p>}

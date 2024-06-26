@@ -16,8 +16,10 @@ type appStoreProps = {
 export const useAppStore = create<appStoreProps>((set) => ({
   cart: 0,
   currentState: 'all',
+  date: {},
   add: () => set((state) => ({ cart: state.cart + 1 })),
   remove: () => set((state) => ({ cart: state.cart - 1 })),
   removeAll: () => set({ cart: 0 }),
   updateState: (newState) => set({ currentState: newState }),
+  // mutateDate: (date) => set({ currentState: newState }),
 }));

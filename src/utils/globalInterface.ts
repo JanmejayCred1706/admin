@@ -4,6 +4,7 @@ export interface PageDataProps {
   limit: number;
 }
 export interface DateFilterProps {
-  start: string;
-  end: string;
+  startDate: string;
+  endDate: string;
 }
+

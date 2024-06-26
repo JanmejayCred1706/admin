@@ -28,7 +28,7 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({
       : dayjs().hour(23).toISOString();
 
     form.setFieldsValue({ from: dayjs(fromDate), to: dayjs(endDate) });
-    setDateFilter({ start: fromDate, end: endDate });
+    setDateFilter({ startDate: fromDate, endDate: endDate });
     setVisibility(false);
   };
 
@@ -50,12 +50,12 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({
       from: dayjs(fromDate),
       to: dayjs(actualEndDate),
     });
-    setDateFilter({ start: fromDate, end: actualEndDate });
+    setDateFilter({ startDate: fromDate, endDate: actualEndDate });
     setVisibility(false);
   };
 
   const disableBeforeStartDate = (current: Dayjs | undefined): boolean => {
-    if (dateFilter.start && from) {
+    if (dateFilter.startDate && from) {
       const fromDate = dayjs(from);
 
       if (!fromDate.isValid()) {
@@ -82,7 +82,7 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({
       from: dayjs(initialStartDate),
       to: dayjs(initialEndDate),
     });
-    setDateFilter({ start: initialStartDate, end: initialEndDate });
+    setDateFilter({ startDate: initialStartDate, endDate: initialEndDate });
   }, [form, setDateFilter]);
 
   useEffect(() => {
@@ -95,7 +95,7 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({
         form.setFieldsValue({ from: '', to: '' });
         return;
       }
-      setDateFilter({ start: fromDate, end: toDate });
+      setDateFilter({ startDate: fromDate, endDate: toDate });
       setVisibility(false);
     }
   }, [from, to, form, setDateFilter]);
@@ -188,8 +188,8 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({
         className="block px-4 py-2"
       >
         <Space>
-          {dayjs(dateFilter.start).format(dateFormat)} -{' '}
-          {dayjs(dateFilter.end).format(dateFormat)}
+          {dayjs(dateFilter.startDate).format(dateFormat)} -{' '}
+          {dayjs(dateFilter.endDate).format(dateFormat)}
           <DownOutlined />
         </Space>
       </a>

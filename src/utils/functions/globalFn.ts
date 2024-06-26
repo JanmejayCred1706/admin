@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 export const modifyListingData = (
   listingData: any[],
   keys: string[],
@@ -21,4 +22,15 @@ export const modifyListingData = (
     });
 
   return { columns, data };
+};
+
+type InputDate = string | number | Date;
+
+export const dateFormatter = (val: InputDate, format?: string): string => {
+  console.log(format, '...');
+  if (val && format) {
+    return dayjs(val).format(format);
+  } else {
+    return dayjs().format('DD/MM/YYYY'); // Default format if either val or format is missing
+  }
 };

@@ -11,10 +11,10 @@ type Props = {};
 const AllPlans = (props: Props) => {
   const { currentState } = useAppStore();
   const [dateFilter, setDateFilter] = useState<DateFilterProps>({
-    start: '',
-    end: '',
+    startDate: '',
+    endDate: '',
   });
-  console.log(currentState, 'current');
+  console.log(dateFilter, 'dateFilter');
 
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
