@@ -79,13 +79,22 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       {token ? (
-        <Layout style={{ minHeight: '100vh' }}>
+        <Layout
+          style={{
+            minHeight: '40rem',
+            minWidth: '60rem',
+            maxWidth: '150rem',
+            maxHeight: '120rem',
+          }}
+        >
           <Sider
             collapsible
             collapsed={collapsed}
             onCollapse={(value) => setCollapsed(value)}
           >
-            <div className="demo-logo-vertical m-4 flex justify-between">
+            <div
+              className={`demo-logo-vertical m-4 flex  ${collapsed ? 'display-center' : 'justify-between'}`}
+            >
               {!collapsed && (
                 <Image
                   src="/logo.png"
@@ -97,7 +106,7 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
               )}
               <MenuOutlined
                 onClick={() => setCollapsed(!collapsed)}
-                className="pointer"
+                className={`${!collapsed} && display-center `}
               />
             </div>
             <Menu

@@ -24,6 +24,7 @@ type MixedHeadContendProps = {
   exportUrl: string;
   exportPayload: exportPayloadProps;
   filter?: string;
+  moduleKey?: string;
 };
 
 const MixedHeadContent: FC<MixedHeadContendProps> = ({
@@ -35,6 +36,7 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
   exportUrl,
   exportPayload,
   filter,
+  moduleKey,
 }) => {
   const { showNotification } = useNotification();
   let payloadForExport = {
@@ -82,9 +84,7 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
           <ExportOutlined className="iconBorder" onClick={handleExport} />
         )}
 
-        {dateFilter && setDateFilter && (
-          <DateFilter {...{ dateFilter, setDateFilter }} />
-        )}
+        {moduleKey && <DateFilter moduleKey="cancel-plan" />}
       </Space>
       {/* {isLoading && <p>Loading...</p>}
       {error && <p>{error.message}</p>} */}

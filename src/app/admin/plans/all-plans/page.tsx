@@ -9,12 +9,7 @@ import useGetRequest from 'src/hooks/useGetRequest';
 type Props = {};
 
 const AllPlans = (props: Props) => {
-  const { currentState } = useAppStore();
-  const [dateFilter, setDateFilter] = useState<DateFilterProps>({
-    startDate: '',
-    endDate: '',
-  });
-  console.log(dateFilter, 'dateFilter');
+  const { currentState, dateFilters } = useAppStore();
 
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
@@ -61,10 +56,10 @@ const AllPlans = (props: Props) => {
     <>
       <MixedHeadContent
         titleHeader="All Plans"
-        {...{ dateFilter, setDateFilter }}
         searchPlaceHolder="Search"
         exportUrl="v2/orders"
         exportPayload={params}
+        moduleKey="allPlans"
       />
       <DataTable
         {...{

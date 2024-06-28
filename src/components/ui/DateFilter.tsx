@@ -1,61 +1,59 @@
 import { DownOutlined } from '@ant-design/icons';
 import { DateField } from '@components/Component';
-import { DateFilterProps } from 'src/interface/globalInterface';
+import { useAppStore } from '@utils/Store';
 import { Button, Dropdown, Form, Space } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { disableFutureDates } from 'src/utils/functions/utils';
 
 interface DateFilterCompProps {
-  dateFilter: DateFilterProps;
-  setDateFilter: React.Dispatch<React.SetStateAction<DateFilterProps>>;
+  moduleKey: string;
 }
 
-const DateFilterComponent: React.FC<DateFilterCompProps> = ({
-  dateFilter,
-  setDateFilter,
-}) => {
+const DateFilterComponent: React.FC<DateFilterCompProps> = ({ moduleKey }) => {
   const dateFormat = 'YYYY/MM/DD';
   const [visibility, setVisibility] = useState<boolean>(false);
   const [form] = Form.useForm();
   const from: Dayjs | undefined = Form.useWatch('from', form);
   const to: Dayjs | undefined = Form.useWatch('to', form);
 
-  const subtractDaysFromDate = (daysToSubtract: number): void => {
-    const endDate = dayjs().toISOString();
-    const fromDate = daysToSubtract
-      ? dayjs().subtract(daysToSubtract, 'days').toISOString()
-      : dayjs().hour(23).toISOString();
+  const { dateFilters, setDateFilter } = useAppStore();
 
-    form.setFieldsValue({ from: dayjs(fromDate), to: dayjs(endDate) });
-    setDateFilter({ startDate: fromDate, endDate: endDate });
+  const subtractDaysFromDate = (daysToSubtract: number): void => {
+    const endDate = dayjs();
+    const fromDate = daysToSubtract
+      ? dayjs().subtract(daysToSubtract, 'days')
+      : dayjs().hour(23);
+
+    form.setFieldsValue({ from: fromDate, to: endDate });
+    setDateFilter(moduleKey, fromDate.toISOString(), endDate.toISOString());
     setVisibility(false);
   };
 
   const subtractMonthsFromDate = (monthsToSubtract: number): void => {
-    const endDate = dayjs().toISOString();
+    const endDate = dayjs();
     const fromDate = dayjs()
       .subtract(monthsToSubtract, 'months')
-      .startOf('month')
-      .toISOString();
+      .startOf('month');
     const actualEndDate =
       monthsToSubtract >= 1
-        ? dayjs()
-            .subtract(monthsToSubtract, 'months')
-            .endOf('month')
-            .toISOString()
+        ? dayjs().subtract(monthsToSubtract, 'months').endOf('month')
         : endDate;
 
     form.setFieldsValue({
-      from: dayjs(fromDate),
-      to: dayjs(actualEndDate),
+      from: fromDate,
+      to: actualEndDate,
     });
-    setDateFilter({ startDate: fromDate, endDate: actualEndDate });
+    setDateFilter(
+      moduleKey,
+      fromDate.toISOString(),
+      actualEndDate.toISOString()
+    );
     setVisibility(false);
   };
 
   const disableBeforeStartDate = (current: Dayjs | undefined): boolean => {
-    if (dateFilter.startDate && from) {
+    if (dateFilters[moduleKey]?.startDate && from) {
       const fromDate = dayjs(from);
 
       if (!fromDate.isValid()) {
@@ -72,18 +70,19 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({
 
   useEffect(() => {
     const initialDaysToSubtract = 30;
-    subtractDaysFromDate(initialDaysToSubtract);
+    const initialEndDate = dayjs();
+    const initialStartDate = dayjs().subtract(initialDaysToSubtract, 'days');
 
-    const initialEndDate = dayjs().toISOString();
-    const initialStartDate = dayjs()
-      .subtract(initialDaysToSubtract, 'days')
-      .toISOString();
     form.setFieldsValue({
-      from: dayjs(initialStartDate),
-      to: dayjs(initialEndDate),
+      from: initialStartDate,
+      to: initialEndDate,
     });
-    setDateFilter({ startDate: initialStartDate, endDate: initialEndDate });
-  }, [form, setDateFilter]);
+    setDateFilter(
+      moduleKey,
+      initialStartDate.toISOString(),
+      initialEndDate.toISOString()
+    );
+  }, [form, setDateFilter, moduleKey]);
 
   useEffect(() => {
     if (from && to) {
@@ -91,14 +90,13 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({
       const toDate = to.toISOString();
 
       if (toDate < fromDate) {
-        // toast.error('End date must be greater than Start date');
         form.setFieldsValue({ from: '', to: '' });
         return;
       }
-      setDateFilter({ startDate: fromDate, endDate: toDate });
+      setDateFilter(moduleKey, fromDate, toDate);
       setVisibility(false);
     }
-  }, [from, to, form, setDateFilter]);
+  }, [from, to, form, setDateFilter, moduleKey]);
 
   const items = [
     {
@@ -179,17 +177,17 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({
       menu={{ items }}
       trigger={['click']}
       open={visibility}
-      onOpenChange={() => setVisibility(!visibility)}
+      onOpenChange={(open) => setVisibility(open)}
       className="customBtn"
     >
       <a
         href=""
         onClick={(e) => e.preventDefault()}
-        className="block px-4 py-2"
+        className="block px-2 py-2"
       >
         <Space>
-          {dayjs(dateFilter.startDate).format(dateFormat)} -{' '}
-          {dayjs(dateFilter.endDate).format(dateFormat)}
+          {dayjs(dateFilters[moduleKey]?.startDate).format(dateFormat)} -{' '}
+          {dayjs(dateFilters[moduleKey]?.endDate).format(dateFormat)}
           <DownOutlined />
         </Space>
       </a>
