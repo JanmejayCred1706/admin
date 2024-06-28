@@ -2,7 +2,7 @@
 import { DataTable, MixedHeadContent } from '@components/Component';
 import { planListingData, sequenceFn } from '@functions/planFn';
 import { useAppStore } from '@utils/Store';
-import { DateFilterProps, PageDataProps } from '@utils/globalInterface';
+import { DateFilterProps, PageDataProps } from 'src/interface/globalInterface';
 import { useEffect, useState, useMemo } from 'react';
 import useGetRequest from 'src/hooks/useGetRequest';
 

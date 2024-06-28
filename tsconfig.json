@@ -32,7 +32,8 @@
       "@core/*": ["src/components/core/*"],
       "@functions/*": ["src/utils/functions/*"],
       "@utils/*": ["src/utils/*"],
-      "@api/*": ["src/utils/api/*"]
+      "@api/*": ["src/utils/api/*"],
+      "@interface/*": ["src/interface/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

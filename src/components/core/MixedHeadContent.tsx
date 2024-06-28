@@ -4,7 +4,7 @@ import {
   SearchOutlined,
 } from '@ant-design/icons';
 import { DateFilter } from '@components/Component';
-import { DateFilterProps } from '@utils/globalInterface';
+import { DateFilterProps } from 'src/interface/globalInterface';
 import { Input, Space } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React, { ChangeEvent, FC } from 'react';

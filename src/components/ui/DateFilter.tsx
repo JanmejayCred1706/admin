@@ -1,6 +1,6 @@
 import { DownOutlined } from '@ant-design/icons';
 import { DateField } from '@components/Component';
-import { DateFilterProps } from '@utils/globalInterface';
+import { DateFilterProps } from 'src/interface/globalInterface';
 import { Button, Dropdown, Form, Space } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';

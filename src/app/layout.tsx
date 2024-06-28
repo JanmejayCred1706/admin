@@ -1,10 +1,11 @@
+import '@style/main.css';
+import '@style/override.css';
 import { QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import ClientProviders from 'src/app/ClientProviders';
 import './globals.css';
-import '@style/main.css';
-import '@style/override.css';
+// import 'antd/dist/antd.css';  // getting the error resolve this issue
 
 const inter = Inter({ subsets: ['latin'] });
 

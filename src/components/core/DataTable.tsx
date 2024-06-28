@@ -1,4 +1,4 @@
-import { PageDataProps } from '@utils/globalInterface';
+import { PageDataProps } from 'src/interface/globalInterface';
 import { Table, TableProps } from 'antd';
 import React from 'react';
 

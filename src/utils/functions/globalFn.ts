@@ -1,4 +1,10 @@
+import { NotificationContextType } from '@interface/globalInterface';
 import dayjs from 'dayjs';
+import { createContext } from 'react';
+
+export const NotificationContext = createContext<
+  NotificationContextType | undefined
+>(undefined);
 export const modifyListingData = (
   listingData: any[],
   keys: string[],
