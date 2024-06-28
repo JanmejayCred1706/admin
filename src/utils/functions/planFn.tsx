@@ -1,23 +1,7 @@
-import { TableProps } from 'antd';
+import { formatCurrency, modifyListingData } from '@functions/globalFn';
+import { ColumnKeys, DataItem } from '@interface/allPlansInterface';
 import { ColumnsType } from 'antd/lib/table';
-import { ReactNode } from 'react';
-import {
-  PieChartOutlined,
-  DesktopOutlined,
-  UserOutlined,
-  TeamOutlined,
-  FileOutlined,
-} from '@ant-design/icons';
-import { modifyListingData } from '@functions/globalFn';
 
-interface DataType {
-  key: string;
-  refId: number;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
 // Define the interface for the objects in the array
 interface MyObject {
   id: number;
@@ -31,7 +15,7 @@ interface MyObjectArray {
 }
 
 export const planListingData = (listingData: any, keys: string[]) => {
-  const defColumns: ColumnsType<DataType> = [
+  const defColumns: ColumnsType<DataItem> = [
     {
       title: 'Ref Id',
       dataIndex: 'refId',
@@ -83,11 +67,11 @@ export const planListingData = (listingData: any, keys: string[]) => {
         customerName: cur.name,
         plan: cur.product_name,
         planNo: cur.policy_number,
-        premium: cur.premium,
-        commission: cur.commission,
-        vivoMargin: cur.oem_commission_part,
-        stateMargin: cur.state_commission_part,
-        garantieMargin: cur.garantie_commission,
+        premium: formatCurrency(cur.premium),
+        commission: formatCurrency(cur.commission),
+        vivoMargin: formatCurrency(cur.oem_commission_part),
+        stateMargin: formatCurrency(cur.state_commission_part),
+        garantieMargin: formatCurrency(cur.garantie_commission),
         retailersType: '',
         retailersCode: cur.code,
         childCode: cur.store_code,
@@ -101,9 +85,8 @@ export const planListingData = (listingData: any, keys: string[]) => {
   return { columns, data };
 };
 
-export const sequenceFn = () => {
-  let order = [];
-  order = [
+export const sequenceFn = (): (keyof ColumnKeys)[] => {
+  let order: (keyof ColumnKeys)[] = [
     'refId',
     'customerName',
     'plan',
@@ -121,5 +104,6 @@ export const sequenceFn = () => {
     'endDate',
     'planPurchaseDate',
   ];
+
   return order;
 };

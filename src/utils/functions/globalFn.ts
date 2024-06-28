@@ -40,3 +40,15 @@ export const dateFormatter = (val: InputDate, format?: string): string => {
     return dayjs().format('DD/MM/YYYY'); // Default format if either val or format is missing
   }
 };
+
+export const formatCurrency = (amount: number): string => {
+  const formattedAmount = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    minimumFractionDigits: 0, // Optional: Adjust as needed
+    maximumFractionDigits: 0, // Optional: Adjust as needed
+  }).format(amount);
+
+  return formattedAmount;
+};
+
