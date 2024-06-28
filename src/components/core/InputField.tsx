@@ -1,4 +1,4 @@
-import { InputFieldProps } from '@core/CoreInterface';
+import { InputFieldProps } from '@interface/CoreInterface';
 import { Form, Input, InputNumber } from 'antd';
 import React, { FC } from 'react';
 

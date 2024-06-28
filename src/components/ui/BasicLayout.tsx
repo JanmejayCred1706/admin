@@ -1,5 +1,5 @@
 'use client';
-import { LayoutProps } from '@ui/UiInterfaces';
+import { LayoutProps } from '@interface/UiInterfaces';
 import React, { useState } from 'react';
 
 import {

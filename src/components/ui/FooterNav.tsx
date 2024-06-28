@@ -1,4 +1,4 @@
-import { FooterNavProps } from '@ui/UiInterfaces';
+import { FooterNavProps } from '@interface/UiInterfaces';
 import { Layout } from 'antd';
 import React from 'react';
 

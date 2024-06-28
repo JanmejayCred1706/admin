@@ -8,7 +8,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, theme, type MenuProps } from 'antd';
-import { leftNavProps } from '@ui/UiInterfaces';
+import { leftNavProps } from '@interface/UiInterfaces';
 
 type MenuItem = Required<MenuProps>['items'][number];
 

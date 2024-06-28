@@ -1,7 +1,7 @@
 import { UserOutlined } from '@ant-design/icons';
 import { SelectField } from '@components/Component';
 import { states } from '@functions/Layout';
-import { TopNavProps } from '@ui/UiInterfaces'; // Ensure this path is correct
+import { TopNavProps } from '@interface/UiInterfaces'; // Ensure this path is correct
 import {
   Avatar,
   Dropdown,

@@ -9,6 +9,7 @@ import { Input, Space } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React, { ChangeEvent, FC } from 'react';
 import useGetRequest from 'src/hooks/useGetRequest';
+import { useNotification } from '@higher-order-components/Notification';
 
 type exportPayloadProps = {
   page: number;
@@ -35,6 +36,7 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
   exportPayload,
   filter,
 }) => {
+  const { showNotification } = useNotification();
   let payloadForExport = {
     ...exportPayload,
     export: 1,
@@ -49,8 +51,14 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
   const handleExport = async () => {
     try {
       const { data } = await refetch();
+      showNotification(
+        'success',
+        'Data Exported Successfully',
+        data?.data?.message
+      );
       console.log('Export data:', data);
     } catch (err) {
+      showNotification('error', 'Data Exported Failed', err);
       console.error('Error exporting data:', err);
     }
   };

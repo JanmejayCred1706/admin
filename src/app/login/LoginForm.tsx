@@ -5,7 +5,7 @@ import {
   FormDataInterface,
   LoginFormProps,
   loginPayloadInterface,
-} from '@login/LoginInterface';
+} from '@interface/LoginInterface';
 import { addCookies } from '@utils/cookies';
 import { Button, Form, Input } from 'antd';
 import { useRouter } from 'next/navigation';

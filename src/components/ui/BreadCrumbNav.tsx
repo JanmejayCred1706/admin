@@ -1,4 +1,4 @@
-import { BreadCrumbNavProps } from '@ui/UiInterfaces';
+import { BreadCrumbNavProps } from '@interface/UiInterfaces';
 import { Breadcrumb } from 'antd';
 import React from 'react';
 
