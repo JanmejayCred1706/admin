@@ -12,6 +12,8 @@ import theme from 'src/methods/themeConfig';
 import './globals.css';
 import queryClient from '@utils/queryClient';
 import { BasicLayout } from '@components/Component';
+import ToastMessage from '@components/core/ToastMessage';
+import NotificationComponent from '@components/core/Notification';
 
 export default function ClientProviders({ children }: { children: ReactNode }) {
   // const queryClient = new QueryClient();
@@ -23,6 +25,7 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
             <BasicLayout>
               {children}
               <ReactQueryDevtools initialIsOpen={false} />
+              <NotificationComponent />
             </BasicLayout>
           </StyleProvider>
         </AntdRegistry>

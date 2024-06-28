@@ -50,7 +50,11 @@ const DataTable: React.FC<DataTableProps> = ({
               }
             : false
         }
-        dataSource={data}
+        // using only remove the warning msg
+        dataSource={data.map((item, index) => ({
+          ...item,
+          key: index.toString(),
+        }))}
         scroll={{ x: 'max-content' }}
         style={{ textAlign: 'center', marginTop: '2rem' }}
       />
