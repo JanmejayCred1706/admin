@@ -52,3 +52,21 @@ export const formatCurrency = (amount: number): string => {
   return formattedAmount;
 };
 
+export const chipColors = {
+  'Partially Approved': {
+    bgColor: 'bg-[#E4EEFC]',
+    textColor: 'text-[#229EEF]',
+  },
+  'Settlement Completed': {
+    bgColor: 'bg-[#E4EEFC]',
+    textColor: 'text-[#229EEF]',
+  },
+  Approved: { bgColor: 'bg-[#EDFFF2]', textColor: 'text-[#2BB256]' },
+  'Claim Initiated': { bgColor: 'bg-[#E4EEFC]', textColor: 'text-[#229EEF]' },
+  Closed: { bgColor: 'bg-[#FFF0F2]', textColor: 'text-[#E20F0F]' },
+  'Need more documents': {
+    bgColor: 'bg-yellow',
+    textColor: 'text-[#E20F0F]',
+  },
+};
+

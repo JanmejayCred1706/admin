@@ -5,8 +5,11 @@ import React, { useState } from 'react';
 import {
   DesktopOutlined,
   FileOutlined,
+  IssuesCloseOutlined,
   MenuOutlined,
+  MoneyCollectOutlined,
   PieChartOutlined,
+  SettingOutlined,
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
@@ -45,14 +48,16 @@ const items: MenuItem[] = [
   getItem('Service Centers', '4', <TeamOutlined />, [
     getItem('All Service Centers', '/admin/service-center/all-service-center'),
   ]),
-  getItem('Report', '5', <FileOutlined />, [
-    getItem('Billing Report', '51'),
-    getItem('Waterfall Report', '52'),
+  getItem('Finance', '5', <MoneyCollectOutlined />, [
+    getItem('Billing Report', '/admin/finance/billing-report'),
+    getItem('Waterfall Report', '/admin/finance/waterfall-report'),
+    getItem('Franchise', '/admin/finance/franchise'),
+    getItem('Invoice', '/admin/finance/invoice'),
   ]),
-  getItem('Claims', '6', <FileOutlined />, [
+  getItem('Claims', '6', <IssuesCloseOutlined />, [
     getItem('All Claims', '/admin/claims/all-claims'),
   ]),
-  getItem('Settings', '7', <FileOutlined />, [
+  getItem('Settings', '7', <SettingOutlined />, [
     getItem('Users', '71'),
     getItem('Config', '72'),
     getItem('Roles', '73'),

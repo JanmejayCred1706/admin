@@ -1,24 +1,29 @@
 'use client';
 import { DataTable, MixedHeadContent } from '@components/Component';
-import React, { useEffect, useMemo, useState } from 'react';
+import {
+  sequenceFn,
+  waterfallReportListingData,
+} from '@functions/waterfallReportFn';
 import useGetRequest from '@hooks/useGetRequest';
-import { useAppStore } from '@utils/Store';
 import { PageDataProps } from '@interface/globalInterface';
-import { planListingData, sequenceFn } from '@functions/planFn';
-import { orderTypeAllowed } from '@interface/allPlansInterface';
+import { orderTypeAllowed } from '@interface/waterfall';
+import { useAppStore } from '@utils/Store';
+import React, { useEffect, useMemo, useState } from 'react';
 
-const CancelPlans = () => {
-  const { currentState } = useAppStore();
+interface pageProps {}
+
+const WaterfallReport: React.FC<pageProps> = ({}) => {
+  const { currentState, dateFilters } = useAppStore();
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
     limit: 25,
   });
+
   const params = useMemo(
     () => ({
       page: pageData.current - 1,
       state_id: currentState,
-      policy_status: 'cancelled',
     }),
     [pageData, currentState]
   );
@@ -28,15 +33,13 @@ const CancelPlans = () => {
     error,
     isLoading,
     refetch,
-  } = useGetRequest('v2/orders', params, {}, [params]);
-
-  console.log(listingData, '>>>');
+  } = useGetRequest('report/water-fall-report', params, {}, [params]);
 
   let count: number = listingData?.data?.total_count || 0;
   let order: orderTypeAllowed[] = sequenceFn();
 
-  const { data: rawData, columns } = planListingData(
-    listingData?.data?.policies || [],
+  const { data: rawData, columns } = waterfallReportListingData(
+    listingData?.data?.data || [],
     order
   );
 
@@ -47,13 +50,12 @@ const CancelPlans = () => {
   }, [params, refetch]);
   return (
     <>
-      {' '}
       <MixedHeadContent
-        titleHeader="Cancel Plans"
+        titleHeader="Waterfall Report"
         searchPlaceHolder="Search"
-        exportUrl="v2/orders"
+        exportUrl="report/water-fall-report"
         exportPayload={params}
-        moduleKey="cancelPlans"
+        moduleKey="waterfall"
       />
       <DataTable
         {...{
@@ -68,4 +70,4 @@ const CancelPlans = () => {
   );
 };
 
-export default CancelPlans;
+export default WaterfallReport;

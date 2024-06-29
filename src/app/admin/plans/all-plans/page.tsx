@@ -1,6 +1,7 @@
 'use client';
 import { DataTable, MixedHeadContent } from '@components/Component';
 import { planListingData, sequenceFn } from '@functions/planFn';
+import { orderTypeAllowed } from '@interface/allPlansInterface';
 import { useAppStore } from '@utils/Store';
 import { useEffect, useMemo, useState } from 'react';
 import useGetRequest from 'src/hooks/useGetRequest';
@@ -33,7 +34,7 @@ const AllPlans = () => {
   console.log(listingData, '>>>');
 
   let count: number = listingData?.data?.total_count || 0;
-  let order = sequenceFn();
+  let order: orderTypeAllowed[] = sequenceFn();
 
   const { data: rawData, columns } = planListingData(
     listingData?.data?.policies || [],

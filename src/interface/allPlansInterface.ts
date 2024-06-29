@@ -24,3 +24,21 @@ export interface DataItem {
   address: string;
   tags: string[];
 }
+
+export type orderTypeAllowed =
+  | 'refId'
+  | 'customerName'
+  | 'plan'
+  | 'planNo'
+  | 'premium'
+  | 'commission'
+  | 'vivoMargin'
+  | 'stateMargin'
+  | 'garantieMargin'
+  | 'retailersType'
+  | 'retailersCode'
+  | 'childCode'
+  | 'promoterId'
+  | 'startDate'
+  | 'endDate'
+  | 'planPurchaseDate';

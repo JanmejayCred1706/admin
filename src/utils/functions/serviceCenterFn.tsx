@@ -16,38 +16,15 @@ export const serviceCenterListingData = (listingData: any, keys: string[]) => {
     { title: 'Name', dataIndex: 'name', key: 'name' },
     { title: 'Mobile', dataIndex: 'mobile', key: 'mobile' },
     { title: 'Email', dataIndex: 'email', key: 'email' },
-    // { title: 'Premium', dataIndex: 'premium', key: 'premium' },
-    // {
-    //   title: 'Retailer Commission',
-    //   dataIndex: 'commission',
-    //   key: 'commission',
-    // },
-    // { title: 'Vivo Margin', dataIndex: 'vivoMargin', key: 'vivoMargin' },
-    // { title: 'State Margin', dataIndex: 'stateMargin', key: 'stateMargin' },
-    // {
-    //   title: 'Garantie Margin',
-    //   dataIndex: 'garantieMargin',
-    //   key: 'garantieMargin',
-    // },
-    // {
-    //   title: 'Retailers Type',
-    //   dataIndex: 'retailersType',
-    //   key: 'retailersType',
-    // },
-    // {
-    //   title: 'Retailers Code',
-    //   dataIndex: 'retailersCode',
-    //   key: 'retailersCode',
-    // },
-    // { title: 'Child Code', dataIndex: 'childCode', key: 'childCode' },
-    // { title: 'Promoter Id', dataIndex: 'promoterId', key: 'promoterId' },
-    // { title: 'Start Date', dataIndex: 'startDate', key: 'startDate' },
-    // { title: 'End Date', dataIndex: 'endDate', key: 'endDate' },
-    // {
-    //   title: 'Plan Purchase Date',
-    //   dataIndex: 'planPurchaseDate',
-    //   key: 'planPurchaseDate',
-    // },
+    { title: 'State', dataIndex: 'state', key: 'state' },
+    { title: 'City', dataIndex: 'city', key: 'city' },
+    { title: 'Total Claims', dataIndex: 'totalClaims', key: 'totalClaims' },
+    { title: 'City', dataIndex: 'city', key: 'city' },
+    {
+      title: 'Claimed Amount',
+      dataIndex: 'claimedAmount',
+      key: 'claimedAmount',
+    },
   ];
   let defData: any =
     listingData?.length > 1 &&
@@ -58,18 +35,10 @@ export const serviceCenterListingData = (listingData: any, keys: string[]) => {
         name: cur.name,
         mobile: cur.mobile,
         email: cur.email,
-        premium: formatCurrency(cur.premium),
-        commission: formatCurrency(cur.commission),
-        vivoMargin: formatCurrency(cur.oem_commission_part),
-        stateMargin: formatCurrency(cur.state_commission_part),
-        garantieMargin: formatCurrency(cur.garantie_commission),
-        retailersType: '',
-        retailersCode: cur.code,
-        childCode: cur.store_code,
-        promoterId: cur.promoter_id,
-        startDate: cur.start_date,
-        endDate: cur.end_date,
-        planPurchaseDate: cur?.contract_start_date,
+        state: cur.state,
+        city: cur.city,
+        totalClaims: cur.total_claims,
+        claimedAmount: formatCurrency(cur.total_claimed_amount),
       };
     });
   const { columns, data } = modifyListingData(defData, keys, defColumns);
@@ -82,18 +51,10 @@ export const sequenceFn = (): (keyof ColumnKeysServiceCenter)[] => {
     'name',
     'mobile',
     'email',
-    'premium',
-    'commission',
-    'vivoMargin',
-    'stateMargin',
-    'garantieMargin',
-    'retailersType',
-    'retailersCode',
-    'childCode',
-    'promoterId',
-    'startDate',
-    'endDate',
-    'planPurchaseDate',
+    'state',
+    'city',
+    'totalClaims',
+    'claimedAmount',
   ];
 
   return order;

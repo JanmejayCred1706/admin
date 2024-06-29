@@ -1,15 +1,17 @@
 'use client';
 import { DataTable, MixedHeadContent } from '@components/Component';
-import { sequenceFn } from '@functions/planFn';
-import { serviceCenterListingData } from '@functions/serviceCenterFn';
+import {
+  sequenceFn,
+  serviceCenterListingData,
+} from '@functions/serviceCenterFn';
 import useGetRequest from '@hooks/useGetRequest';
 import { PageDataProps } from '@interface/globalInterface';
+import { orderTypeAllowed } from '@interface/serviceCenterInterface';
 import { useAppStore } from '@utils/Store';
 import { useEffect, useMemo, useState } from 'react';
 
 const AllServiceCenters = () => {
   const { currentState, dateFilters } = useAppStore();
-  console.log(dateFilters, 'dateFilters');
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -31,10 +33,8 @@ const AllServiceCenters = () => {
     refetch,
   } = useGetRequest('admin/service_centres', params, {}, [params]);
 
-  console.log(listingData, '>>>');
-
   let count: number = listingData?.data?.totalCount || 0;
-  let order = sequenceFn();
+  let order: orderTypeAllowed[] = sequenceFn();
 
   const { data: rawData, columns } = serviceCenterListingData(
     listingData?.data?.service_centre || [],

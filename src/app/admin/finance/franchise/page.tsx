@@ -1,24 +1,29 @@
 'use client';
 import { DataTable, MixedHeadContent } from '@components/Component';
-import React, { useEffect, useMemo, useState } from 'react';
+import {
+  billingReportListingData,
+  sequenceFn,
+} from '@functions/billingReportFn';
 import useGetRequest from '@hooks/useGetRequest';
-import { useAppStore } from '@utils/Store';
+import { orderTypeAllowed } from '@interface/billingReport';
 import { PageDataProps } from '@interface/globalInterface';
-import { planListingData, sequenceFn } from '@functions/planFn';
-import { orderTypeAllowed } from '@interface/allPlansInterface';
+import { useAppStore } from '@utils/Store';
+import React, { useEffect, useMemo, useState } from 'react';
 
-const CancelPlans = () => {
-  const { currentState } = useAppStore();
+interface pageProps {}
+
+const Franchise: React.FC<pageProps> = ({}) => {
+  const { currentState, dateFilters } = useAppStore();
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
     limit: 25,
   });
+
   const params = useMemo(
     () => ({
       page: pageData.current - 1,
       state_id: currentState,
-      policy_status: 'cancelled',
     }),
     [pageData, currentState]
   );
@@ -28,15 +33,13 @@ const CancelPlans = () => {
     error,
     isLoading,
     refetch,
-  } = useGetRequest('v2/orders', params, {}, [params]);
-
-  console.log(listingData, '>>>');
+  } = useGetRequest('franchise/list', params, {}, [params]);
 
   let count: number = listingData?.data?.total_count || 0;
   let order: orderTypeAllowed[] = sequenceFn();
 
-  const { data: rawData, columns } = planListingData(
-    listingData?.data?.policies || [],
+  const { data: rawData, columns } = billingReportListingData(
+    listingData?.data?.data || [],
     order
   );
 
@@ -47,13 +50,12 @@ const CancelPlans = () => {
   }, [params, refetch]);
   return (
     <>
-      {' '}
       <MixedHeadContent
-        titleHeader="Cancel Plans"
+        titleHeader="Franchise"
         searchPlaceHolder="Search"
-        exportUrl="v2/orders"
+        exportUrl="franchise/list"
         exportPayload={params}
-        moduleKey="cancelPlans"
+        moduleKey="franchise"
       />
       <DataTable
         {...{
@@ -68,4 +70,4 @@ const CancelPlans = () => {
   );
 };
 
-export default CancelPlans;
+export default Franchise;

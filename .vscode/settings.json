@@ -31,13 +31,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.requireConfig": true,
-  "cSpell.words": [
-    "allplans",
-    "antd",
-    "cancelplans",
-    "Garantie",
-    "Sider",
-    "tanstack"
-  ],
+  "cSpell.words": ["allplans", "antd", "cancelplans", "Garantie", "GSTIN", "Sider", "tanstack"],
   "css.lint.unknownAtRules": "ignore"
 }
