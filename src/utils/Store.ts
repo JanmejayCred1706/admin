@@ -10,6 +10,8 @@ interface AppStoreProps {
   dateFilters: { [key in pageKeyInterfaceProps]?: DateFilterProps };
   updateState: (newState: number | string) => void;
   setDateFilter: (key: string, startDate: string, endDate: string) => void;
+  isApiLoading: boolean;
+  setIsLoading: (loading: boolean) => void;
 }
 
 export const useAppStore = create<AppStoreProps>((set) => ({
@@ -23,4 +25,6 @@ export const useAppStore = create<AppStoreProps>((set) => ({
         [key]: { startDate, endDate },
       },
     })),
+  isApiLoading: false, // Initial state
+  setIsLoading: (loading) => set({ isApiLoading: loading }),
 }));

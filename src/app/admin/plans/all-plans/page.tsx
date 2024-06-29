@@ -6,17 +6,15 @@ import { useEffect, useMemo, useState } from 'react';
 import useGetRequest from 'src/hooks/useGetRequest';
 import { PageDataProps } from 'src/interface/globalInterface';
 
-type Props = {};
-
-const AllPlans = (props: Props) => {
+const AllPlans = () => {
   const { currentState, dateFilters } = useAppStore();
+  console.log(dateFilters, 'dateFilters');
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
     limit: 25,
   });
 
-  // Using useMemo to memoize params, so it changes only when dependencies change
   const params = useMemo(
     () => ({
       page: pageData.current - 1,
@@ -42,11 +40,9 @@ const AllPlans = (props: Props) => {
     order
   );
 
-  // Ensure `data` is always an array
   const data = rawData || [];
 
   useEffect(() => {
-    // Refetch only if necessary
     refetch();
   }, [params, refetch]);
 

@@ -4,6 +4,7 @@ import {
   UseMutationOptions,
   UseMutationResult,
 } from '@tanstack/react-query';
+import { useAppStore } from '@utils/Store';
 import fetchInstance from '@utils/fetchInstance';
 
 interface FetchData {
@@ -16,7 +17,9 @@ const usePostRequest = (
   options: RequestInit = {},
   onSuccess?: (data: any) => void
 ): UseMutationResult<any, Error, any, unknown> => {
+  const { setIsLoading } = useAppStore();
   const postData = async (body: any): Promise<any> => {
+    setIsLoading(true);
     try {
       const { data }: FetchData = await fetchInstance.post(
         endpoint,
@@ -28,6 +31,8 @@ const usePostRequest = (
     } catch (error) {
       //   console.error('Fetch error:', error);
       throw error;
+    } finally {
+      setIsLoading(true);
     }
   };
 

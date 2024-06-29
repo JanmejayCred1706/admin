@@ -34,7 +34,10 @@
       "@utils/*": ["src/utils/*"],
       "@api/*": ["src/utils/api/*"],
       "@interface/*": ["src/interface/*"],
-      "@higher-order-components/*": ["src/components/higher-order-components/*"]
+      "@higher-order-components/*": [
+        "src/components/higher-order-components/*"
+      ],
+      "@hooks/*": ["src/hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

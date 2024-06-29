@@ -84,7 +84,7 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
           <ExportOutlined className="iconBorder" onClick={handleExport} />
         )}
 
-        {moduleKey && <DateFilter moduleKey="cancel-plan" />}
+        {moduleKey && <DateFilter moduleKey={moduleKey} />}
       </Space>
       {/* {isLoading && <p>Loading...</p>}
       {error && <p>{error.message}</p>} */}

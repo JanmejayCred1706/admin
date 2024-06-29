@@ -3,6 +3,7 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from '@tanstack/react-query';
+import { useAppStore } from '@utils/Store';
 import fetchInstance from '@utils/fetchInstance';
 
 interface FetchData {
@@ -16,16 +17,22 @@ const useGetRequest = (
   options: RequestInit = {},
   dependencies: any[] = []
 ): UseQueryResult<any, Error> => {
+  const { setIsLoading } = useAppStore();
+
   const fetchData = async (): Promise<any> => {
+    setIsLoading(true);
     try {
       const { data }: FetchData = await fetchInstance.get(
         endpoint,
         params,
         options
       );
+      console.log(data, '>>>');
       return data;
     } catch (error) {
       throw error;
+    } finally {
+      setIsLoading(false);
     }
   };
 

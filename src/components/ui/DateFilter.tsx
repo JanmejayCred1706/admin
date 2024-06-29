@@ -69,7 +69,7 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({ moduleKey }) => {
   };
 
   useEffect(() => {
-    const initialDaysToSubtract = 30;
+    const initialDaysToSubtract = 0;
     const initialEndDate = dayjs();
     const initialStartDate = dayjs().subtract(initialDaysToSubtract, 'days');
 

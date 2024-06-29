@@ -17,4 +17,4 @@ export interface NotificationContextType {
   ) => void;
   contextHolder: React.ReactNode;
 }
-export type pageKeyInterfaceProps = 'allPlans'; 
+export type pageKeyInterfaceProps = 'allPlans' | 'cancelPans'; 

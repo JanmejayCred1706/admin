@@ -76,9 +76,9 @@ export const planListingData = (listingData: any, keys: string[]) => {
         retailersCode: cur.code,
         childCode: cur.store_code,
         promoterId: cur.promoter_id,
-        startDate: '',
-        endDate: '',
-        planPurchaseDate: '',
+        startDate: cur.start_date,
+        endDate: cur.end_date,
+        planPurchaseDate: cur?.contract_start_date,
       };
     });
   const { columns, data } = modifyListingData(defData, keys, defColumns);
