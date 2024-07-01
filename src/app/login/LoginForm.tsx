@@ -19,7 +19,6 @@ interface AppState {
 }
 const LoginForm: FC<LoginFormProps> = () => {
   const router = useRouter();
-  const { cart } = useAppStore();
   const emailPattern = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
   const mutation = usePostRequest('user/login', {}, (data) => {
     localStorage.setItem('token', data?.data?.token);

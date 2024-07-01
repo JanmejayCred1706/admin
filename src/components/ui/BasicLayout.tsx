@@ -1,6 +1,6 @@
 'use client';
 import { LayoutProps } from '@interface/UiInterfaces';
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 
 import {
   DesktopOutlined,
@@ -76,7 +76,7 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
   };
   const token = localStorage.getItem('token');
 
-  React.useEffect(() => {
+  useLayoutEffect(() => {
     if (!token) {
       router.push('/login');
     }
