@@ -1,31 +1,19 @@
 export type orderTypeAllowed =
   | 'orderId'
-  | 'tradeName'
-  | 'retailersAddress'
-  | 'gstIn'
-  | 'state'
-  | 'location'
-  | 'pinCode'
-  | 'planPurchaseDate'
-  | 'billingPeriod'
-  | 'plan'
+  | 'retailerName'
+  | 'customerName'
+  | 'orderStatus'
+  | 'purchaseDate'
   | 'modelName'
-  | 'priceRange'
-  | 'retailerCost';
+  | 'productType';
 export interface WaterfallReportColumnKeys {
   orderId: keyof WaterfallReportDataItem;
-  tradeName: keyof WaterfallReportDataItem;
-  retailersAddress: keyof WaterfallReportDataItem;
-  gstIn: keyof WaterfallReportDataItem;
-  state: keyof WaterfallReportDataItem;
-  location: keyof WaterfallReportDataItem;
-  pinCode: keyof WaterfallReportDataItem;
-  planPurchaseDate: keyof WaterfallReportDataItem;
-  billingPeriod: keyof WaterfallReportDataItem;
-  plan: keyof WaterfallReportDataItem;
+  retailerName: keyof WaterfallReportDataItem;
+  customerName: keyof WaterfallReportDataItem;
+  orderStatus: keyof WaterfallReportDataItem;
+  purchaseDate: keyof WaterfallReportDataItem;
   modelName: keyof WaterfallReportDataItem;
-  priceRange: keyof WaterfallReportDataItem;
-  retailerCost: keyof WaterfallReportDataItem;
+  productType: keyof WaterfallReportDataItem;
 }
 export interface WaterfallReportDataItem {
   key: string;

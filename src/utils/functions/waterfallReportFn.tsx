@@ -35,24 +35,6 @@ export const waterfallReportListingData = (
     { title: 'Product Type', dataIndex: 'productType', key: 'productType' },
     { title: 'State', dataIndex: 'state', key: 'state' },
     { title: 'Location', dataIndex: 'location', key: 'location' },
-    { title: 'Pin Code', dataIndex: 'pinCode', key: 'pinCode' },
-    {
-      title: 'Billing Period',
-      dataIndex: 'billingPeriod',
-      key: 'billingPeriod',
-    },
-    { title: 'Plan', dataIndex: 'plan', key: 'plan' },
-    { title: 'Model Name', dataIndex: 'modelName', key: 'modelName' },
-    {
-      title: 'Product Price Range',
-      dataIndex: 'priceRange',
-      key: 'priceRange',
-    },
-    {
-      title: 'Cost to Retailer',
-      dataIndex: 'retailerCost',
-      key: 'retailerCost',
-    },
   ];
   let defData: any =
     listingData?.length > 1 &&
@@ -66,11 +48,6 @@ export const waterfallReportListingData = (
         purchaseDate: cur.purchase_date,
         modelName: cur.phone_model_name,
         productType: cur.product_id,
-        pinCode: cur.pincode,
-        billingPeriod: cur.billing_period,
-        plan: cur.product_type,
-        priceRange: cur.price_range,
-        retailerCost: formatCurrency(cur.cost_to_dealer),
       };
     });
   const { columns, data } = modifyListingData(defData, keys, defColumns);
@@ -86,11 +63,6 @@ export const sequenceFn = (): (keyof WaterfallReportColumnKeys)[] => {
     'purchaseDate',
     'modelName',
     'productType',
-    'pinCode',
-    'billingPeriod',
-    'plan',
-    'priceRange',
-    'retailerCost',
   ];
 
   return order;
