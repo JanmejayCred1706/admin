@@ -1,11 +1,11 @@
 'use client';
-import { DataTable, MixedHeadContent } from '@components/Component';
-import { billingReportListingData } from '@functions/billingReportFn';
-import { sequenceFn } from '@functions/claimsFn';
+import { DataTable, MixedHeadContent, ModalComp } from '@components/Component';
+import { InvoiceListingData, sequenceFn } from '@functions/invoiceFn';
 import useGetRequest from '@hooks/useGetRequest';
-import { orderTypeAllowed } from '@interface/billingReport';
 import { PageDataProps } from '@interface/globalInterface';
+import { orderTypeAllowed } from '@interface/invoiceInterface';
 import { useAppStore } from '@utils/Store';
+import { Button } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 
 interface pageProps {}
@@ -36,7 +36,7 @@ const Invoice: React.FC<pageProps> = ({}) => {
   let count: number = listingData?.data?.total_count || 0;
   let order: orderTypeAllowed[] = sequenceFn();
 
-  const { data: rawData, columns } = billingReportListingData(
+  const { data: rawData, columns } = InvoiceListingData(
     listingData?.data?.data || [],
     order
   );

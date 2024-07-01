@@ -12,6 +12,8 @@ interface AppStoreProps {
   setDateFilter: (key: string, startDate: string, endDate: string) => void;
   isApiLoading: boolean;
   setIsLoading: (loading: boolean) => void;
+  isModelOpen: boolean;
+  setModelOpen: (loading: boolean) => void;
 }
 
 export const useAppStore = create<AppStoreProps>((set) => ({
@@ -25,6 +27,8 @@ export const useAppStore = create<AppStoreProps>((set) => ({
         [key]: { startDate, endDate },
       },
     })),
-  isApiLoading: false, // Initial state
+  isApiLoading: false,
   setIsLoading: (loading) => set({ isApiLoading: loading }),
+  isModelOpen: false,
+  setModelOpen: (value) => set({ isModelOpen: value }),
 }));

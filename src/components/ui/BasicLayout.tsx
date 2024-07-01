@@ -37,10 +37,10 @@ const items: MenuItem[] = [
   getItem('Dashboard', '1', <PieChartOutlined />, [
     getItem('Home', '/admin/dashboard'),
   ]),
-  getItem('Plans', '2', <DesktopOutlined />, [
-    getItem('All Plans', '/admin/plans/all-plans?page=1'),
-    getItem('Cancelled Plans', '/admin/plans/cancel-plans'),
-  ]),
+  // getItem('Plans', '2', <DesktopOutlined />, [
+  //   getItem('All Plans', '/admin/plans/all-plans'),
+  //   getItem('Cancelled Plans', '/admin/plans/cancel-plans'),
+  // ]),
   getItem('Retailers', '3', <UserOutlined />, [
     getItem('Active Retailers', '/admin/retailers/active-retailers'),
     getItem('All Retailers', '/admin/retailers/all-retailers'),

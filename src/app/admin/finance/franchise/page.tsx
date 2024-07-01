@@ -1,19 +1,18 @@
 'use client';
-import { DataTable, MixedHeadContent } from '@components/Component';
-import {
-  billingReportListingData,
-  sequenceFn,
-} from '@functions/billingReportFn';
+import { DataTable, MixedHeadContent, ModalComp } from '@components/Component';
+
+import { franchiseListingData, sequenceFn } from '@functions/franchiseFn';
 import useGetRequest from '@hooks/useGetRequest';
-import { orderTypeAllowed } from '@interface/billingReport';
+import { orderTypeAllowed } from '@interface/franchiseInterface';
 import { PageDataProps } from '@interface/globalInterface';
 import { useAppStore } from '@utils/Store';
+import { Button } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 
 interface pageProps {}
 
 const Franchise: React.FC<pageProps> = ({}) => {
-  const { currentState, dateFilters } = useAppStore();
+  const { currentState, dateFilters, setModelOpen } = useAppStore();
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -38,9 +37,14 @@ const Franchise: React.FC<pageProps> = ({}) => {
   let count: number = listingData?.data?.total_count || 0;
   let order: orderTypeAllowed[] = sequenceFn();
 
-  const { data: rawData, columns } = billingReportListingData(
+  const handleAddMoney = () => {
+    console.log('OKKk');
+    setModelOpen(true);
+  };
+  const { data: rawData, columns } = franchiseListingData(
     listingData?.data?.data || [],
-    order
+    order,
+    handleAddMoney
   );
 
   const data = rawData || [];
@@ -48,8 +52,16 @@ const Franchise: React.FC<pageProps> = ({}) => {
   useEffect(() => {
     refetch();
   }, [params, refetch]);
+
   return (
     <>
+      <ModalComp
+        component={
+          <>
+            <Button onClick={() => setModelOpen(false)}>close</Button>
+          </>
+        }
+      />
       <MixedHeadContent
         titleHeader="Franchise"
         searchPlaceHolder="Search"
