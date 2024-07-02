@@ -1,35 +1,26 @@
 'use client';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { postData } from '@api/layoutApi';
-import {
-  FormDataInterface,
-  LoginFormProps,
-  loginPayloadInterface,
-} from '@interface/LoginInterface';
-import { addCookies } from '@utils/cookies';
 import { Button, Form, Input } from 'antd';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import usePostRequest from 'src/hooks/usePostRequest';
-import { useAppStore } from 'src/utils/Store';
+import { addCookies } from '@utils/cookies';
 
-interface AppState {
-  bears: string;
-  // Add other properties as needed
-}
-const LoginForm: FC<LoginFormProps> = () => {
+const LoginForm: FC = () => {
   const router = useRouter();
-  const emailPattern = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const mutation = usePostRequest('user/login', {}, (data) => {
-    localStorage.setItem('token', data?.data?.token);
-    addCookies(['token'], [data?.data?.token]);
+    if (data?.data?.token) {
+      localStorage.setItem('token', data.data.token);
+      addCookies(['token'], [data.data.token]);
+    }
     if (data?.success) {
       router.push('/');
     }
   });
 
-  const onFinish: (data: FormDataInterface) => void = async (formData) => {
-    const payload: loginPayloadInterface = {
+  const onFinish = async (formData: any) => {
+    const payload = {
       user_type: 'admin',
       grant_type: 'password',
       ...formData,
@@ -45,9 +36,7 @@ const LoginForm: FC<LoginFormProps> = () => {
       <Form
         name="basic"
         layout="vertical"
-        initialValues={{
-          remember: true,
-        }}
+        initialValues={{ remember: true }}
         className="login-form"
         style={{ padding: '4rem', borderTop: '1px solid #efefef' }}
         onFinish={onFinish}
@@ -56,14 +45,8 @@ const LoginForm: FC<LoginFormProps> = () => {
         <Form.Item
           name="email"
           rules={[
-            {
-              required: true,
-              message: 'Please input your email!',
-            },
-            // {
-            //   pattern: emailPattern,
-            //   message: 'Enter the valid format',
-            // },
+            { required: true, message: 'Please input your email!' },
+            { pattern: emailPattern, message: 'Enter a valid email format' },
           ]}
           style={{ marginBottom: '2rem' }}
         >
@@ -75,12 +58,7 @@ const LoginForm: FC<LoginFormProps> = () => {
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
+          rules={[{ required: true, message: 'Please input your password!' }]}
         >
           <Input.Password
             addonBefore={<LockOutlined />}
@@ -105,4 +83,5 @@ const LoginForm: FC<LoginFormProps> = () => {
     </div>
   );
 };
+
 export default LoginForm;

@@ -1,22 +1,32 @@
 'use client';
-import { useEffect } from 'react';
-import { redirect } from 'next/navigation';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export const withOutLogin = (WrappedComponent: any) => {
-  const token = localStorage.getItem('token');
-  let isUserAuthenticated = token ? true : false;
-  console.log(isUserAuthenticated, '...');
   return function WithAuth(props: any) {
-    const session = isUserAuthenticated;
-    useEffect(() => {
-      if (!session) {
-        redirect('/');
-      }
-    }, []);
+    const router = useRouter();
+    const [isUserAuthenticated, setIsUserAuthenticated] = useState<
+      boolean | null
+    >(null);
 
-    if (!session) {
-      return null;
+    useLayoutEffect(() => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        setIsUserAuthenticated(true);
+        router.push('/'); // Redirect to home if already logged in
+      } else {
+        setIsUserAuthenticated(false);
+      }
+    }, [router]);
+
+    if (isUserAuthenticated === null) {
+      return null; // Show nothing while checking auth status
     }
+
+    if (isUserAuthenticated) {
+      return null; // Optionally show a loader or redirect message
+    }
+
     return <WrappedComponent {...props} />;
   };
 };

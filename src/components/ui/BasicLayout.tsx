@@ -17,6 +17,7 @@ import { BreadCrumbNav, FooterNav, TopNav } from '@components/Component';
 import { Layout, Menu, MenuProps, theme } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { withLogin } from '@components/higher-order-components/withLogin';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -149,4 +150,4 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
   );
 };
 
-export default BasicLayout;
+export default withLogin(BasicLayout);

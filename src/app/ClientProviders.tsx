@@ -14,7 +14,7 @@ import { ReactNode } from 'react';
 import theme from 'src/methods/themeConfig';
 import './globals.css';
 
-export default function ClientProviders({ children }: { children: ReactNode }) {
+function ClientProviders({ children }: { children: ReactNode }) {
   // const queryClient = new QueryClient();
   return (
     <ConfigProvider theme={theme}>
@@ -33,3 +33,4 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
     </ConfigProvider>
   );
 }
+export default ClientProviders;
