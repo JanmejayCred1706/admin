@@ -1,3 +1,4 @@
+'use client';
 import { DownOutlined } from '@ant-design/icons';
 import { DateField } from '@components/Component';
 import { useAppStore } from '@utils/Store';

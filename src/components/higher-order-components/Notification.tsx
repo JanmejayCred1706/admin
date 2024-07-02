@@ -1,4 +1,5 @@
 // contexts/NotificationContext.tsx
+'use client';
 import {
   NotificationContextType,
   NotificationType,

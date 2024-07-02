@@ -1,3 +1,4 @@
+import { withOutLogin } from '@components/Component';
 import LoginForm from '@login/LoginForm';
 
 const Login = () => {

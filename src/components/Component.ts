@@ -4,6 +4,7 @@ import DateField from '@core/DateField';
 import DataTable from '@core/DataTable';
 import MixedHeadContent from '@core/MixedHeadContent';
 import ModalComp from '@core/ModalComp';
+import withOutLogin from '@core/withOutLogin';
 import LeftNav from '@ui/LeftNav';
 import TopNav from '@ui/TopNav';
 import BreadCrumbNav from '@ui/BreadCrumbNav';
@@ -18,6 +19,7 @@ export {
   DataTable,
   MixedHeadContent,
   ModalComp,
+  withOutLogin,
   LeftNav,
   TopNav,
   BreadCrumbNav,
