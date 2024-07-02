@@ -12,10 +12,12 @@ import {
   Typography,
   theme,
 } from 'antd';
+import { redirect, useRouter } from 'next/navigation';
 import React from 'react';
 import { useAppStore } from 'src/utils/Store';
 
 const TopNav: React.FC<TopNavProps> = () => {
+  const router = useRouter();
   const { Header } = Layout;
   const { updateState, currentState } = useAppStore();
   console.log(currentState, 'current');
@@ -41,6 +43,10 @@ const TopNav: React.FC<TopNavProps> = () => {
       ),
     },
   ];
+  const handleLogOut = () => {
+    localStorage.removeItem('token');
+    // router.push('/login');
+  };
   return (
     <Header
       style={{
@@ -95,7 +101,11 @@ const TopNav: React.FC<TopNavProps> = () => {
             placement="bottomRight"
             arrow={{ pointAtCenter: true }}
           >
-            <Avatar size="large" icon={<UserOutlined />} />
+            <Avatar
+              size="large"
+              icon={<UserOutlined />}
+              onClick={handleLogOut}
+            />
           </Dropdown>
         </Space>
       </div>

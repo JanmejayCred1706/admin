@@ -12,7 +12,10 @@ const LoginForm: FC = () => {
   const mutation = usePostRequest('user/login', {}, (data) => {
     if (data?.data?.token) {
       localStorage.setItem('token', data.data.token);
-      addCookies(['token'], [data.data.token]);
+      addCookies(
+        ['token', 'userRole'],
+        [data.data.token, ['/admin/plans/all-plans', '/admin/finance/invoice']]
+      );
     }
     if (data?.success) {
       router.push('/');
