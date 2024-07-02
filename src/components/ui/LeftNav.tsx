@@ -3,60 +3,48 @@ import React, { useState } from 'react';
 import {
   DesktopOutlined,
   FileOutlined,
+  MenuOutlined,
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, theme, type MenuProps } from 'antd';
 import { leftNavProps } from '@interface/UiInterfaces';
+import Image from 'next/image';
+import { allowedLabels, navMenuItem } from '@functions/Layout';
+import { useRouter } from 'next/navigation';
 
-type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[]
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
-const items: MenuItem[] = [
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
-  getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '3'),
-    getItem('Bill', '4'),
-    getItem('Alex', '5'),
-  ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [
-    getItem('Team 1', '6'),
-    getItem('Team 2', '8'),
-  ]),
-  getItem('Files', '9', <FileOutlined />),
-];
 const LeftNav = (props: leftNavProps) => {
+  const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const { Sider } = Layout;
+  const items = navMenuItem(allowedLabels);
+  const redirection = (path: string) => {
+    router.push(path, { scroll: false });
+  };
   return (
     <Sider
       collapsible
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
     >
-      <div className="demo-logo-vertical"> </div>
+      <div
+        className={`demo-logo-vertical m-4 flex  ${collapsed ? 'display-center' : 'justify-between'}`}
+      >
+        {!collapsed && (
+          <Image src="/logo.png" height={120} width={120} alt="logo" priority />
+        )}
+        <MenuOutlined
+          onClick={() => setCollapsed(!collapsed)}
+          className={`${!collapsed} && display-center `}
+        />
+      </div>
       <Menu
-        theme="dark"
+        // theme="dark"
         defaultSelectedKeys={['1']}
         mode="inline"
         items={items}
-        onClick={({ key }) => {
-          console.log(key, 'key');
-        }}
+        onClick={({ key }) => redirection(key)}
       />
     </Sider>
   );

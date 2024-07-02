@@ -1,4 +1,7 @@
-import { NotificationContextType } from '@interface/globalInterface';
+import {
+  InputDateProps,
+  NotificationContextType,
+} from '@interface/globalInterface';
 import dayjs from 'dayjs';
 import { createContext } from 'react';
 
@@ -30,9 +33,7 @@ export const modifyListingData = (
   return { columns, data };
 };
 
-type InputDate = string | number | Date;
-
-export const dateFormatter = (val: InputDate, format?: string): string => {
+export const dateFormatter = (val: InputDateProps, format?: string): string => {
   console.log(format, '...');
   if (val && format) {
     return dayjs(val).format(format);
@@ -69,4 +70,3 @@ export const chipColors = {
     textColor: 'text-[#E20F0F]',
   },
 };
-

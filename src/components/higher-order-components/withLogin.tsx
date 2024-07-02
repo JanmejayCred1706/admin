@@ -21,9 +21,9 @@ export const withLogin = (WrappedComponent: any) => {
       }
     }, [router]);
 
-    // if (isUserAuthenticated === null) {
-    //   return null; // Show nothing while checking auth status
-    // }
+    if (isUserAuthenticated === null) {
+      return null; // Show nothing while checking auth status
+    }
 
     // if (isUserAuthenticated) {
     //   return null; // Optionally show a loader or redirect message

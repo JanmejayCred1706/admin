@@ -18,3 +18,4 @@ export interface NotificationContextType {
   contextHolder: React.ReactNode;
 }
 export type pageKeyInterfaceProps = 'allPlans' | 'cancelPans'; 
+export type InputDateProps = string | number | Date;

@@ -16,9 +16,10 @@ const LoginForm: FC = () => {
         ['token', 'userRole'],
         [data.data.token, ['/admin/plans/all-plans', '/admin/finance/invoice']]
       );
+      router.push('/admin/dashboard');
     }
     if (data?.success) {
-      router.push('/');
+      router.push('/admin/dashboard');
     }
   });
 
