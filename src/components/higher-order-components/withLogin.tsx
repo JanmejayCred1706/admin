@@ -14,7 +14,7 @@ export const withLogin = (WrappedComponent: any) => {
       const token = localStorage.getItem('token');
       if (token) {
         setIsUserAuthenticated(true);
-        router.push('/admin/dashboard'); // Redirect to home if already logged in
+        // router.push('/'); // Redirect to home if already logged in
       } else {
         setIsUserAuthenticated(false);
         router.push('/login');

@@ -1,18 +1,11 @@
 'use client';
-import React, { useState } from 'react';
-import {
-  DesktopOutlined,
-  FileOutlined,
-  MenuOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
-import { Layout, Menu, theme, type MenuProps } from 'antd';
+import { MenuOutlined } from '@ant-design/icons';
+import { allowedLabels, navMenuItem } from '@functions/LayoutFn';
 import { leftNavProps } from '@interface/UiInterfaces';
+import { Layout, Menu } from 'antd';
 import Image from 'next/image';
-import { allowedLabels, navMenuItem } from '@functions/Layout';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const LeftNav = (props: leftNavProps) => {
   const router = useRouter();
