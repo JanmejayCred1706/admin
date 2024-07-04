@@ -1,15 +1,14 @@
 'use client';
-import { LayoutProps } from '@interface/UiInterfaces';
-import React, { useLayoutEffect } from 'react';
 import {
   BreadCrumbNav,
   FooterNav,
   LeftNav,
   TopNav,
 } from '@components/Component';
-import { withLogin } from '@components/higher-order-components/withLogin';
+import { LayoutProps } from '@interface/UiInterfaces';
 import { Layout, theme } from 'antd';
 import { useRouter } from 'next/navigation';
+import React, { useLayoutEffect } from 'react';
 
 const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
   const {
@@ -64,4 +63,4 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
   );
 };
 
-export default withLogin(BasicLayout);
+export default BasicLayout;

@@ -15,6 +15,5 @@ export async function addCookies(keys: string[], values: string[]) {
 export async function getCookies(keys: string) {
   const cookieStore = cookies();
   const getKey = cookieStore.get(keys);
-  // console.log(getKey);
   return getKey;
 }
