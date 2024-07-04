@@ -1,4 +1,3 @@
-import { withOutLogin } from '@components/core/withOutLogin';
 import LoginForm from '@login/LoginForm';
 
 const Login = () => {

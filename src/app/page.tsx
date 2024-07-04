@@ -1,17 +1,19 @@
 'use client';
-import { DateFilter } from '@components/Component';
-import { useNotification } from '@components/higher-order-components/Notification';
-import { useAppStore } from '@utils/Store';
+import { getCookies } from '@utils/cookies';
+import { useEffect, useState } from 'react';
 
-type NotificationType = 'success' | 'error' | 'info' | 'warning';
-
-interface NotificationState {
-  visible: boolean;
-  msg: string;
-  title: string;
-  type: NotificationType;
-}
 export default function Home() {
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const cookie = await getCookies('token');
+      setToken(cookie?.value || null);
+    };
+
+    fetchToken();
+  }, []);
+
   return (
     <>
       <div>

@@ -11,12 +11,7 @@ const LoginForm: FC = () => {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const mutation = usePostRequest('user/login', {}, (data) => {
     if (data?.data?.token) {
-      localStorage.setItem('token', data.data.token);
-      addCookies(
-        ['token', 'userRole'],
-        [data.data.token, ['/admin/plans/all-plans', '/admin/finance/invoice']]
-      );
-      router.push('/admin/dashboard');
+      addCookies(['token'], [data.data.token]);
     }
     if (data?.success) {
       router.push('/admin/dashboard');
