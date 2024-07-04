@@ -2,7 +2,7 @@ import { formatCurrency, modifyListingData } from '@functions/globalFn';
 import {
   BillingReportColumnKeys,
   BillingReportDataItem,
-} from '@interface/billingReport';
+} from '@interface/billingReportInterface';
 import { ColumnsType } from 'antd/es/table';
 
 export const billingReportListingData = (listingData: any, keys: string[]) => {

@@ -6,7 +6,7 @@ import {
 } from '@functions/waterfallReportFn';
 import useGetRequest from '@hooks/useGetRequest';
 import { PageDataProps } from '@interface/globalInterface';
-import { orderTypeAllowed } from '@interface/waterfall';
+import { orderTypeAllowed } from '@interface/waterfallInterface';
 import { useAppStore } from '@utils/Store';
 import React, { useEffect, useMemo, useState } from 'react';
 

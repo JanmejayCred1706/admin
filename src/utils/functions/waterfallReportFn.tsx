@@ -2,7 +2,7 @@ import { formatCurrency, modifyListingData } from '@functions/globalFn';
 import {
   WaterfallReportColumnKeys,
   WaterfallReportDataItem,
-} from '@interface/waterfall';
+} from '@interface/waterfallInterface';
 import { ColumnsType } from 'antd/es/table';
 
 export const waterfallReportListingData = (

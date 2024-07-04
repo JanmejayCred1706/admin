@@ -38,7 +38,10 @@ const data: MenuItemData[] = [
     label: 'Dashboard',
     key: '1',
     icon: <PieChartOutlined />,
-    children: [{ label: 'Home', key: '/admin/dashboard' }],
+    children: [
+      { label: 'Home', key: '/admin/dashboard' },
+      { label: 'Analytics', key: '/admin/dashboard/analytics' },
+    ],
   },
   {
     label: 'Plans',

@@ -5,7 +5,7 @@ import {
   sequenceFn,
 } from '@functions/billingReportFn';
 import useGetRequest from '@hooks/useGetRequest';
-import { orderTypeAllowed } from '@interface/billingReport';
+import { orderTypeAllowed } from '@interface/billingReportInterface';
 import { PageDataProps } from '@interface/globalInterface';
 import { useAppStore } from '@utils/Store';
 import React, { useEffect, useMemo, useState } from 'react';
