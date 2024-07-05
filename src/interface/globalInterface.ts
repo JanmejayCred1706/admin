@@ -13,7 +13,7 @@ export interface NotificationContextType {
   showNotification: (
     type: NotificationType,
     title: string,
-    msg: string
+    msg?: string
   ) => void;
   contextHolder: React.ReactNode;
 }

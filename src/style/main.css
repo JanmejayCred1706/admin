@@ -22,5 +22,23 @@
 .iconBorder{
   @apply p-2 rounded-lg border-[#000] border-[1px] text-[20px]
 }
+/* .topCard{
+  @apply bg-primary text-priWhite p-6 rounded-2xl w-[20%] min-w-[20rem]
+} */
+.topCard {
+  background-color: #f9f9f9; /* Adjust as needed */
+  border: 1px solid #ddd; /* Adjust as needed */
+  padding: 1rem; /* Adjust as needed */
+  min-width: 20rem; /* Minimum width */
+  flex: 1 1 20rem; /* Flex-grow, flex-shrink, flex-basis */
+  margin: 0.5rem; /* Margin around each card */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.2s; /* Animation on hover */
+}
+
+.topCard:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+}
 
 

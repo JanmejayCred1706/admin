@@ -15,14 +15,13 @@ type exportPayloadProps = {
   page: number;
   state_id: number | string;
 };
+
 type MixedHeadContendProps = {
   titleHeader: string;
   handleChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   searchPlaceHolder?: string;
-  dateFilter?: DateFilterProps;
-  setDateFilter?: React.Dispatch<React.SetStateAction<DateFilterProps>>;
-  exportUrl: string;
-  exportPayload: exportPayloadProps;
+  exportUrl?: string;
+  exportPayload?: exportPayloadProps;
   filter?: string;
   moduleKey?: string;
 };
@@ -30,27 +29,32 @@ type MixedHeadContendProps = {
 const MixedHeadContent: FC<MixedHeadContendProps> = ({
   titleHeader,
   handleChange,
-  searchPlaceHolder = 'Search',
-  dateFilter,
-  setDateFilter,
+  searchPlaceHolder,
   exportUrl,
   exportPayload,
   filter,
   moduleKey,
 }) => {
   const { showNotification } = useNotification();
-  let payloadForExport = {
+
+  const payloadForExport = {
     ...exportPayload,
     export: 1,
   };
+
   const { data, error, isLoading, refetch } = useGetRequest(
-    exportUrl,
+    exportUrl || '',
     payloadForExport,
     {},
-    [payloadForExport]
+    exportUrl ? [payloadForExport] : []
   );
 
   const handleExport = async () => {
+    if (!exportUrl) {
+      showNotification('error', 'Export URL is not provided');
+      return;
+    }
+
     try {
       const { data } = await refetch();
       showNotification(
@@ -60,7 +64,7 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
       );
       console.log('Export data:', data);
     } catch (err) {
-      showNotification('error', 'Data Exported Failed', err);
+      showNotification('error', 'Data Export Failed', err.message || err);
       console.error('Error exporting data:', err);
     }
   };
@@ -83,14 +87,8 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
         {exportUrl && (
           <ExportOutlined className="iconBorder" onClick={handleExport} />
         )}
-
         {moduleKey && <DateFilter moduleKey={moduleKey} />}
       </Space>
-      {/* {isLoading && <p>Loading...</p>}
-      {error && <p>{error.message}</p>} */}
-      {/* {listingData && <div> */}
-      {/* Render your data here */}
-      {/* </div>} */}
     </div>
   );
 };

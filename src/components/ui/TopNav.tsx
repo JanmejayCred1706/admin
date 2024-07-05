@@ -1,3 +1,4 @@
+'use client';
 import { UserOutlined } from '@ant-design/icons';
 import { SelectField } from '@components/Component';
 import { states } from '@functions/LayoutFn';
