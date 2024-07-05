@@ -1,3 +1,4 @@
+import { RetailerActionBtn } from '@components/Component';
 import { modifyListingData } from '@functions/globalFn';
 import {
   AllRetailersColumnKeys,
@@ -5,7 +6,13 @@ import {
 } from '@interface/allRetailersInterface';
 import { ColumnsType } from 'antd/es/table';
 
-export const allRetailersListingData = (listingData: any, keys: string[]) => {
+export const allRetailersListingData = (
+  listingData: any,
+  keys: string[],
+  handleDocument?: () => void,
+  handleInactive?: () => void,
+  handleResetPassword?: () => void
+) => {
   const defColumns: ColumnsType<AllRetailersDataItem> = [
     {
       title: 'Dealership Name',
@@ -28,6 +35,16 @@ export const allRetailersListingData = (listingData: any, keys: string[]) => {
       title: 'Created At',
       dataIndex: 'createdAt',
       key: 'createdAt',
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'action',
+      render: (_, data) => (
+        <RetailerActionBtn
+          {...{ handleDocument, handleInactive, handleResetPassword, data }}
+        />
+      ),
     },
   ];
   let defData: any =
@@ -59,6 +76,7 @@ export const sequenceFn = (): (keyof AllRetailersColumnKeys)[] => {
     'storeName',
     'wallet',
     'createdAt',
+    'action',
   ];
 
   return order;

@@ -6,7 +6,8 @@ export type orderTypeAllowed =
   | 'childCode'
   | 'storeName'
   | 'wallet'
-  | 'createdAt';
+  | 'createdAt'
+  | 'action';
 export interface AllRetailersColumnKeys {
   dealerShipName: keyof AllRetailersDataItem;
   email: keyof AllRetailersDataItem;

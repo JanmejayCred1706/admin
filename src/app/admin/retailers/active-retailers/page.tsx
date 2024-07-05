@@ -1,5 +1,5 @@
 'use client';
-import { DataTable, MixedHeadContent } from '@components/Component';
+import { DataTable, MixedHeadContent, ModalComp } from '@components/Component';
 import {
   activeRetailersListingData,
   sequenceFn,
@@ -13,7 +13,7 @@ import { useEffect, useMemo, useState } from 'react';
 type Props = {};
 
 const page = (props: Props) => {
-  const { currentState, dateFilters } = useAppStore();
+  const { currentState, dateFilters, setModelOpen } = useAppStore();
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -38,9 +38,19 @@ const page = (props: Props) => {
   let count: number = listingData?.data?.totalCount || 0;
   let order: orderTypeAllowed[] = sequenceFn();
 
+  const handleDocument = () => {
+    setModelOpen(true);
+  };
+  const handleInactive = () => {};
+  const handleResetPassword = () => {
+    setModelOpen(true);
+  };
   const { data: rawData, columns } = activeRetailersListingData(
     listingData?.data?.dealers || [],
-    order
+    order,
+    handleDocument,
+    handleInactive,
+    handleResetPassword
   );
 
   const data = rawData || [];
@@ -50,6 +60,7 @@ const page = (props: Props) => {
   }, [params, refetch]);
   return (
     <>
+      <ModalComp component={<>hello</>} />
       <MixedHeadContent
         titleHeader="Active Retailers"
         searchPlaceHolder="Search"
