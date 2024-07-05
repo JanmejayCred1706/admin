@@ -1,4 +1,4 @@
-import { formatCurrency, modifyListingData } from '@functions/globalFn';
+import { modifyListingData } from '@functions/globalFn';
 import {
   AllRetailersColumnKeys,
   AllRetailersDataItem,
@@ -14,13 +14,13 @@ export const allRetailersListingData = (listingData: any, keys: string[]) => {
       render: (text) => <a>{text}</a>,
     },
     { title: 'Email', dataIndex: 'email', key: 'email' },
+    { title: 'Child Code', dataIndex: 'childCode', key: 'childCode' },
     { title: 'Mobile', dataIndex: 'mobile', key: 'mobile' },
     {
       title: 'Ownership Type',
       dataIndex: 'ownershipType',
       key: 'ownershipType',
     },
-    { title: 'Child Code', dataIndex: 'childCode', key: 'childCode' },
     { title: 'Store Name', dataIndex: 'storeName', key: 'storeName' },
     { title: 'Total Claims', dataIndex: 'totalClaims', key: 'totalClaims' },
     { title: 'Wallet', dataIndex: 'wallet', key: 'wallet' },
