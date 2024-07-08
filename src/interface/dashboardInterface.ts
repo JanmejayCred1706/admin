@@ -15,3 +15,17 @@ export type ChartTypeInterface =
   | 'rangeBar'
   | 'rangeArea'
   | 'treemap';
+
+  export interface DashboardDataInterface {
+    header: string;
+    type: string;
+    count: string;
+  }
+
+  export type DashboardModuleInterface = {
+    title: string;
+    subTitleLeft: string;
+    subTitleRight: string;
+    dataArr: DashboardDataInterface[];
+    chipArr: string[];
+  };

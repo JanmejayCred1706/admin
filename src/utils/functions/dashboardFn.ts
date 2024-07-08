@@ -5,7 +5,7 @@ export const dashboardCardFn = (data?: any): TopCardInterface[] => {
     {
       count: 100,
       title: 'Active Retailers',
-      link: '',
+      link: '/admin/plans/all-plans',
     },
     {
       count: 100,

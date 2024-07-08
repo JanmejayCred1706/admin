@@ -27,7 +27,8 @@ const config: Config = {
         primary: '#3c63fc', // Example primary color
       },
       boxShadow: {
-        custom: ' 2px 2px 2px rgba(0, 0, 0, .1)',
+        custom: '2px 2px 2px rgba(0, 0, 0, .1)',
+        card: '0 0 10px rgba(0, 0, 0, 0.1)',
         'blue-custom': '0 2px 4px rgba(0, 0, 255, 0.1)', // Adjust RGBA as needed for subtle blue shadow
       },
       screens: {

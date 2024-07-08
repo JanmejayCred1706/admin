@@ -12,6 +12,7 @@ import FooterNav from '@ui/FooterNav';
 import BasicLayout from '@ui/BasicLayout';
 import DateFilter from '@ui/DateFilter';
 import RetailerActionBtn from '@ui/RetailerActionBtn';
+import DashboardModule from '@ui/DashboardModule';
 
 export {
   InputField,
@@ -28,4 +29,5 @@ export {
   BasicLayout,
   DateFilter,
   RetailerActionBtn,
+  DashboardModule,
 };

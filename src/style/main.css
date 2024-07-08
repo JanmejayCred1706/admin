@@ -26,6 +26,13 @@
 .topCard{
   @apply bg-primary text-priWhite p-6 rounded-2xl w-[20%] min-w-[20rem] flex-1 basis-[20rem]  shadow-blue-custom transition-transform duration-200 hover:translate-y-[-5px] max-w-[21rem]
 }
+.chip{ 
+  @apply bg-primary text-priWhite w-fit py-1 px-4 rounded-2xl 
+}
+.dashboardDataModule{
+  border-bottom: 1px solid #000;
+  @apply display-between  bg-[#f9f9f9] p-2 
+}
 
 
 
