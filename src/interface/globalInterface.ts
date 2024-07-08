@@ -19,3 +19,8 @@ export interface NotificationContextType {
 }
 export type pageKeyInterfaceProps = 'allPlans' | 'cancelPans'; 
 export type InputDateProps = string | number | Date;
+export type TopCardInterface = {
+  count: number;
+  title: string;
+  link: string;
+};
