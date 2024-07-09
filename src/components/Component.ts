@@ -4,7 +4,7 @@ import DateField from '@core/DateField';
 import DataTable from '@core/DataTable';
 import MixedHeadContent from '@core/MixedHeadContent';
 import ModalComp from '@core/ModalComp';
-// import ChartComp from '@core/ChartComp';
+import ChartComp from '@core/ChartComp';
 import LeftNav from '@ui/LeftNav';
 import TopNav from '@ui/TopNav';
 import BreadCrumbNav from '@ui/BreadCrumbNav';
@@ -13,6 +13,7 @@ import BasicLayout from '@ui/BasicLayout';
 import DateFilter from '@ui/DateFilter';
 import RetailerActionBtn from '@ui/RetailerActionBtn';
 import DashboardModule from '@ui/DashboardModule';
+import TopCard from '@ui/TopCard';
 
 export {
   InputField,
@@ -21,7 +22,7 @@ export {
   DataTable,
   MixedHeadContent,
   ModalComp,
-  // ChartComp,
+  ChartComp,
   LeftNav,
   TopNav,
   BreadCrumbNav,
@@ -30,4 +31,5 @@ export {
   DateFilter,
   RetailerActionBtn,
   DashboardModule,
+  TopCard,
 };

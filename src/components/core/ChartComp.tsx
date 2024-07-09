@@ -3,35 +3,31 @@ import { Card } from 'antd';
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-// Define the types for the props
-
 type ChartCompProps = {
-  options: any;
-  series: any;
-  type: ChartTypeInterface;
-  height: number;
-  width?: number;
-  export?: boolean;
+  height?: number;
+  arr: {
+    options: any;
+    series: any;
+    type?: ChartTypeInterface;
+    height: number;
+  }[];
 };
 
-const ChartComp: React.FC<ChartCompProps> = ({
-  options,
-  series,
-  type,
-  height,
-  width,
-  export
-}) => {
+const ChartComp: React.FC<ChartCompProps> = ({ arr }) => {
   return (
-    <Card>
-      <ReactApexChart
-        options={options}
-        series={series}
-        type={type}
-        height={height}
-        width={width}
-      />
-    </Card>
+    <>
+      {arr?.map((cur, id) => (
+        <Card className="w-[48%]" key={id}>
+          <ReactApexChart
+            options={cur.options}
+            series={cur.series}
+            type={cur.type}
+            height={cur.height}
+            width="100%"
+          />
+        </Card>
+      ))}
+    </>
   );
 };
 

@@ -1,11 +1,11 @@
 'use client';
-import React from 'react';
-import { DashboardModule, MixedHeadContent } from '@components/Component';
-import { useAppStore } from '@utils/Store';
+import {
+  DashboardModule,
+  MixedHeadContent,
+  TopCard,
+} from '@components/Component';
 import { dashboardCardFn } from '@functions/dashboardFn';
-import TopCard from '@components/ui/TopCard';
-import { Card } from 'antd';
-import Title from 'antd/es/typography/Title';
+import { useAppStore } from '@utils/Store';
 
 const Dashboard = () => {
   const { dateFilters } = useAppStore();
