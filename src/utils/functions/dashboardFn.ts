@@ -1,74 +1,62 @@
-import { TopCardInterface } from '@interface/globalInterface';
-
 interface DataItem {
-  plan_sold: number;
-  premium_collected: number;
+  [key: string]: number | string | any; // Adjust as per your actual data structure
 }
 
-export const dashboardCardFn = (data?: any): TopCardInterface[] => {
-  const arr: TopCardInterface[] = [
-    {
-      count: 100,
-      title: 'Active Retailers',
-      link: '/admin/plans/all-plans',
-    },
-    {
-      count: 100,
-      title: 'All Retailers',
-      link: '',
-    },
-    {
-      count: 100,
-      title: 'Dead Retailers',
-      link: '',
-    },
-    {
-      count: 100,
-      title: 'Active Retailers',
-      link: '',
-    },
-    {
-      count: 100,
-      title: 'Dead Retailers',
-      link: '',
-    },
-  ];
-  return arr;
-};
+interface ExtractionResult {
+  keys: string[];
+  [key: string]: any;
+}
 
-function dataExtraction(data: { [key: string]: DataItem }) {
+function dataExtraction(
+  data: { [key: string]: DataItem },
+  arrKeys: { [key: string]: string }
+): ExtractionResult {
   if (!data) {
     console.log('No data provided.');
-    return { keys: [], plansSoldArray: [], premiumCollected: [], sdpValue: [] };
+    return {
+      keys: [],
+      ...Object.fromEntries(Object.keys(arrKeys).map((key) => [key, []])),
+    };
   }
+
   const keys = Object.keys(data);
   const values = Object.values(data);
-  const plansSoldArray: number[] = [];
-  const premiumCollected: number[] = [];
+
+  const resultArrays: { [key: string]: any[] } = Object.fromEntries(
+    Object.keys(arrKeys).map((key) => [key, []])
+  );
 
   values.forEach((value) => {
     if (value && typeof value === 'object') {
-      plansSoldArray.push(value.plan_sold);
-      premiumCollected.push(value.premium_collected);
+      for (const [arr, key] of Object.entries(arrKeys)) {
+        resultArrays[arr].push(value[key]);
+      }
     }
   });
 
-  return { keys, plansSoldArray, premiumCollected };
+  return { keys, ...resultArrays };
 }
 
 export const saleOrPremium = (data: any) => {
-  console.log(data);
-  const { keys, plansSoldArray, premiumCollected } = dataExtraction(data ?? {});
+  const arrKeys = {
+    plansSoldArray: 'plan_sold',
+    premiumCollected: 'premium_collected',
+  };
+
+  const { keys, plansSoldArray, premiumCollected } = dataExtraction(
+    data ?? {},
+    arrKeys
+  );
 
   const series = [
     {
       name: 'Plans Sold',
-      type: 'column',
+      type: 'column' as const,
       data: plansSoldArray,
     },
     {
       name: 'Total Premium (in ₹)',
-      type: 'line',
+      type: 'line' as const,
       data: premiumCollected,
     },
   ];
@@ -109,80 +97,177 @@ export const saleOrPremium = (data: any) => {
 
   return { series, options };
 };
-
 export const modelWiseSale = (data: any) => {
-  const chartRowChartData = {
-    series: [
-      {
-        name: 'SDP',
-        data: sdpValues,
-      },
-      {
-        name: 'CDP',
-        data: cdpValues,
-      },
-      {
-        name: 'EW',
-        data: ewValues,
-      },
-    ],
-    options: {
-      chart: {
-        type: 'bar',
-        height: 350,
-        stacked: true,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true,
-          dataLabels: {
-            total: {
-              enabled: true,
-              offsetX: 0,
-              style: {
-                fontSize: '13px',
-                fontWeight: 900,
-              },
+  console.log(data, 'any');
+  const arrKeys = {
+    sdpValues: 'SDP',
+    cdpValues: 'CDP',
+    ewValues: 'EW',
+  };
+  console.log(data);
+  const { keys, sdpValues, cdpValues, ewValues } = dataExtraction(
+    data ?? {},
+    arrKeys
+  );
+  const series = [
+    {
+      name: 'SDP',
+      data: sdpValues,
+    },
+    {
+      name: 'CDP',
+      data: cdpValues,
+    },
+    {
+      name: 'EW',
+      data: ewValues,
+    },
+  ];
+
+  const options = {
+    chart: {
+      type: 'bar' as const,
+      height: 350,
+      stacked: true,
+    },
+    plotOptions: {
+      bar: {
+        horizontal: true,
+        dataLabels: {
+          total: {
+            enabled: true,
+            offsetX: 0,
+            style: {
+              fontSize: '13px',
+              fontWeight: 900,
             },
           },
         },
       },
-      stroke: {
-        width: 1,
-        colors: ['#fff'],
-      },
-      title: {
-        text: 'Top Model Wise Plan Sales',
-      },
-      xaxis: {
-        categories: modelWiseKeys,
-        labels: {
-          formatter: function (val) {
-            return val;
-          },
+    },
+    stroke: {
+      width: 1,
+      colors: ['#fff'],
+    },
+    title: {
+      text: 'Top Model Wise Plan Sales',
+    },
+    xaxis: {
+      categories: keys,
+      labels: {
+        formatter: function (val: string) {
+          return val;
         },
-      },
-      yaxis: {
-        title: {
-          text: undefined,
-        },
-      },
-      tooltip: {
-        y: {
-          formatter: function (val) {
-            return val;
-          },
-        },
-      },
-      fill: {
-        opacity: 1,
-      },
-      legend: {
-        position: 'top',
-        horizontalAlign: 'left',
-        offsetX: 40,
       },
     },
+    yaxis: {
+      title: {
+        text: undefined,
+      },
+    },
+    tooltip: {
+      y: {
+        formatter: function (val: number) {
+          return val.toString();
+        },
+      },
+    },
+    fill: {
+      opacity: 1,
+    },
+    legend: {
+      position: 'top',
+      horizontalAlign: 'left',
+      offsetX: 40,
+    },
   };
-  const { options, series } = chartRowChartData;
+
+  return { options, series };
+};
+export const topRetailerData = (data: any) => {
+  const arrKeys = {
+    sdpValues: 'SDP',
+    cdpValues: 'CDP',
+    ewValues: 'EW',
+  };
+
+  const { keys, sdpValues, cdpValues, ewValues } = dataExtraction(
+    data ?? {},
+    arrKeys
+  );
+
+  const series = [
+    {
+      name: 'SDP',
+      data: sdpValues,
+    },
+    {
+      name: 'CDP',
+      data: cdpValues,
+    },
+    {
+      name: 'EW',
+      data: ewValues,
+    },
+  ];
+
+  const options = {
+    chart: {
+      type: 'bar' as const,
+      height: 350,
+      stacked: true,
+    },
+    plotOptions: {
+      bar: {
+        horizontal: true,
+        dataLabels: {
+          total: {
+            enabled: true,
+            offsetX: 0,
+            style: {
+              fontSize: '13px',
+              fontWeight: 900,
+            },
+          },
+        },
+      },
+    },
+    stroke: {
+      width: 1,
+      colors: ['#fff'],
+    },
+    title: {
+      text: 'Top Retailer Wise Plan Sold',
+    },
+    xaxis: {
+      categories: keys,
+      labels: {
+        formatter: function (val: string) {
+          return val;
+        },
+      },
+    },
+    yaxis: {
+      title: {
+        text: undefined,
+      },
+    },
+    tooltip: {
+      y: {
+        formatter: function (val: number) {
+          return val.toString();
+        },
+      },
+    },
+    fill: {
+      opacity: 1,
+    },
+    legend: {
+      position: 'top',
+      horizontalAlign: 'left',
+      offsetX: 40,
+    },
+  };
+
+  return { options, series };
 };

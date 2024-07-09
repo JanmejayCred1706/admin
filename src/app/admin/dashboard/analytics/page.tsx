@@ -1,7 +1,11 @@
 'use client';
 
 import { ChartComp, MixedHeadContent } from '@components/Component';
-import { modelWiseSale, saleOrPremium } from '@functions/dashboardFn';
+import {
+  modelWiseSale,
+  saleOrPremium,
+  topRetailerData,
+} from '@functions/dashboardFn';
 import useGetRequest from '@hooks/useGetRequest';
 import { useAppStore } from '@utils/Store';
 import { useMemo, useEffect } from 'react';
@@ -35,9 +39,11 @@ const Analytics: React.FC = () => {
   console.log(data, 'data');
 
   const { series, options } = saleOrPremium(data?.data?.plan_premium ?? []);
-  // const { series: modelWiseSeries, options: modelWiseOptions } = modelWiseSale(
-  //   data?.data?.best_sold_model_report ?? []
-  // );
+  const { series: modelWiseSeries, options: modelWiseOptions } = modelWiseSale(
+    data?.data?.best_sold_model_report ?? []
+  );
+  const { series: topRetailersSeries, options: topRetailersOptions } =
+    topRetailerData(data?.data?.best_retailers_plan_sold ?? []);
   const arr: {
     options: any;
     series: any;
@@ -50,12 +56,18 @@ const Analytics: React.FC = () => {
       type: 'line',
       height: 400,
     },
-    // {
-    //   options: modelWiseOptions,
-    //   series: modelWiseSeries,
-    //   type: 'bar',
-    //   height: 400,
-    // },
+    {
+      options: modelWiseOptions,
+      series: modelWiseSeries,
+      type: 'bar',
+      height: 400,
+    },
+    {
+      options: topRetailersOptions,
+      series: topRetailersSeries,
+      type: 'bar',
+      height: 400,
+    },
   ];
 
   return (
