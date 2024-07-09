@@ -3,15 +3,17 @@
 import { ChartComp, MixedHeadContent } from '@components/Component';
 import {
   modelWiseSale,
+  rangeContribution,
+  rangeWiseSold,
   saleOrPremium,
-  topRetailerData,
+  saleWithType,
+  topRetailer,
 } from '@functions/dashboardFn';
 import useGetRequest from '@hooks/useGetRequest';
 import { useAppStore } from '@utils/Store';
-import { useMemo, useEffect } from 'react';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 
-type ChartTypeInterface = 'line' | 'bar' | 'pie'; // Define the expected chart types
+type ChartTypeInterface = 'line' | 'bar' | 'pie' | 'radialBar'; // Define the expected chart types
 
 const Analytics: React.FC = () => {
   const { currentState } = useAppStore();
@@ -43,7 +45,14 @@ const Analytics: React.FC = () => {
     data?.data?.best_sold_model_report ?? []
   );
   const { series: topRetailersSeries, options: topRetailersOptions } =
-    topRetailerData(data?.data?.best_retailers_plan_sold ?? []);
+    topRetailer(data?.data?.best_retailers_plan_sold ?? []);
+  const { series: saleWithTypeSeries, options: saleWithTypeOptions } =
+    saleWithType(data?.data?.all_plan_sold ?? []);
+  const { series: rangeWiseSeries, options: rangeWiseOptions } = rangeWiseSold(
+    data?.data?.price_range_wise_best_sold ?? []
+  );
+  const { series: rangeContributionSeries, options: rangeContributionOptions } =
+    rangeContribution(data?.data?.price_range_wise_premium_contribution ?? []);
   const arr: {
     options: any;
     series: any;
@@ -54,19 +63,37 @@ const Analytics: React.FC = () => {
       options: options,
       series: series,
       type: 'line',
-      height: 400,
+      height: 500,
     },
     {
       options: modelWiseOptions,
       series: modelWiseSeries,
       type: 'bar',
-      height: 400,
+      height: 500,
     },
     {
       options: topRetailersOptions,
       series: topRetailersSeries,
       type: 'bar',
-      height: 400,
+      height: 500,
+    },
+    {
+      options: saleWithTypeOptions,
+      series: saleWithTypeSeries,
+      type: 'radialBar',
+      height: 500,
+    },
+    {
+      options: rangeWiseOptions,
+      series: rangeWiseSeries,
+      type: 'bar',
+      height: 500,
+    },
+    {
+      options: rangeContributionOptions,
+      series: rangeContributionSeries,
+      type: 'line',
+      height: 500,
     },
   ];
 
