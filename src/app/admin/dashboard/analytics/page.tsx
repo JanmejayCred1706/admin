@@ -10,10 +10,9 @@ import {
   topRetailer,
 } from '@functions/dashboardFn';
 import useGetRequest from '@hooks/useGetRequest';
+import { ChartTypeInterface } from '@interface/dashboardInterface';
 import { useAppStore } from '@utils/Store';
 import React, { useEffect, useMemo } from 'react';
-
-type ChartTypeInterface = 'line' | 'bar' | 'pie' | 'radialBar'; // Define the expected chart types
 
 const Analytics: React.FC = () => {
   const { currentState } = useAppStore();
@@ -37,8 +36,6 @@ const Analytics: React.FC = () => {
   useEffect(() => {
     refetch();
   }, [params, refetch]);
-
-  console.log(data, 'data');
 
   const { series, options } = saleOrPremium(data?.data?.plan_premium ?? []);
   const { series: modelWiseSeries, options: modelWiseOptions } = modelWiseSale(

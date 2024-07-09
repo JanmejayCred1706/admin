@@ -1,14 +1,41 @@
-interface DataItem {
-  [key: string]: number | string | any; // Adjust as per your actual data structure
-}
+import {
+  DataObjInterface,
+  ExtractionResult,
+} from '@interface/dashboardInterface';
+import { TopCardInterface } from '@interface/globalInterface';
 
-interface ExtractionResult {
-  keys: string[];
-  [key: string]: any;
-}
-
+export const dashboardCardFn = (data?: any): TopCardInterface[] => {
+  const arr: TopCardInterface[] = [
+    {
+      count: 100,
+      title: 'Active Retailers',
+      link: '',
+    },
+    {
+      count: 100,
+      title: 'All Retailers',
+      link: '',
+    },
+    {
+      count: 100,
+      title: 'Dead Retailers',
+      link: '',
+    },
+    {
+      count: 100,
+      title: 'Active Retailers',
+      link: '',
+    },
+    {
+      count: 100,
+      title: 'Dead Retailers',
+      link: '',
+    },
+  ];
+  return arr;
+};
 function dataExtraction(
-  data: { [key: string]: DataItem },
+  data: { [key: string]: DataObjInterface },
   arrKeys: { [key: string]: string }
 ): ExtractionResult {
   if (!data) {
@@ -477,5 +504,3 @@ export const rangeContribution = (data: any) => {
 
   return { series, options };
 };
-
-
