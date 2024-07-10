@@ -21,13 +21,11 @@ const TopNav: React.FC<TopNavProps> = () => {
   const router = useRouter();
   const { Header } = Layout;
   const { updateState, currentState } = useAppStore();
-  console.log(currentState, 'current');
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
   const handleChange = (value: any) => {
-    console.log(value, 'current');
     updateState(value);
   };
   const items: MenuProps['items'] = [

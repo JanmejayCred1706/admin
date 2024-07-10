@@ -34,7 +34,6 @@ export const modifyListingData = (
 };
 
 export const dateFormatter = (val: InputDateProps, format?: string): string => {
-  console.log(format, '...');
   if (val && format) {
     return dayjs(val).format(format);
   } else {

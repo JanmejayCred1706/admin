@@ -2,7 +2,6 @@
 import { cookies } from 'next/headers';
 
 export async function addCookies(keys: string[], values: string[]) {
-  console.log(keys);
   if (keys.length !== values.length) {
     throw new Error('Keys and values arrays must have the same length');
   }

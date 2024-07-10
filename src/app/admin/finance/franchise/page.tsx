@@ -38,7 +38,6 @@ const Franchise: React.FC<pageProps> = ({}) => {
   let order: orderTypeAllowed[] = sequenceFn();
 
   const handleAddMoney = () => {
-    console.log('OKKk');
     setModelOpen(true);
   };
   const { data: rawData, columns } = franchiseListingData(

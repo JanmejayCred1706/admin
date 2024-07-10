@@ -39,7 +39,6 @@ function dataExtraction(
   arrKeys: { [key: string]: string }
 ): ExtractionResult {
   if (!data) {
-    console.log('No data provided.');
     return {
       keys: [],
       ...Object.fromEntries(Object.keys(arrKeys).map((key) => [key, []])),
@@ -125,13 +124,11 @@ export const saleOrPremium = (data: any) => {
   return { series, options };
 };
 export const modelWiseSale = (data: any) => {
-  console.log(data, 'any');
   const arrKeys = {
     sdpValues: 'SDP',
     cdpValues: 'CDP',
     ewValues: 'EW',
   };
-  console.log(data);
   const { keys, sdpValues, cdpValues, ewValues } = dataExtraction(
     data ?? {},
     arrKeys

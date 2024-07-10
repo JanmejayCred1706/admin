@@ -10,7 +10,6 @@ import { PageDataProps } from 'src/interface/globalInterface';
 
 const AllPlans = () => {
   const { currentState, dateFilters } = useAppStore();
-  console.log(dateFilters, 'dateFilters');
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -31,8 +30,6 @@ const AllPlans = () => {
     isLoading,
     refetch,
   } = useGetRequest('v2/orders', params, {}, [params]);
-
-  console.log(listingData, '>>>');
 
   let count: number = listingData?.data?.total_count || 0;
   let order: orderTypeAllowed[] = sequenceFn();

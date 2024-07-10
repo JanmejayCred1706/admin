@@ -27,7 +27,6 @@ const useGetRequest = (
         params,
         options
       );
-      console.log(data, '>>>');
       return data;
     } catch (error) {
       throw error;
@@ -44,12 +43,8 @@ const useGetRequest = (
     cacheTime: 10 * 60 * 1000,
     refetchOnWindowFocus: false,
     enabled: false, // Disable automatic fetching
-    onSuccess: (data: any) => {
-      console.log('Data fetched successfully:', data);
-    },
-    onError: (error: any) => {
-      console.error('Error fetching data:', error);
-    },
+    onSuccess: (data: any) => {},
+    onError: (error: any) => {},
   };
 
   return useQuery(queryOptions);

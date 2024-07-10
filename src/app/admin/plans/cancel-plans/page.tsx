@@ -30,8 +30,6 @@ const CancelPlans = () => {
     refetch,
   } = useGetRequest('v2/orders', params, {}, [params]);
 
-  console.log(listingData, '>>>');
-
   let count: number = listingData?.data?.total_count || 0;
   let order: orderTypeAllowed[] = sequenceFn();
 

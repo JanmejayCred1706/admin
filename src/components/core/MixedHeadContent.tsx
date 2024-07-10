@@ -62,7 +62,6 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
         'Data Exported Successfully',
         data?.data?.message
       );
-      console.log('Export data:', data);
     } catch (err) {
       showNotification('error', 'Data Export Failed', err.message || err);
       console.error('Error exporting data:', err);

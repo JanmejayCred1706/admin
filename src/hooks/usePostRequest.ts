@@ -26,10 +26,8 @@ const usePostRequest = (
         body,
         options
       );
-      //   console.log('Posted data:', data); // Debugging log
       return data;
     } catch (error) {
-      //   console.error('Fetch error:', error);
       throw error;
     } finally {
       setIsLoading(true);
@@ -39,14 +37,11 @@ const usePostRequest = (
   const mutationOptions: UseMutationOptions<any, Error, any, unknown> = {
     mutationFn: postData,
     onSuccess: (data) => {
-      // console.log('Success:', data);
       if (onSuccess) {
         onSuccess(data);
       }
     },
-    onError: (error: any) => {
-      //   console.error('Error posting data:', error);
-    },
+    onError: (error: any) => {},
   };
 
   return useMutation(mutationOptions);

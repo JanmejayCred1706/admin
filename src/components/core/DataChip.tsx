@@ -7,7 +7,6 @@ interface ChipProps {
 }
 
 const Chip: React.FC<ChipProps> = ({ color, name }) => {
-  console.log(color, name, '...');
   return (
     <>
       {name && (
