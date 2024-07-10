@@ -19,6 +19,7 @@ export default function Home() {
       <div>
         <h1>Jor se bolo</h1>
         <button>Jai mata di</button>
+        {/* <Loading /> */}
       </div>
     </>
   );

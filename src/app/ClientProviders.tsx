@@ -13,6 +13,7 @@ import 'antd/dist/reset.css'; // Ensure Ant Design styles are reset
 import { ReactNode } from 'react';
 import theme from 'src/methods/themeConfig';
 import './globals.css';
+import Loading from 'src/app/loading';
 
 function ClientProviders({ children }: { children: ReactNode }) {
   // const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ function ClientProviders({ children }: { children: ReactNode }) {
             <NotificationProvider>
               <BasicLayout>
                 {children}
+                <Loading />
                 <ReactQueryDevtools initialIsOpen={false} />
               </BasicLayout>
             </NotificationProvider>

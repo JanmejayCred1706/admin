@@ -33,6 +33,60 @@
   border-bottom: 1px solid #000;
   @apply display-between  bg-[#f9f9f9] p-2 
 }
+/* .loader {
+  @apply w-12 h-12 border-4 border-t-4 border-gray-200 rounded-full;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} */
+.loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #3C63FC;
+  animation: spin 2s linear infinite;
+  position: relative;
+}
+
+.loader::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  animation: pulse 2s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 
 

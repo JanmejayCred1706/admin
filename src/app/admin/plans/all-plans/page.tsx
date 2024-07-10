@@ -4,6 +4,7 @@ import { planListingData, sequenceFn } from '@functions/planFn';
 import { orderTypeAllowed } from '@interface/allPlansInterface';
 import { useAppStore } from '@utils/Store';
 import { useEffect, useMemo, useState } from 'react';
+import Loading from 'src/app/loading';
 import useGetRequest from 'src/hooks/useGetRequest';
 import { PageDataProps } from 'src/interface/globalInterface';
 

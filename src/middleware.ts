@@ -13,7 +13,7 @@ const fetchToken = async () => {
   return cookie;
 };
 export default function middleware(req: any) {
-  const token = true;
+  const token = false;
   if (!token && protectedRoutes.includes(req.nextUrl.pathname)) {
     const absoluteUrl = new URL('/', req.nextUrl.origin);
     return NextResponse.redirect(absoluteUrl.toString());
