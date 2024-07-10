@@ -8,9 +8,9 @@ import { dashboardCardFn } from '@functions/dashboardFn';
 import { useAppStore } from '@utils/Store';
 
 const Dashboard = () => {
-  const { dateFilters } = useAppStore();
+  const { dateFilters, isApiLoading } = useAppStore();
   const value = dashboardCardFn();
-
+console.log(isApiLoading, 'isApiLoading');
   const dataArr = [
     {
       header: 'Electronics',

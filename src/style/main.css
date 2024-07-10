@@ -11,7 +11,7 @@
   @apply cursor-pointer
 }
 .customBtn{
-  @apply rounded-lg p-[14px] text-xs bg-primary text-priWhite 
+  @apply rounded-lg p-[14px] text-xs bg-primary text-priWhite
   /* transition: background-color 0.3s ease; */
 }
 .customBtn:hover,

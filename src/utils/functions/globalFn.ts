@@ -2,7 +2,9 @@ import {
   InputDateProps,
   NotificationContextType,
 } from '@interface/globalInterface';
+import { getCookies } from '@utils/cookies';
 import dayjs from 'dayjs';
+import { NextRequest } from 'next/server';
 import { createContext } from 'react';
 
 export const NotificationContext = createContext<
@@ -68,4 +70,9 @@ export const chipColors = {
     bgColor: 'bg-yellow',
     textColor: 'text-[#E20F0F]',
   },
+};
+export const fetchToken = async (req: NextRequest): Promise<string | null> => {
+  console.log(req, 'req');
+  const cookie = await getCookies('token', req);
+  return cookie;
 };

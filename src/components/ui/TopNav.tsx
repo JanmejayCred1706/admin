@@ -3,6 +3,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { SelectField } from '@components/Component';
 import { states } from '@functions/LayoutFn';
 import { TopNavProps } from '@interface/UiInterfaces'; // Ensure this path is correct
+import { deleteCookies } from '@utils/cookies';
 import {
   Avatar,
   Dropdown,
@@ -43,8 +44,9 @@ const TopNav: React.FC<TopNavProps> = () => {
     },
   ];
   const handleLogOut = () => {
+    console.log('call');
     localStorage.removeItem('token');
-    // router.push('/login');
+    deleteCookies('token');
   };
   return (
     <Header

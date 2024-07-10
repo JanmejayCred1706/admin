@@ -1,4 +1,4 @@
-import { getCookies } from '@utils/cookies';
+import { fetchToken } from '@functions/globalFn';
 import { NextRequest, NextResponse } from 'next/server';
 
 const protectedRoutes = [
@@ -8,18 +8,23 @@ const protectedRoutes = [
 ];
 const unProtectedRoutes = ['/login'];
 
-const fetchToken = async () => {
-  const cookie = await getCookies('token');
-  return cookie;
-};
-export default function middleware(req: any) {
-  const token = true;
+export default async function middleware(
+  req: NextRequest
+): Promise<NextResponse> {
+  const token = await fetchToken(req);
+
   if (!token && protectedRoutes.includes(req.nextUrl.pathname)) {
-    const absoluteUrl = new URL('/', req.nextUrl.origin);
-    return NextResponse.redirect(absoluteUrl.toString());
+    // Redirect to login if token is missing and accessing protected route
+    const loginUrl = new URL('/login', req.nextUrl.origin);
+    return NextResponse.redirect(loginUrl.toString());
   }
+
   if (token && unProtectedRoutes.includes(req.nextUrl.pathname)) {
-    const absoluteUrl = new URL('/admin/dashboard', req.nextUrl.origin);
-    return NextResponse.redirect(absoluteUrl.toString());
+    // Redirect to dashboard if token is present and accessing login route
+    const dashboardUrl = new URL('/admin/dashboard', req.nextUrl.origin);
+    return NextResponse.redirect(dashboardUrl.toString());
   }
+
+  // Allow the request to proceed if none of the conditions match
+  return NextResponse.next();
 }

@@ -181,11 +181,7 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({ moduleKey }) => {
       onOpenChange={(open) => setVisibility(open)}
       className="customBtn"
     >
-      <a
-        href=""
-        onClick={(e) => e.preventDefault()}
-        className="block px-2 py-2"
-      >
+      <a href="" onClick={(e) => e.preventDefault()} className="block p-3">
         <Space>
           {dayjs(dateFilters[moduleKey]?.startDate).format(dateFormat)} -{' '}
           {dayjs(dateFilters[moduleKey]?.endDate).format(dateFormat)}

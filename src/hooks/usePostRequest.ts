@@ -30,8 +30,9 @@ const usePostRequest = (
     } catch (error) {
       throw error;
     } finally {
-      setIsLoading(true);
+      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   const mutationOptions: UseMutationOptions<any, Error, any, unknown> = {
