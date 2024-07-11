@@ -5,7 +5,11 @@ import { useAppStore } from '@utils/Store';
 import { Button, Dropdown, Form, Space } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { disableFutureDates } from 'src/utils/functions/utils';
+import {
+  disableFutureDates,
+  getDateFormat,
+  useFormat,
+} from 'src/utils/functions/utils';
 
 interface DateFilterCompProps {
   moduleKey: string;
@@ -19,7 +23,7 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({ moduleKey }) => {
   const to: Dayjs | undefined = Form.useWatch('to', form);
 
   const { dateFilters, setDateFilter } = useAppStore();
-
+  console.log(dateFilters, '...');
   const subtractDaysFromDate = (daysToSubtract: number): void => {
     const endDate = dayjs();
     const fromDate = daysToSubtract
@@ -27,7 +31,9 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({ moduleKey }) => {
       : dayjs().hour(23);
 
     form.setFieldsValue({ from: fromDate, to: endDate });
-    setDateFilter(moduleKey, fromDate.toISOString(), endDate.toISOString());
+    let startIso = getDateFormat(fromDate.toISOString());
+    let endIso = getDateFormat(endDate.toISOString());
+    setDateFilter(moduleKey, startIso, endIso);
     setVisibility(false);
   };
 
@@ -45,11 +51,9 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({ moduleKey }) => {
       from: fromDate,
       to: actualEndDate,
     });
-    setDateFilter(
-      moduleKey,
-      fromDate.toISOString(),
-      actualEndDate.toISOString()
-    );
+    let startIso = getDateFormat(fromDate.toISOString());
+    let endIso = getDateFormat(actualEndDate.toISOString());
+    setDateFilter(moduleKey, startIso, endIso);
     setVisibility(false);
   };
 
@@ -78,17 +82,15 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({ moduleKey }) => {
       from: initialStartDate,
       to: initialEndDate,
     });
-    setDateFilter(
-      moduleKey,
-      initialStartDate.toISOString(),
-      initialEndDate.toISOString()
-    );
+    let startIso = getDateFormat(initialStartDate.toISOString());
+    let endIso = getDateFormat(initialEndDate.toISOString());
+    setDateFilter(moduleKey, startIso, endIso);
   }, [form, setDateFilter, moduleKey]);
 
   useEffect(() => {
     if (from && to) {
-      const fromDate = from.toISOString();
-      const toDate = to.toISOString();
+      const fromDate = getDateFormat(from.toISOString());
+      const toDate = getDateFormat(to.toISOString());
 
       if (toDate < fromDate) {
         form.setFieldsValue({ from: '', to: '' });
@@ -183,8 +185,8 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({ moduleKey }) => {
     >
       <a href="" onClick={(e) => e.preventDefault()} className="block p-3">
         <Space>
-          {dayjs(dateFilters[moduleKey]?.startDate).format(dateFormat)} -{' '}
-          {dayjs(dateFilters[moduleKey]?.endDate).format(dateFormat)}
+          {dateFilters[moduleKey]?.startDate} -{' '}
+          {dateFilters[moduleKey]?.endDate}
           <DownOutlined />
         </Space>
       </a>

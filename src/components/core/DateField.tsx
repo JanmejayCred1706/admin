@@ -1,3 +1,4 @@
+import { useFormat } from '@functions/utils';
 import { DatePicker, Form } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React from 'react';
@@ -37,14 +38,14 @@ const DateField: React.FC<DateFieldProps> = ({
       ]}
     >
       <DatePicker
-        format={'YYYY/MM/DD'}
+        format={useFormat}
         disabledDate={(current) => {
           if (isDisabledDate && disabledDate) {
             return disabledDate(current);
           } else {
-            let customDate = dayjs().format('YYYY/MM/DD');
+            let customDate = dayjs().format(useFormat);
             return current
-              ? current.isAfter(dayjs(customDate, 'YYYY/MM/DD'))
+              ? current.isAfter(dayjs(customDate, useFormat))
               : false;
           }
         }}
