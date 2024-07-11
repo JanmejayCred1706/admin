@@ -1,3 +1,4 @@
+'use client';
 import { useAppStore } from '@utils/Store';
 
 export default function Loading() {

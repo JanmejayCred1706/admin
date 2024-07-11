@@ -1,4 +1,5 @@
 // hooks/usePostRequest.ts
+import { useNotification } from '@components/higher-order-components/Notification';
 import {
   useMutation,
   UseMutationOptions,
@@ -18,6 +19,7 @@ const usePostRequest = (
   onSuccess?: (data: any) => void
 ): UseMutationResult<any, Error, any, unknown> => {
   const { setIsLoading } = useAppStore();
+  const { showNotification } = useNotification();
   const postData = async (body: any): Promise<any> => {
     setIsLoading(true);
     try {
@@ -28,6 +30,7 @@ const usePostRequest = (
       );
       return data;
     } catch (error) {
+      showNotification('error', 'An error occurred');
       throw error;
     } finally {
       setIsLoading(false);

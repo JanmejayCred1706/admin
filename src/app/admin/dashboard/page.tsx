@@ -10,7 +10,6 @@ import { useAppStore } from '@utils/Store';
 const Dashboard = () => {
   const { dateFilters, isApiLoading } = useAppStore();
   const value = dashboardCardFn();
-console.log(isApiLoading, 'isApiLoading');
   const dataArr = [
     {
       header: 'Electronics',

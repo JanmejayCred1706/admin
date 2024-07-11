@@ -5,11 +5,14 @@ import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import usePostRequest from 'src/hooks/usePostRequest';
 import { addCookies } from '@utils/cookies';
+import { useNotification } from '@components/higher-order-components/Notification';
 
 const LoginForm: FC = () => {
+  const { showNotification } = useNotification();
   const router = useRouter();
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const mutation = usePostRequest('user/login', {}, (data) => {
+    showNotification('success', 'User Login Successfully');
     if (data?.data?.token) {
       addCookies(['token'], [data.data.token]);
       localStorage.setItem('token', data.data.token);

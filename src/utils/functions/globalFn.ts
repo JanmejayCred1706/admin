@@ -72,7 +72,6 @@ export const chipColors = {
   },
 };
 export const fetchToken = async (req: NextRequest): Promise<string | null> => {
-  console.log(req, 'req');
   const cookie = await getCookies('token', req);
   return cookie;
 };

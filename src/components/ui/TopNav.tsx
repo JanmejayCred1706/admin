@@ -29,25 +29,17 @@ const TopNav: React.FC<TopNavProps> = () => {
   const handleChange = (value: any) => {
     updateState(value);
   };
-  const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          // href="https://www.antgroup.com"
-        >
-          Sign-out
-        </a>
-      ),
-    },
-  ];
   const handleLogOut = () => {
-    console.log('call');
     localStorage.removeItem('token');
     deleteCookies('token');
   };
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: <p onClick={handleLogOut}>Sign Out</p>,
+    },
+  ];
+
   return (
     <Header
       style={{
@@ -102,11 +94,7 @@ const TopNav: React.FC<TopNavProps> = () => {
             placement="bottomRight"
             arrow={{ pointAtCenter: true }}
           >
-            <Avatar
-              size="large"
-              icon={<UserOutlined />}
-              onClick={handleLogOut}
-            />
+            <Avatar size="large" icon={<UserOutlined />} />
           </Dropdown>
         </Space>
       </div>
