@@ -53,8 +53,11 @@ export const formatCurrency = (amount: number): string => {
 
   return formattedAmount;
 };
-
-export const chipColors = {
+interface ChipColor {
+  bgColor: string;
+  textColor: string;
+}
+export const chipColors: Record<string, ChipColor> = {
   'Partially Approved': {
     bgColor: 'bg-[#E4EEFC]',
     textColor: 'text-[#229EEF]',
@@ -64,11 +67,21 @@ export const chipColors = {
     textColor: 'text-[#229EEF]',
   },
   Approved: { bgColor: 'bg-[#EDFFF2]', textColor: 'text-[#2BB256]' },
-  'Claim Initiated': { bgColor: 'bg-[#E4EEFC]', textColor: 'text-[#229EEF]' },
+  'Claim Initiated': { bgColor: 'bg-[yellow]', textColor: 'text-[#229EEF]' },
   Closed: { bgColor: 'bg-[#FFF0F2]', textColor: 'text-[#E20F0F]' },
+  BER: { bgColor: 'bg-[#FFF0F2]', textColor: 'text-[#E20F0F]' },
+  'BER-Repair': { bgColor: 'bg-[#FFF0F2]', textColor: 'text-[#E20F0F]' },
   'Need more documents': {
-    bgColor: 'bg-yellow',
+    bgColor: 'bg-[#E4EEFC]',
     textColor: 'text-[#E20F0F]',
+  },
+  'Claim Submitted': {
+    bgColor: 'bg-[#E4EEFC]',
+    textColor: 'text-[#229EEF]',
+  },
+  'Documents Verified': {
+    bgColor: 'bg-[#E4EEFC]',
+    textColor: 'text-[#229EEF]',
   },
 };
 export const fetchToken = async (req: NextRequest): Promise<string | null> => {

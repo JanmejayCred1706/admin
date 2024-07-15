@@ -17,7 +17,19 @@ export interface NotificationContextType {
   ) => void;
   contextHolder: React.ReactNode;
 }
-export type pageKeyInterfaceProps = 'allPlans' | 'cancelPans'; 
+export type pageKeyInterfaceProps =
+  | 'dashboard'
+  | 'analytics'
+  | 'allPlans'
+  | 'cancelPans'
+  | 'allRetailers'
+  | 'activeRetailers'
+  | 'serviceCenter'
+  | 'allClaims'
+  | 'billing'
+  | 'waterfall'
+  | 'franchise'
+  | 'invoice'; 
 export type InputDateProps = string | number | Date;
 export type TopCardInterface = {
   id: number;

@@ -10,13 +10,11 @@ import queryClient from '@utils/queryClient';
 import { ConfigProvider } from 'antd';
 import 'antd/dist/reset.css'; // Ensure Ant Design styles are reset
 import { ReactNode } from 'react';
+import ErrorBoundary from 'src/app/ErrorBoundary';
+import ErrorComponent from 'src/app/error';
+import Loading from 'src/app/loading';
 import theme from 'src/methods/themeConfig';
 import './globals.css';
-import Loading from 'src/app/loading';
-import { useRouter } from 'next/navigation';
-import { getCookiesFrom } from '@utils/cookies';
-import ErrorBoundary from 'src/app/ErrorBoundary';
-import Error from 'src/app/error';
 
 function ClientProviders({ children }: { children: ReactNode }) {
   return (
@@ -25,7 +23,7 @@ function ClientProviders({ children }: { children: ReactNode }) {
         <AntdRegistry>
           <StyleProvider>
             <NotificationProvider>
-              <ErrorBoundary fallback={<Error />}>
+              <ErrorBoundary fallback={<ErrorComponent />}>
                 <BasicLayout>
                   {children}
                   <Loading />

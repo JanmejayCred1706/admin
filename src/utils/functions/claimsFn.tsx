@@ -44,7 +44,7 @@ export const claimsListingData = (listingData: any, keys: string[]) => {
       key: 'status',
       render: (_, { status }) => (
         <div className="flex justify-center">
-          <DataChip color={status} name={status} />
+          <DataChip name={status} />
         </div>
       ),
     },

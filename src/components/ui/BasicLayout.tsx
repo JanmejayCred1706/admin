@@ -38,8 +38,8 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
           <LeftNav />
           <Layout>
             <TopNav />
-            <Content style={{ margin: '0 16px' }}>
-              <BreadCrumbNav />
+            <Content style={{ margin: '1.5rem' }}>
+              {/* <BreadCrumbNav /> */}
               <div
                 style={{
                   padding: 24,

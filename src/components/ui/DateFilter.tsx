@@ -5,11 +5,7 @@ import { useAppStore } from '@utils/Store';
 import { Button, Dropdown, Form, Space } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import {
-  disableFutureDates,
-  getDateFormat,
-  useFormat,
-} from 'src/utils/functions/utils';
+import { disableFutureDates, getDateFormat } from 'src/utils/functions/utils';
 
 interface DateFilterCompProps {
   moduleKey: string;
@@ -23,7 +19,6 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({ moduleKey }) => {
   const to: Dayjs | undefined = Form.useWatch('to', form);
 
   const { dateFilters, setDateFilter } = useAppStore();
-  console.log(dateFilters, '...');
   const subtractDaysFromDate = (daysToSubtract: number): void => {
     const endDate = dayjs();
     const fromDate = daysToSubtract

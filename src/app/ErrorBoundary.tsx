@@ -1,45 +1,37 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+'use client';
+import React, { useState, ReactNode, useEffect } from 'react';
+import ErrorComponent from 'src/app/error';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
 }
 
-interface ErrorBoundaryState {
-  hasError: boolean;
-}
+const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
+  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
-class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
-  }
+  const resetErrorBoundary = () => {
+    setHasError(false);
+    setError(null);
+  };
 
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true };
-  }
+  const getDerivedStateFromError = (error: Error) => {
+    setHasError(true);
+    setError(error);
+  };
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo);
-    // You can log error details to a service here
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div>
-          <h2>Oops, there is an error!</h2>
-          <button
-            type="button"
-            onClick={() => this.setState({ hasError: false })}
-          >
-            Try again?
-          </button>
-        </div>
-      );
+  useEffect(() => {
+    if (hasError && error) {
+      console.error('Uncaught error:', error);
+      // You can log error details to a service here
     }
+  }, [hasError, error]);
 
-    return this.props.children;
+  if (hasError && error) {
+    return <ErrorComponent error={error} reset={resetErrorBoundary} />;
   }
-}
+
+  return children;
+};
 
 export default ErrorBoundary;
