@@ -1,5 +1,6 @@
 'use client';
-import { DataTable, MixedHeadContent } from '@components/Component';
+import DataTable from '@core/DataTable';
+import MixedHeadContent from '@core/MixedHeadContent';
 import { planListingData, sequenceFn } from '@functions/planFn';
 import { orderTypeAllowed } from '@interface/allPlansInterface';
 import { useAppStore } from '@utils/Store';

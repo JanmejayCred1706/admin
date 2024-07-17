@@ -1,10 +1,8 @@
 'use client';
-import {
-  BreadCrumbNav,
-  FooterNav,
-  LeftNav,
-  TopNav,
-} from '@components/Component';
+
+import FooterNav from '@components/ui/FooterNav';
+import LeftNav from '@components/ui/LeftNav';
+import TopNav from '@components/ui/TopNav';
 import { LayoutProps } from '@interface/UiInterfaces';
 import { Layout, theme } from 'antd';
 import { useRouter } from 'next/navigation';

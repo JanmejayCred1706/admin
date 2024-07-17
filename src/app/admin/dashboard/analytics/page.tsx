@@ -1,6 +1,7 @@
 'use client';
 
-import { ChartComp, MixedHeadContent } from '@components/Component';
+import ChartComp from '@components/core/ChartComp';
+import MixedHeadContent from '@components/core/MixedHeadContent';
 import {
   modelWiseSale,
   rangeContribution,

@@ -2,8 +2,7 @@
 
 import { StyleProvider } from '@ant-design/cssinjs';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
-import { BasicLayout } from '@components/Component';
-import { NotificationProvider } from '@components/higher-order-components/Notification';
+import BasicLayout from '@components/ui/BasicLayout';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import queryClient from '@utils/queryClient';
@@ -15,6 +14,7 @@ import ErrorComponent from 'src/app/error';
 import Loading from 'src/app/loading';
 import theme from 'src/methods/themeConfig';
 import './globals.css';
+import { NotificationProvider } from '@components/higher-order-components/Notification';
 
 function ClientProviders({ children }: { children: ReactNode }) {
   return (
@@ -23,13 +23,13 @@ function ClientProviders({ children }: { children: ReactNode }) {
         <AntdRegistry>
           <StyleProvider>
             <NotificationProvider>
-              <ErrorBoundary fallback={<ErrorComponent />}>
-                <BasicLayout>
+              <BasicLayout>
+                <ErrorBoundary fallback={ErrorComponent}>
                   {children}
                   <Loading />
                   <ReactQueryDevtools initialIsOpen={false} />
-                </BasicLayout>
-              </ErrorBoundary>
+                </ErrorBoundary>
+              </BasicLayout>
             </NotificationProvider>
           </StyleProvider>
         </AntdRegistry>

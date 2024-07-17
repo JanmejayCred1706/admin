@@ -1,5 +1,7 @@
 'use client';
-import { DataTable, MixedHeadContent, ModalComp } from '@components/Component';
+import ModalComp from '@components/core/ModalComp';
+import DataTable from '@core/DataTable';
+import MixedHeadContent from '@core/MixedHeadContent';
 import {
   activeRetailersListingData,
   sequenceFn,

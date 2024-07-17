@@ -1,5 +1,6 @@
 'use client';
-import { DataTable, MixedHeadContent, ModalComp } from '@components/Component';
+import DataTable from '@core/DataTable';
+import MixedHeadContent from '@core/MixedHeadContent';
 import { InvoiceListingData, sequenceFn } from '@functions/invoiceFn';
 import useGetRequest from '@hooks/useGetRequest';
 import { PageDataProps } from '@interface/globalInterface';

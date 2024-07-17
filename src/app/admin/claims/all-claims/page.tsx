@@ -1,5 +1,6 @@
 'use client';
-import { DataTable, MixedHeadContent } from '@components/Component';
+import DataTable from '@core/DataTable';
+import MixedHeadContent from '@core/MixedHeadContent';
 import { claimsListingData, sequenceFn } from '@functions/claimsFn';
 import useGetRequest from '@hooks/useGetRequest';
 import { orderTypeAllowed } from '@interface/claimInterface';

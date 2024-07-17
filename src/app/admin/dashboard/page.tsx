@@ -1,9 +1,7 @@
 'use client';
-import {
-  DashboardModule,
-  MixedHeadContent,
-  TopCard,
-} from '@components/Component';
+import MixedHeadContent from '@components/core/MixedHeadContent';
+import DashboardModule from '@components/ui/DashboardModule';
+import TopCard from '@components/ui/TopCard';
 import { dashboardCardFn } from '@functions/dashboardFn';
 import { useAppStore } from '@utils/Store';
 

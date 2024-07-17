@@ -1,22 +1,17 @@
-'use client'; // Error components must be Client Components
-
-import { useEffect } from 'react';
+'use client';
+import React from 'react';
 
 interface ErrorProps {
-  error: Error & { digest?: string };
+  error: Error;
   reset: () => void;
 }
 
 const ErrorComponent: React.FC<ErrorProps> = ({ error, reset }) => {
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error);
-  }, [error]);
-
   return (
     <div>
-      <h2>Something went wrong!</h2>
-      <button onClick={() => reset()}>Try again</button>
+      <h1>Something went wrong</h1>
+      <p>{error.message}</p>
+      <button onClick={reset}>Try again</button>
     </div>
   );
 };

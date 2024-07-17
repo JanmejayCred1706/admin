@@ -1,4 +1,4 @@
-import { RetailerActionBtn } from '@components/Component';
+import RetailerActionBtn from '@components/ui/RetailerActionBtn';
 import { formatCurrency, modifyListingData } from '@functions/globalFn';
 import {
   ActiveRetailersColumnKeys,

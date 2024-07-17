@@ -3,13 +3,13 @@ import {
   FilterOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
-import { DateFilter } from '@components/Component';
 import { DateFilterProps } from 'src/interface/globalInterface';
 import { Input, Space } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React, { ChangeEvent, FC } from 'react';
 import useGetRequest from 'src/hooks/useGetRequest';
 import { useNotification } from '@higher-order-components/Notification';
+import DateFilter from '@components/ui/DateFilter';
 
 type exportPayloadProps = {
   page: number;

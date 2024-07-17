@@ -1,5 +1,6 @@
 'use client';
-import { DataTable, MixedHeadContent } from '@components/Component';
+import DataTable from '@core/DataTable';
+import MixedHeadContent from '@core/MixedHeadContent';
 import React, { useEffect, useMemo, useState } from 'react';
 import useGetRequest from '@hooks/useGetRequest';
 import { useAppStore } from '@utils/Store';

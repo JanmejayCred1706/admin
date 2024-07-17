@@ -1,5 +1,6 @@
 'use client';
-import { DataTable, MixedHeadContent } from '@components/Component';
+import DataTable from '@components/core/DataTable';
+import MixedHeadContent from '@components/core/MixedHeadContent';
 import { allRetailersListingData, sequenceFn } from '@functions/allRetailersFn';
 import useGetRequest from '@hooks/useGetRequest';
 import { orderTypeAllowed } from '@interface/allRetailersInterface';
