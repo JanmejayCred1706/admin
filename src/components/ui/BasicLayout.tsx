@@ -6,7 +6,7 @@ import TopNav from '@components/ui/TopNav';
 import { LayoutProps } from '@interface/UiInterfaces';
 import { Layout, theme } from 'antd';
 import { useRouter } from 'next/navigation';
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 
 const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
   const {
@@ -14,13 +14,16 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
   } = theme.useToken();
   const { Content } = Layout;
   const router = useRouter();
-  const token = localStorage.getItem('token');
+
+  const [token, setToken] = useState<string | null>(null);
 
   useLayoutEffect(() => {
+    const token = localStorage.getItem('token');
+    setToken(token);
     if (!token) {
       router.push('/login');
     }
-  }, [token, router]);
+  }, [router]);
 
   return (
     <>
@@ -37,7 +40,6 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
           <Layout>
             <TopNav />
             <Content style={{ margin: '1.5rem' }}>
-              {/* <BreadCrumbNav /> */}
               <div
                 style={{
                   padding: 24,
