@@ -1,7 +1,8 @@
-import { ChartTypeInterface } from '@interface/dashboardInterface';
-import { Card } from 'antd';
+'use client';
 import React from 'react';
+import { Card } from 'antd';
 import ReactApexChart from 'react-apexcharts';
+import { ChartTypeInterface } from '@interface/dashboardInterface';
 
 type ChartCompProps = {
   height?: number;
@@ -14,6 +15,11 @@ type ChartCompProps = {
 };
 
 const ChartComp: React.FC<ChartCompProps> = ({ arr }) => {
+  if (typeof window === 'undefined') {
+    // Return null or some placeholder content for server-side rendering
+    return null;
+  }
+
   return (
     <>
       {arr?.map((cur, id) => (
