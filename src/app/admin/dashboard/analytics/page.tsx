@@ -12,6 +12,7 @@ import {
 import useGetRequest from '@hooks/useGetRequest';
 import { useAppStore } from '@utils/Store';
 import React, { useEffect, useMemo } from 'react';
+import { ChartTypeInterface } from '@interface/dashboardInterface';
 
 const ChartComp = dynamic(() => import('@components/core/ChartComp'), {
   ssr: false,
