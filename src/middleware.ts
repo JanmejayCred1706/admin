@@ -13,11 +13,11 @@ export default async function middleware(
 ): Promise<NextResponse> {
   const token = await fetchToken(req);
 
-  if (!token && protectedRoutes.includes(req.nextUrl.pathname)) {
-    // Redirect to login if token is missing and accessing protected route
-    const loginUrl = new URL('/login', req.nextUrl.origin);
-    return NextResponse.redirect(loginUrl.toString());
-  }
+  // if (!token && protectedRoutes.includes(req.nextUrl.pathname)) {
+  //   // Redirect to login if token is missing and accessing protected route
+  //   const loginUrl = new URL('/login', req.nextUrl.origin);
+  //   return NextResponse.redirect(loginUrl.toString());
+  // }
 
   if (token && unProtectedRoutes.includes(req.nextUrl.pathname)) {
     // Redirect to dashboard if token is present and accessing login route
