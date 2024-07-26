@@ -5,29 +5,39 @@ import LeftNav from '@components/ui/LeftNav';
 import TopNav from '@components/ui/TopNav';
 import { LayoutProps } from '@interface/UiInterfaces';
 import { getCookiesFrom } from '@utils/cookies';
-import { Layout, theme } from 'antd';
-import { useRouter } from 'next/navigation';
-import React, { useLayoutEffect, useState } from 'react';
+import { Layout, Spin, theme } from 'antd';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import Loading from 'src/app/loading';
 
 const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const { Content } = Layout;
-  const router = useRouter();
+  const pathname = usePathname();
   const [token, setToken] = useState<string | undefined>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getToken = async () => {
+    setIsLoading(true);
     try {
-      let token = await getCookiesFrom('token');
+      const token = await getCookiesFrom('token');
       setToken(token?.value);
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     getToken();
-  }, [router]);
+  }, [pathname]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
