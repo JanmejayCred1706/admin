@@ -15,7 +15,6 @@ const LoginForm: FC = () => {
     showNotification('success', 'User Login Successfully');
     if (data?.data?.token) {
       addCookies(['token'], [data.data.token]);
-      localStorage.setItem('token', data.data.token);
     }
     if (data?.success) {
       router.push('/admin/dashboard');

@@ -88,3 +88,4 @@ export const fetchToken = async (req: NextRequest): Promise<string | null> => {
   const cookie = await getCookies('token', req);
   return cookie;
 };
+

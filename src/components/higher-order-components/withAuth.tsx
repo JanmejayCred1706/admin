@@ -1,34 +1,25 @@
-'use client';
-import { getCookiesFrom } from '@utils/cookies';
 import { useRouter } from 'next/navigation';
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, { useEffect, useState, ComponentType } from 'react';
 
-export default function withAuth(Component: any) {
-  return function withAuth(props: any) {
+function withAuth<P extends {}>(WrappedComponent: ComponentType<P>) {
+  return (props: P) => {
     const [token, setToken] = useState<string | null>(null);
     const router = useRouter();
 
     useEffect(() => {
-      (async () => {
-        try {
-          const data = await getCookiesFrom('token');
-          setToken(data);
-        } catch (err) {
-          console.error(err);
-        }
-      })();
-    }, []);
-
-    useLayoutEffect(() => {
-      if (token === null) {
+      const token = localStorage.getItem('token');
+      setToken(token);
+      if (!token) {
         router.push('/login');
       }
-    }, [token, router]);
+    }, [router]);
 
-    if (token === null) {
-      return null;
-    }
+    // if (!token) {
+    //   return null; // Optionally, show a loading spinner or a placeholder
+    // }
 
-    return <Component {...props} />;
+    return <WrappedComponent {...props} />;
   };
 }
+
+export default withAuth;

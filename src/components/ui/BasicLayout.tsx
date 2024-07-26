@@ -4,6 +4,7 @@ import FooterNav from '@components/ui/FooterNav';
 import LeftNav from '@components/ui/LeftNav';
 import TopNav from '@components/ui/TopNav';
 import { LayoutProps } from '@interface/UiInterfaces';
+import { getCookiesFrom } from '@utils/cookies';
 import { Layout, theme } from 'antd';
 import { useRouter } from 'next/navigation';
 import React, { useLayoutEffect, useState } from 'react';
@@ -14,15 +15,18 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
   } = theme.useToken();
   const { Content } = Layout;
   const router = useRouter();
+  const [token, setToken] = useState<string | undefined>('');
 
-  const [token, setToken] = useState<string | null>(null);
-
-  useLayoutEffect(() => {
-    const token = localStorage.getItem('token');
-    setToken(token);
-    if (!token) {
-      router.push('/login');
+  const getToken = async () => {
+    try {
+      let token = await getCookiesFrom('token');
+      setToken(token?.value);
+    } catch (err) {
+      console.log(err);
     }
+  };
+  useLayoutEffect(() => {
+    getToken();
   }, [router]);
 
   return (

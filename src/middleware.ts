@@ -18,6 +18,11 @@ export default async function middleware(
     const loginUrl = new URL('/login', req.nextUrl.origin);
     return NextResponse.redirect(loginUrl.toString());
   }
+  if (token && protectedRoutes.includes(req.nextUrl.pathname)) {
+    // Redirect to login if token is missing and accessing protected route
+    const url = new URL('/404', req.nextUrl.origin);
+    return NextResponse.redirect(url.toString());
+  }
 
   if (token && unProtectedRoutes.includes(req.nextUrl.pathname)) {
     // Redirect to dashboard if token is present and accessing login route

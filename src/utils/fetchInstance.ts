@@ -16,9 +16,16 @@ const responseInterceptor = async (response: Response) => {
   }
   return res;
 };
+const getTokenFromCookies = (): string | null => {
+  if (typeof document === 'undefined') {
+    return null;
+  }
+  const match = document.cookie.match(new RegExp('(^| )token=([^;]+)'));
+  return match ? match[2] : null;
+};
 
 const fetchInstance = async (endpoint: string, options: FetchOptions = {}) => {
-  const token = localStorage.getItem('token');
+  const token = getTokenFromCookies();
 
   const headers = {
     'Content-Type': 'application/json',

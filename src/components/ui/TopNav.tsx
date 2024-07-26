@@ -29,9 +29,7 @@ const TopNav: React.FC<TopNavProps> = () => {
     updateState(value);
   };
   const handleLogOut = () => {
-    localStorage.removeItem('token');
     deleteCookies('token');
-    router.push('/login');
   };
   const items: MenuProps['items'] = [
     {

@@ -12,7 +12,7 @@ export async function addCookies(keys: string[], values: string[]) {
     cookies().set(key, values[index], { secure: true });
   });
 }
-
+// for server side
 export const getCookies = async (
   key: string,
   req: NextRequest
@@ -20,6 +20,7 @@ export const getCookies = async (
   const cookies = req.cookies.get(key);
   return cookies ? cookies.value : null;
 };
+// for client side 
 export async function getCookiesFrom(keys: string) {
   const cookieStore = cookies();
   const getKey = cookieStore.get(keys);
@@ -30,3 +31,4 @@ export async function deleteCookies(keys: string) {
   cookieStore.delete(keys);
   redirect('/login');
 }
+
