@@ -19,12 +19,27 @@ const useGetRequest = (
 ): UseQueryResult<any, Error> => {
   const { setIsLoading } = useAppStore();
 
+  const decodeParams = (params: Record<string, any>): Record<string, any> => {
+    const decodedParams: Record<string, any> = {};
+    for (const key in params) {
+      if (params.hasOwnProperty(key)) {
+        let value = params[key];
+        if (key.includes('startDate') || key.includes('endDate')) {
+          value = value.replace(/\//g, '-');
+        }
+        decodedParams[key] = value;
+      }
+    }
+    return decodedParams;
+  };
+
   const fetchData = async (): Promise<any> => {
     setIsLoading(true);
     try {
+      const decodedParams = decodeParams(params);
       const { data }: FetchData = await fetchInstance.get(
         endpoint,
-        params,
+        decodedParams,
         options
       );
       return data;

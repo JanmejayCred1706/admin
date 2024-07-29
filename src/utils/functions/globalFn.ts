@@ -88,4 +88,11 @@ export const fetchToken = async (req: NextRequest): Promise<string | null> => {
   const cookie = await getCookies('token', req);
   return cookie;
 };
+export const getTodaysDate = () => {
+  const today = new Date();
+  const date = String(today.getDate()).padStart(2, '0');
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const year = today.getFullYear();
+  return `${date}/${month}/${year}`;
+};
 

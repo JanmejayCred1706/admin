@@ -5,12 +5,14 @@ import { planListingData, sequenceFn } from '@functions/planFn';
 import { orderTypeAllowed } from '@interface/allPlansInterface';
 import { useAppStore } from '@utils/Store';
 import { useEffect, useMemo, useState } from 'react';
-import Loading from 'src/app/loading';
 import useGetRequest from 'src/hooks/useGetRequest';
 import { PageDataProps } from 'src/interface/globalInterface';
 
 const AllPlans = () => {
-  const { currentState, dateFilters } = useAppStore();
+  const {
+    currentState,
+    dateFilters: { allPlans },
+  } = useAppStore();
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -21,8 +23,10 @@ const AllPlans = () => {
     () => ({
       page: pageData.current - 1,
       state_id: currentState,
+      ...allPlans,
+      date: 'custom',
     }),
-    [pageData, currentState]
+    [pageData, currentState, allPlans]
   );
 
   const {

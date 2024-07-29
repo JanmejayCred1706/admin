@@ -1,7 +1,7 @@
 'use client';
 import { UserOutlined } from '@ant-design/icons';
 import { states } from '@functions/LayoutFn';
-import { TopNavProps } from '@interface/UiInterfaces'; // Ensure this path is correct
+import { TopNavProps } from '@interface/UiInterfaces';
 import { deleteCookies } from '@utils/cookies';
 import {
   Avatar,
@@ -13,31 +13,49 @@ import {
   Typography,
   theme,
 } from 'antd';
-import { redirect, useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAppStore } from 'src/utils/Store';
 
 const TopNav: React.FC<TopNavProps> = () => {
-  const router = useRouter();
   const { Header } = Layout;
-  const { updateState, currentState } = useAppStore();
+  const router = useRouter();
+  const { updateState } = useAppStore();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const handleChange = (value: any) => {
-    updateState(value);
-  };
-  const handleLogOut = () => {
-    deleteCookies('token');
-  };
-  const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: <p onClick={handleLogOut}>Sign Out</p>,
+  const handleChange = useCallback(
+    (value: any) => {
+      updateState(value);
     },
-  ];
+    [updateState]
+  );
 
+  const handleLogOut = useCallback(() => {
+    deleteCookies('token');
+  }, [router]);
+
+  const menuItems: MenuProps['items'] = useMemo(
+    () => [
+      {
+        key: '1',
+        label: <p onClick={handleLogOut}>Sign Out</p>,
+      },
+    ],
+    [handleLogOut]
+  );
+
+  const selectOptions = useMemo(
+    () =>
+      states?.map((cur) => (
+        <Select.Option value={cur?.id} key={cur?.id}>
+          {cur?.name}
+        </Select.Option>
+      )),
+    [states]
+  );
+  console.log('222');
   return (
     <Header
       style={{
@@ -88,7 +106,7 @@ const TopNav: React.FC<TopNavProps> = () => {
             Admin
           </Typography>
           <Dropdown
-            menu={{ items }}
+            menu={{ items: menuItems }}
             placement="bottomRight"
             arrow={{ pointAtCenter: true }}
           >
@@ -100,4 +118,4 @@ const TopNav: React.FC<TopNavProps> = () => {
   );
 };
 
-export default TopNav;
+export default React.memo(TopNav);

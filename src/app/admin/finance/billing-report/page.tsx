@@ -14,7 +14,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 interface pageProps {}
 
 const BillingReport: React.FC<pageProps> = ({}) => {
-  const { currentState, dateFilters } = useAppStore();
+  const {
+    currentState,
+    dateFilters: { billingReport },
+  } = useAppStore();
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -25,8 +28,10 @@ const BillingReport: React.FC<pageProps> = ({}) => {
     () => ({
       page: pageData.current - 1,
       state_id: currentState,
+      date: 'custom',
+      ...billingReport,
     }),
-    [pageData, currentState]
+    [pageData, currentState, billingReport]
   );
 
   const {
@@ -56,7 +61,7 @@ const BillingReport: React.FC<pageProps> = ({}) => {
         searchPlaceHolder="Search"
         exportUrl="report/billing-report"
         exportPayload={params}
-        moduleKey="billing"
+        moduleKey="billingReport"
       />
       <DataTable
         {...{

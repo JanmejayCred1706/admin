@@ -1,5 +1,4 @@
 'use client';
-import dynamic from 'next/dynamic';
 import MixedHeadContent from '@components/core/MixedHeadContent';
 import {
   modelWiseSale,
@@ -10,7 +9,9 @@ import {
   topRetailer,
 } from '@functions/dashboardFn';
 import useGetRequest from '@hooks/useGetRequest';
+import { ChartTypeInterface } from '@interface/dashboardInterface';
 import { useAppStore } from '@utils/Store';
+import dynamic from 'next/dynamic';
 import React, { useEffect, useMemo } from 'react';
 
 const ChartComp = dynamic(() => import('@components/core/ChartComp'), {
@@ -19,7 +20,6 @@ const ChartComp = dynamic(() => import('@components/core/ChartComp'), {
 
 const Analytics: React.FC = () => {
   const { currentState } = useAppStore();
-
   // Memoize the params object to prevent infinite loop
   const params = useMemo(
     () => ({
@@ -35,7 +35,7 @@ const Analytics: React.FC = () => {
     {},
     [params]
   );
-
+  console.log('date', new Date());
   useEffect(() => {
     refetch();
   }, [params, refetch]);
@@ -99,7 +99,7 @@ const Analytics: React.FC = () => {
 
   return (
     <>
-      <MixedHeadContent titleHeader="Dashboard" moduleKey="dashboard" />
+      <MixedHeadContent titleHeader="Analytics" moduleKey="analytics" />
       <div className="flex gap-8 w-full flex-wrap my-8">
         <ChartComp arr={arr} />
       </div>

@@ -1,4 +1,5 @@
 // store.ts
+import { getTodaysDate } from '@functions/globalFn';
 import {
   DateFilterProps,
   pageKeyInterfaceProps,
@@ -15,7 +16,7 @@ interface AppStoreProps {
   isModelOpen: boolean;
   setModelOpen: (loading: boolean) => void;
 }
-
+const todayDate = getTodaysDate();
 export const useAppStore = create<AppStoreProps>((set) => ({
   currentState: 'all',
   updateState: (newState) => set({ currentState: newState }),

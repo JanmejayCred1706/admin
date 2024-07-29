@@ -9,7 +9,10 @@ import { useAppStore } from '@utils/Store';
 import { useEffect, useMemo, useState } from 'react';
 
 const AllClaims = () => {
-  const { currentState, dateFilters } = useAppStore();
+  const {
+    currentState,
+    dateFilters: { allClaims },
+  } = useAppStore();
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -20,8 +23,10 @@ const AllClaims = () => {
     () => ({
       page: pageData.current - 1,
       state_id: currentState,
+      ...allClaims,
+      date: 'custom',
     }),
-    [pageData, currentState]
+    [pageData, currentState, allClaims]
   );
 
   const {

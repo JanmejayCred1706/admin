@@ -1,11 +1,7 @@
 import { fetchToken } from '@functions/globalFn';
 import { NextRequest, NextResponse } from 'next/server';
 
-const protectedRoutes = [
-  '/admin/plans/all-plans',
-  '/admin/retailers/active-retailers',
-  '/admin/service-center/all-service-center',
-];
+const protectedRoutes = [''];
 const unProtectedRoutes = ['/login'];
 
 export default async function middleware(

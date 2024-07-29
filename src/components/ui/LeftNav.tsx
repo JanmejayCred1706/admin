@@ -5,16 +5,22 @@ import { leftNavProps } from '@interface/UiInterfaces';
 import { Layout, Menu } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 
 const LeftNav = (props: leftNavProps) => {
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const { Sider } = Layout;
-  const items = navMenuItem(allowedLabels);
-  const redirection = (path: string) => {
-    router.push(path, { scroll: false });
-  };
+
+  const items = useMemo(() => navMenuItem(allowedLabels), [allowedLabels]);
+  const redirection = useCallback(
+    (path: string) => {
+      router.push(path, { scroll: false });
+    },
+    [router]
+  );
+
+  console.log('111');
   return (
     <Sider
       collapsible
@@ -43,4 +49,4 @@ const LeftNav = (props: leftNavProps) => {
   );
 };
 
-export default LeftNav;
+export default React.memo(LeftNav);

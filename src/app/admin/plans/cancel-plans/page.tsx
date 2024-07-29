@@ -9,7 +9,10 @@ import { planListingData, sequenceFn } from '@functions/planFn';
 import { orderTypeAllowed } from '@interface/allPlansInterface';
 
 const CancelPlans = () => {
-  const { currentState } = useAppStore();
+  const {
+    currentState,
+    dateFilters: { cancelPlans },
+  } = useAppStore();
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -20,8 +23,10 @@ const CancelPlans = () => {
       page: pageData.current - 1,
       state_id: currentState,
       policy_status: 'cancelled',
+      ...cancelPlans,
+      date: 'custom',
     }),
-    [pageData, currentState]
+    [pageData, currentState, cancelPlans]
   );
 
   const {
@@ -46,7 +51,6 @@ const CancelPlans = () => {
   }, [params, refetch]);
   return (
     <>
-      {' '}
       <MixedHeadContent
         titleHeader="Cancel Plans"
         searchPlaceHolder="Search"

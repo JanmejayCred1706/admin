@@ -14,7 +14,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 interface pageProps {}
 
 const WaterfallReport: React.FC<pageProps> = ({}) => {
-  const { currentState, dateFilters } = useAppStore();
+  const {
+    currentState,
+    dateFilters: { waterfallReport },
+  } = useAppStore();
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -25,8 +28,10 @@ const WaterfallReport: React.FC<pageProps> = ({}) => {
     () => ({
       page: pageData.current - 1,
       state_id: currentState,
+      date: 'custom',
+      ...waterfallReport,
     }),
-    [pageData, currentState]
+    [pageData, currentState, waterfallReport]
   );
 
   const {
@@ -56,7 +61,7 @@ const WaterfallReport: React.FC<pageProps> = ({}) => {
         searchPlaceHolder="Search"
         exportUrl="report/water-fall-report"
         exportPayload={params}
-        moduleKey="waterfall"
+        moduleKey="waterfallReport"
       />
       <DataTable
         {...{

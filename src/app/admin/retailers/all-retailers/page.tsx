@@ -11,7 +11,10 @@ import { useEffect, useMemo, useState } from 'react';
 type Props = {};
 
 const AllRetailers = (props: Props) => {
-  const { currentState, dateFilters } = useAppStore();
+  const {
+    currentState,
+    dateFilters: { allRetailers },
+  } = useAppStore();
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -22,6 +25,8 @@ const AllRetailers = (props: Props) => {
     () => ({
       page: pageData.current - 1,
       state_id: currentState,
+      date: 'custom',
+      ...allRetailers,
     }),
     [pageData, currentState]
   );

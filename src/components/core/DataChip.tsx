@@ -9,7 +9,7 @@ const Chip: React.FC<ChipProps> = ({ name }) => {
   const colors = chipColors[name];
 
   if (!colors) {
-    console.error(`No colors defined for name: ${name}`);
+    // console.error(`No colors defined for name: ${name}`);
     return null;
   }
 

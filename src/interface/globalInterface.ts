@@ -21,13 +21,13 @@ export type pageKeyInterfaceProps =
   | 'dashboard'
   | 'analytics'
   | 'allPlans'
-  | 'cancelPans'
+  | 'cancelPlans'
   | 'allRetailers'
   | 'activeRetailers'
-  | 'serviceCenter'
+  | 'allServiceCenter'
   | 'allClaims'
-  | 'billing'
-  | 'waterfall'
+  | 'billingReport'
+  | 'waterfallReport'
   | 'franchise'
   | 'invoice'; 
 export type InputDateProps = string | number | Date;
