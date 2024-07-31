@@ -17,6 +17,7 @@ export interface AllRetailersColumnKeys {
   storeName: keyof AllRetailersDataItem;
   wallet: keyof AllRetailersDataItem;
   createdAt: keyof AllRetailersDataItem;
+  action: keyof AllRetailersDataItem;
 }
 export interface AllRetailersDataItem {
   key: string;

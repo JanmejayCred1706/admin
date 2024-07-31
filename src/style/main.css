@@ -33,6 +33,9 @@
   border-bottom: 1px solid #000;
   @apply display-between  bg-[#f9f9f9] p-2 
 }
+.contentMd{
+  @apply text-base
+}
 /* .loader {
   @apply w-12 h-12 border-4 border-t-4 border-gray-200 rounded-full;
   animation: spin 1s linear infinite;
@@ -87,6 +90,7 @@
     transform: scale(1);
   }
 }
+
 
 
 

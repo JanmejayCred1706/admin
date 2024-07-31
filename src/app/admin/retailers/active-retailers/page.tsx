@@ -46,19 +46,9 @@ const page = (props: Props) => {
   let count: number = listingData?.data?.totalCount || 0;
   let order: orderTypeAllowed[] = sequenceFn();
 
-  const handleDocument = () => {
-    setModelOpen(true);
-  };
-  const handleInactive = () => {};
-  const handleResetPassword = () => {
-    setModelOpen(true);
-  };
   const { data: rawData, columns } = activeRetailersListingData(
     listingData?.data?.dealers || [],
-    order,
-    handleDocument,
-    handleInactive,
-    handleResetPassword
+    order
   );
 
   const data = rawData || [];
@@ -68,7 +58,6 @@ const page = (props: Props) => {
   }, [params, refetch]);
   return (
     <>
-      <ModalComp component={<>hello</>} />
       <MixedHeadContent
         titleHeader="Active Retailers"
         searchPlaceHolder="Search"

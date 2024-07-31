@@ -23,6 +23,7 @@ export interface ActiveRetailersDataItem {
 export type RetailerActionBtnInterface = {
   handleDocument?: () => void;
   handleInactive?: () => void;
-  handleResetPassword?: () => void;
-  //   data: ActiveRetailersColumnKeys;
+  handleResetPassword?: (data: any) => void;
+  data: any;
+  // data: ActiveRetailersColumnKeys;
 };

@@ -6,7 +6,7 @@ const RetailerActionBtn: React.FC<RetailerActionBtnInterface> = ({
   handleDocument,
   handleInactive,
   handleResetPassword,
-  //   data,
+  data,
 }) => {
   return (
     <Space>

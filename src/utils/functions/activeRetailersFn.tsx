@@ -9,10 +9,7 @@ import { ColumnsType } from 'antd/es/table';
 
 export const activeRetailersListingData = (
   listingData: any,
-  keys: string[],
-  handleDocument?: () => void,
-  handleInactive?: () => void,
-  handleResetPassword?: () => void
+  keys: string[]
 ) => {
   const defColumns: ColumnsType<ActiveRetailersDataItem> = [
     {
@@ -34,16 +31,6 @@ export const activeRetailersListingData = (
       key: 'commission',
     },
     { title: 'Created At', dataIndex: 'createdAt', key: 'createdAt' },
-    {
-      title: 'Action',
-      dataIndex: 'action',
-      key: 'action',
-      render: (_, data) => (
-        <RetailerActionBtn
-          {...{ handleDocument, handleInactive, handleResetPassword, data }}
-        />
-      ),
-    },
   ];
   let defData: any =
     listingData?.length > 1 &&
