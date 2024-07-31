@@ -3,9 +3,14 @@ import {
   ColumnKeysServiceCenter,
   DataItemServiceCenter,
 } from '@interface/serviceCenterInterface';
+import { Button } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
-export const serviceCenterListingData = (listingData: any, keys: string[]) => {
+export const serviceCenterListingData = (
+  listingData: any,
+  keys: string[],
+  openResetPasswordModal: (data: any) => void
+) => {
   const defColumns: ColumnsType<DataItemServiceCenter> = [
     {
       title: 'Ref Id',
@@ -24,6 +29,16 @@ export const serviceCenterListingData = (listingData: any, keys: string[]) => {
       title: 'Claimed Amount',
       dataIndex: 'claimedAmount',
       key: 'claimedAmount',
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'action',
+      render: (_, data) => (
+        <Button type="primary" onClick={() => openResetPasswordModal(data)}>
+          Reset Password
+        </Button>
+      ),
     },
   ];
   let defData: any =
@@ -55,6 +70,7 @@ export const sequenceFn = (): (keyof ColumnKeysServiceCenter)[] => {
     'city',
     'totalClaims',
     'claimedAmount',
+    'action',
   ];
 
   return order;

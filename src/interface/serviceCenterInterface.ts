@@ -6,7 +6,8 @@ export type orderTypeAllowed =
   | 'state'
   | 'city'
   | 'totalClaims'
-  | 'claimedAmount';
+  | 'claimedAmount'
+  | 'action';
 export interface ColumnKeysServiceCenter {
   refId: keyof DataItemServiceCenter;
   name: keyof DataItemServiceCenter;
@@ -16,6 +17,7 @@ export interface ColumnKeysServiceCenter {
   city: keyof DataItemServiceCenter;
   totalClaims: keyof DataItemServiceCenter;
   claimedAmount: keyof DataItemServiceCenter;
+  action: keyof DataItemServiceCenter;
 }
 export interface DataItemServiceCenter {
   key: string;

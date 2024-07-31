@@ -32,13 +32,10 @@ const InputField: FC<InputFieldProps> = ({
         >
           <InputNumber
             placeholder={placeholder}
-            bordered={false}
             formatter={formatter}
             style={{
-              borderBottom: '1px solid #D4D4D4',
-              borderRadius: '0',
-              padding: '0 0 0px 0',
-              width: width ?? '18rem',
+              height: '2.5rem',
+              width: width,
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -66,12 +63,9 @@ const InputField: FC<InputFieldProps> = ({
         >
           <Input
             placeholder={placeholder}
-            bordered={false}
             style={{
-              borderBottom: '1px solid #D4D4D4',
-              borderRadius: '0',
-              padding: '0 0 0px 0',
-              width: width ?? '18rem',
+              height: '2.5rem',
+              width: width,
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',

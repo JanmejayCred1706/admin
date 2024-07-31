@@ -35,7 +35,6 @@ const Analytics: React.FC = () => {
     {},
     [params]
   );
-  console.log('date', new Date());
   useEffect(() => {
     refetch();
   }, [params, refetch]);

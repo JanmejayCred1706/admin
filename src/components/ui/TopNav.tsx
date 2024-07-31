@@ -55,7 +55,6 @@ const TopNav: React.FC<TopNavProps> = () => {
       )),
     [states]
   );
-  console.log('222');
   return (
     <Header
       style={{

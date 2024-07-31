@@ -1,4 +1,6 @@
 'use client';
+import ModalComp from '@core/ModalComp';
+import ServiceCenterResetPassword from '@ui/ServiceCenterResetPassword';
 import DataTable from '@core/DataTable';
 import MixedHeadContent from '@core/MixedHeadContent';
 import {
@@ -15,12 +17,14 @@ const AllServiceCenters = () => {
   const {
     currentState,
     dateFilters: { allServiceCenter },
+    setModelOpen,
   } = useAppStore();
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
     limit: 25,
   });
+  const [tapData, setTapData] = useState({});
 
   const params = useMemo(
     () => ({
@@ -41,10 +45,14 @@ const AllServiceCenters = () => {
 
   let count: number = listingData?.data?.totalCount || 0;
   let order: orderTypeAllowed[] = sequenceFn();
-
+  const openResetPasswordModal = (data: any): void => {
+    setTapData(data);
+    setModelOpen(true);
+  };
   const { data: rawData, columns } = serviceCenterListingData(
     listingData?.data?.service_centre || [],
-    order
+    order,
+    openResetPasswordModal
   );
 
   const data = rawData || [];
@@ -54,6 +62,7 @@ const AllServiceCenters = () => {
   }, [params, refetch]);
   return (
     <>
+      <ModalComp component={<ServiceCenterResetPassword {...{ tapData }} />} />
       <MixedHeadContent
         titleHeader="Service Center"
         searchPlaceHolder="Search"

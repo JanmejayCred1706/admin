@@ -25,7 +25,6 @@ const BasicLayout: React.FC<LayoutProps> = ({ children }) => {
       const token = await getCookiesFrom('token');
       setToken(token?.value);
     } catch (err) {
-      console.log(err);
     } finally {
       setIsLoading(false);
     }

@@ -64,9 +64,7 @@ const AllRetailers = (props: Props) => {
   const cancelClick = () => {
     handleClose();
   };
-  const handleResetClick = () => {
-    console.log('99');
-  };
+  const handleResetClick = () => {};
   const { data: rawData, columns } = allRetailersListingData(
     listingData?.data?.data || [],
     order,

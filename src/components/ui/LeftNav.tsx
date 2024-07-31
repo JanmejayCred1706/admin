@@ -19,8 +19,6 @@ const LeftNav = (props: leftNavProps) => {
     },
     [router]
   );
-
-  console.log('111');
   return (
     <Sider
       collapsible
