@@ -10,13 +10,13 @@ import { useRouter } from 'next/navigation';
 export const franchiseListingData = (
   listingData: any,
   keys: string[],
-  handleAddMoney: () => void
+  handleAddMoney: (id: string) => void
 ) => {
   const router = useRouter();
   const handleRedirection = (id: string) => {
-    console.log(id, 'id');
     router.push(`/admin/retailers/franchise-retailers?id=${id}`);
   };
+
   const defColumns: ColumnsType<FranchiseDataItem> = [
     {
       title: 'Name',
@@ -45,33 +45,35 @@ export const franchiseListingData = (
       title: 'Action',
       dataIndex: 'action',
       key: 'action',
-      render: (_, data) => (
+      render: (_, record) => (
         <Space>
-          <Button type="primary" onClick={handleAddMoney}>
+          <Button type="primary" onClick={() => console.log(record, 'data')}>
             Add Money
           </Button>
-          <Button type="primary" onClick={() => handleRedirection(data.key)}>
+          <Button type="primary" onClick={() => handleRedirection(record.key)}>
             View Retailers
           </Button>
         </Space>
       ),
     },
   ];
-  let defData: any =
-    listingData?.length > 1 &&
-    listingData?.map((cur: any, id: any) => {
-      return {
-        key: cur.id,
-        name: cur.name,
-        email: cur.email,
-        mobileNumber: cur.mobile_number,
-        walletBalance: formatCurrency(cur.wallet_balance),
-        dealerCount: cur.dealer_count,
-        totalPremium: formatCurrency(cur.total_premium),
-        totalCommission: formatCurrency(cur.total_commission),
-      };
-    });
+
+  const defData =
+    listingData?.length > 1
+      ? listingData.map((cur: any, i: number) => ({
+          key: cur.id,
+          name: cur.name,
+          email: cur.email,
+          mobileNumber: cur.mobile_number,
+          walletBalance: formatCurrency(cur.wallet_balance),
+          dealerCount: cur.dealer_count,
+          totalPremium: formatCurrency(cur.total_premium),
+          totalCommission: formatCurrency(cur.total_commission),
+        }))
+      : [];
+  console.log(defData, 'data');
   const { columns, data } = modifyListingData(defData, keys, defColumns);
+  console.log(data, 'data');
   return { columns, data };
 };
 

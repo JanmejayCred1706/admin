@@ -1,19 +1,20 @@
 'use client';
-import ModalComp from '@components/core/ModalComp';
 import DataTable from '@core/DataTable';
 import MixedHeadContent from '@core/MixedHeadContent';
+import ModalComp from '@core/ModalComp';
 import { franchiseListingData, sequenceFn } from '@functions/franchiseFn';
 import useGetRequest from '@hooks/useGetRequest';
 import { orderTypeAllowed } from '@interface/franchiseInterface';
 import { PageDataProps } from '@interface/globalInterface';
+import AddMoney from '@ui/AddMoney';
 import { useAppStore } from '@utils/Store';
-import { Button } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 
 interface pageProps {}
 
 const Franchise: React.FC<pageProps> = ({}) => {
   const { currentState, dateFilters, setModelOpen } = useAppStore();
+  const [selectedId, setSelectedId] = useState('');
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -24,6 +25,7 @@ const Franchise: React.FC<pageProps> = ({}) => {
     () => ({
       page: pageData.current - 1,
       state_id: currentState,
+      status: 'inactive',
     }),
     [pageData, currentState]
   );
@@ -37,15 +39,17 @@ const Franchise: React.FC<pageProps> = ({}) => {
 
   let count: number = listingData?.data?.total_count || 0;
   let order: orderTypeAllowed[] = sequenceFn();
-
-  const handleAddMoney = () => {
+  console.log(selectedId, 'setSelectedId');
+  const handleAddMoney = (id: string) => {
     setModelOpen(true);
+    setSelectedId(id);
   };
   const { data: rawData, columns } = franchiseListingData(
     listingData?.data?.data || [],
     order,
     handleAddMoney
   );
+  console.log(rawData, columns, 'data');
 
   const data = rawData || [];
 
@@ -55,13 +59,7 @@ const Franchise: React.FC<pageProps> = ({}) => {
 
   return (
     <>
-      <ModalComp
-        component={
-          <>
-            <Button onClick={() => setModelOpen(false)}>close</Button>
-          </>
-        }
-      />
+      <ModalComp component={<AddMoney {...{ selectedId }} />} />
       <MixedHeadContent
         titleHeader="Franchise"
         searchPlaceHolder="Search"

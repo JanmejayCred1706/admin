@@ -16,6 +16,12 @@ const InputField: FC<InputFieldProps> = ({
   disabled = false,
   formatter,
 }) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const charCode = e.charCode;
+    if (charCode < 48 || charCode > 57) {
+      e.preventDefault();
+    }
+  };
   return (
     <>
       {type ? (
@@ -32,10 +38,10 @@ const InputField: FC<InputFieldProps> = ({
         >
           <InputNumber
             placeholder={placeholder}
-            formatter={formatter}
             style={{
               height: '2.5rem',
-              width: width,
+              width: width || '100%',
+              padding: '4px',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -43,6 +49,7 @@ const InputField: FC<InputFieldProps> = ({
             disabled={disabled}
             min={min}
             max={max}
+            onKeyPress={handleKeyPress}
           />
         </Form.Item>
       ) : (

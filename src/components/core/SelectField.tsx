@@ -46,15 +46,11 @@ const SelectField: React.FC<SelectFieldProps> = ({
           showSearch
           allowClear
           defaultActiveFirstOption
-          bordered={false}
           placeholder={placeholder}
           disabled={!!disabled}
           style={{
-            borderBottom: '1px solid #D4D4D4',
-            borderRadius: '0',
-            marginTop: '-1rem',
-            marginLeft: '0px',
-            width: width || '18rem',
+            height: '2.5rem',
+            width: width,
           }}
         >
           {selectArr?.map((cur, index) => (
@@ -68,15 +64,11 @@ const SelectField: React.FC<SelectFieldProps> = ({
           showSearch
           allowClear
           defaultActiveFirstOption
-          bordered={false}
           placeholder={placeholder}
           disabled={!!disabled}
           style={{
-            borderBottom: '1px solid #D4D4D4',
-            borderRadius: '0',
-            marginTop: '-1rem',
-            marginLeft: '0px',
-            width: width || '18rem',
+            height: '2.5rem',
+            width: width,
           }}
           filterOption={(inputValue, option) => {
             const optionChildren = option?.children as string | undefined;
