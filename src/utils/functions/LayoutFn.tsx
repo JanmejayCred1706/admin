@@ -41,6 +41,7 @@ const data: MenuItemData[] = [
     children: [
       { label: 'Home', key: '/admin/dashboard' },
       { label: 'Analytics', key: '/admin/dashboard/analytics' },
+      { label: 'Wallet', key: '/admin/dashboard/wallet' },
     ],
   },
   {

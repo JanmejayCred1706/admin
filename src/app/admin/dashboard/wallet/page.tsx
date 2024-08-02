@@ -1,18 +1,15 @@
 'use client';
-import DataTable from '@core/DataTable';
-import MixedHeadContent from '@core/MixedHeadContent';
-import ModalComp from '@core/ModalComp';
-import { franchiseListingData, sequenceFn } from '@functions/franchiseFn';
+import DataTable from '@components/core/DataTable';
+import MixedHeadContent from '@components/core/MixedHeadContent';
+import ModalComp from '@components/core/ModalComp';
+import { sequenceFn, walletListingData } from '@functions/walletFn';
 import useGetRequest from '@hooks/useGetRequest';
-import { orderTypeAllowed } from '@interface/franchiseInterface';
 import { PageDataProps } from '@interface/globalInterface';
-import AddMoney from '@ui/AddMoney';
+import { orderTypeAllowed } from '@interface/walletInterface';
 import { useAppStore } from '@utils/Store';
 import React, { useEffect, useMemo, useState } from 'react';
 
-interface pageProps {}
-
-const Franchise: React.FC<pageProps> = ({}) => {
+const page = () => {
   const { currentState, dateFilters, setModelOpen } = useAppStore();
   const [selectedId, setSelectedId] = useState('');
   const [pageData, setPageData] = useState<PageDataProps>({
@@ -25,7 +22,6 @@ const Franchise: React.FC<pageProps> = ({}) => {
     () => ({
       page: pageData.current - 1,
       state_id: currentState,
-      status: 'inactive',
     }),
     [pageData, currentState]
   );
@@ -35,35 +31,26 @@ const Franchise: React.FC<pageProps> = ({}) => {
     error,
     isLoading,
     refetch,
-  } = useGetRequest('franchise/list', params, {}, [params]);
+  } = useGetRequest('franchise/transactions', params, {}, [params]);
 
   let count: number = listingData?.data?.total_count || 0;
   let order: orderTypeAllowed[] = sequenceFn();
-  const handleAddMoney = (id: string) => {
-    setModelOpen(true);
-    setSelectedId(id);
-  };
-  const { data: rawData, columns } = franchiseListingData(
+  const { data: rawData, columns } = walletListingData(
     listingData?.data?.data || [],
-    order,
-    handleAddMoney
+    order
   );
-
   const data = rawData || [];
-
   useEffect(() => {
     refetch();
   }, [params, refetch]);
-
   return (
     <>
-      <ModalComp component={<AddMoney {...{ selectedId }} />} />
       <MixedHeadContent
-        titleHeader="Franchise"
+        titleHeader="Wallet"
         searchPlaceHolder="Search"
-        exportUrl="franchise/list"
-        exportPayload={params}
-        moduleKey="franchise"
+        exportUrl="franchise/transactions"
+        // exportPayload={params}
+        moduleKey="wallet"
       />
       <DataTable
         {...{
@@ -78,4 +65,4 @@ const Franchise: React.FC<pageProps> = ({}) => {
   );
 };
 
-export default Franchise;
+export default page;

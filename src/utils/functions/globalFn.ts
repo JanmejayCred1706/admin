@@ -5,11 +5,11 @@ import {
 import { getCookies } from '@utils/cookies';
 import dayjs from 'dayjs';
 import { NextRequest } from 'next/server';
-import { createContext } from 'react';
+// import { createContext } from 'react';
 
-export const NotificationContext = createContext<
-  NotificationContextType | undefined
->(undefined);
+// export const NotificationContext = createContext<
+//   NotificationContextType | undefined
+// >(undefined);
 export const modifyListingData = (
   listingData: any[],
   keys: string[],

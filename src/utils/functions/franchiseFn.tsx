@@ -47,7 +47,7 @@ export const franchiseListingData = (
       key: 'action',
       render: (_, record) => (
         <Space>
-          <Button type="primary" onClick={() => console.log(record, 'data')}>
+          <Button type="primary" onClick={() => handleAddMoney(record.key)}>
             Add Money
           </Button>
           <Button type="primary" onClick={() => handleRedirection(record.key)}>
@@ -71,9 +71,7 @@ export const franchiseListingData = (
           totalCommission: formatCurrency(cur.total_commission),
         }))
       : [];
-  console.log(defData, 'data');
   const { columns, data } = modifyListingData(defData, keys, defColumns);
-  console.log(data, 'data');
   return { columns, data };
 };
 

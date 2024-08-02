@@ -30,7 +30,6 @@ const AddMoney: FC<AddMoneyProps> = ({ selectedId }) => {
   };
 
   const onFinish = (data: any) => {
-    console.log(data, '...');
     mutation.mutate(data);
     form.resetFields();
   };

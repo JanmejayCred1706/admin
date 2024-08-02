@@ -39,13 +39,11 @@ const page = (props: Props) => {
     isLoading,
     refetch,
   } = useGetRequest('franchise/retailers', params, {}, [params]);
-  console.log(listingData, 'listingData');
   const { data: rawData, columns } = franchiseRetailersListingData(
     listingData?.data?.data || [],
     order
   );
   let count: number = listingData?.data?.total_count || 0;
-
   const data = rawData || [];
 
   useEffect(() => {
