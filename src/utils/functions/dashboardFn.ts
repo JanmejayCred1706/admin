@@ -5,34 +5,22 @@ import {
 import { TopCardInterface } from '@interface/globalInterface';
 
 export const dashboardCardFn = (data?: any): TopCardInterface[] => {
-  const arr: TopCardInterface[] = [
-    {
-      count: 100,
-      title: 'Active Retailers',
-      link: '',
-    },
-    {
-      count: 100,
-      title: 'All Retailers',
-      link: '',
-    },
-    {
-      count: 100,
-      title: 'Dead Retailers',
-      link: '',
-    },
-    {
-      count: 100,
-      title: 'Active Retailers',
-      link: '',
-    },
-    {
-      count: 100,
-      title: 'Dead Retailers',
-      link: '',
-    },
-  ];
-  return arr;
+  // const arr: TopCardInterface[] = [
+  //   {
+  //     id: 0,
+  //     count: 100,
+  //     title: 'Active Retailers',
+  //     link: '',
+  //   },
+  // ];
+  let newArr = [];
+  for (const key in data) {
+    newArr.push({
+      count: data[key],
+      title: key,
+    });
+  }
+  return newArr;
 };
 function dataExtraction(
   data: { [key: string]: DataObjInterface },

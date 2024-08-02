@@ -3,11 +3,30 @@ import MixedHeadContent from '@components/core/MixedHeadContent';
 import DashboardModule from '@components/ui/DashboardModule';
 import TopCard from '@components/ui/TopCard';
 import { dashboardCardFn } from '@functions/dashboardFn';
+import useGetRequest from '@hooks/useGetRequest';
 import { useAppStore } from '@utils/Store';
+import { useEffect, useMemo } from 'react';
 
 const Dashboard = () => {
-  const { dateFilters, isApiLoading } = useAppStore();
-  const value = dashboardCardFn();
+  const {
+    dateFilters: { dashboard },
+    isApiLoading,
+  } = useAppStore();
+  const params = useMemo(
+    () => ({
+      date: 'custom',
+      ...dashboard,
+    }),
+    [dashboard]
+  );
+
+  const { data, error, isLoading, refetch } = useGetRequest(
+    'dashboard/cards',
+    params,
+    {},
+    [params]
+  );
+  const value = dashboardCardFn(data?.data);
   const dataArr = [
     {
       header: 'Electronics',
@@ -46,6 +65,9 @@ const Dashboard = () => {
     },
   ];
   const chipArr = ['ALL', 'COCO', 'FOCO', 'GT'];
+  useEffect(() => {
+    refetch();
+  }, [params, refetch, dashboard]);
   return (
     <div>
       <MixedHeadContent titleHeader="Dashboard" moduleKey="dashboard" />

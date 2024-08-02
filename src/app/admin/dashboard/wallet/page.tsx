@@ -1,17 +1,15 @@
 'use client';
-import DataTable from '@components/core/DataTable';
-import MixedHeadContent from '@components/core/MixedHeadContent';
-import ModalComp from '@components/core/ModalComp';
+import DataTable from '@core/DataTable';
+import MixedHeadContent from '@core/MixedHeadContent';
 import { sequenceFn, walletListingData } from '@functions/walletFn';
 import useGetRequest from '@hooks/useGetRequest';
 import { PageDataProps } from '@interface/globalInterface';
 import { orderTypeAllowed } from '@interface/walletInterface';
+import AddWalletMoneyComp from '@ui/AddWalletMoneyComp';
 import { useAppStore } from '@utils/Store';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 const page = () => {
-  const { currentState, dateFilters, setModelOpen } = useAppStore();
-  const [selectedId, setSelectedId] = useState('');
   const [pageData, setPageData] = useState<PageDataProps>({
     startPage: 1,
     current: 1,
@@ -21,9 +19,8 @@ const page = () => {
   const params = useMemo(
     () => ({
       page: pageData.current - 1,
-      state_id: currentState,
     }),
-    [pageData, currentState]
+    [pageData]
   );
 
   const {
@@ -49,9 +46,9 @@ const page = () => {
         titleHeader="Wallet"
         searchPlaceHolder="Search"
         exportUrl="franchise/transactions"
-        // exportPayload={params}
         moduleKey="wallet"
       />
+      <AddWalletMoneyComp />
       <DataTable
         {...{
           columns,

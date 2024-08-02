@@ -32,7 +32,7 @@ export type pageKeyInterfaceProps =
   | 'invoice'; 
 export type InputDateProps = string | number | Date;
 export type TopCardInterface = {
-  id: number;
+  // id: number;
   count: number;
   title: string;
   link?: string;
