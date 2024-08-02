@@ -5,12 +5,18 @@ import {
 } from '@interface/franchiseInterface';
 import { Button, Space } from 'antd';
 import { ColumnsType } from 'antd/es/table';
+import { useRouter } from 'next/navigation';
 
 export const franchiseListingData = (
   listingData: any,
   keys: string[],
   handleAddMoney: () => void
 ) => {
+  const router = useRouter();
+  const handleRedirection = (id: string) => {
+    console.log(id, 'id');
+    router.push(`/admin/retailers/franchise-retailers?id=${id}`);
+  };
   const defColumns: ColumnsType<FranchiseDataItem> = [
     {
       title: 'Name',
@@ -44,7 +50,9 @@ export const franchiseListingData = (
           <Button type="primary" onClick={handleAddMoney}>
             Add Money
           </Button>
-          <Button type="primary">View Retailers</Button>
+          <Button type="primary" onClick={() => handleRedirection(data.key)}>
+            View Retailers
+          </Button>
         </Space>
       ),
     },

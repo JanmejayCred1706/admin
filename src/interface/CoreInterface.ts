@@ -11,4 +11,5 @@ export interface InputFieldProps {
   type?: string;
   disabled?: boolean;
   formatter?: (value: number | string | undefined) => string | undefined;
+  rule?: [];
 }
