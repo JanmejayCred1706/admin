@@ -16,7 +16,7 @@ const RetailerActionBtn: React.FC<RetailerActionBtnInterface> = ({
       <Button type="primary" onClick={handleInactive}>
         Make Inactive
       </Button>
-      <Button type="primary" danger onClick={handleResetPassword}>
+      <Button type="primary" onClick={handleResetPassword}>
         Reset Password
       </Button>
     </Space>

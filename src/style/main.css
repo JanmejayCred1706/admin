@@ -30,8 +30,8 @@
   @apply bg-primary text-priWhite w-fit py-1 px-4 rounded-2xl 
 }
 .dashboardDataModule{
-  border-bottom: 1px solid #000;
-  @apply display-between  bg-[#f9f9f9] p-2 
+  border-bottom: 1px solid #000 ;
+  @apply display-between  bg-[#f9f9f9] p-4  mb-8 rounded-2xl
 }
 .contentMd{
   @apply text-base

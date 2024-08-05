@@ -7,12 +7,15 @@ import {
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+import { findUserRole, isRole } from '@functions/globalFn';
 import {
   MenuItem,
   MenuItemData,
   StateInterfaceProps,
   getItem,
 } from '@interface/LayoutInterface';
+import { getCookies, getCookiesFrom } from '@utils/cookies';
+import { NextRequest } from 'next/server';
 
 export const states: StateInterfaceProps[] = [
   { id: 'all', name: 'All State', code: 'allState', category: 'all' },
@@ -24,14 +27,31 @@ export const states: StateInterfaceProps[] = [
 ];
 
 export const allowedLabels = [
-  'Dashboard',
-  'Plans',
-  'Retailers',
-  'Service Centers',
-  'Finance',
-  'Claims',
-  'Settings',
+  'Home',
+  'Wallet',
+  'All Plans',
+  'Active Retailers',
+  'All Retailers',
 ];
+
+interface RoleLabels {
+  [key: string]: string[];
+}
+type Routes = string[];
+export const allowedLabelsFor = async (): Promise<Routes | null> => {
+  let getValue: string | undefined;
+  try {
+    const resp = await getCookiesFrom('role');
+    getValue = resp?.value;
+  } catch (err) {}
+
+  if (getValue && isRole(getValue)) {
+    const finalArr = findUserRole(getValue);
+    return finalArr || null;
+  } else {
+    return null;
+  }
+};
 
 const data: MenuItemData[] = [
   {

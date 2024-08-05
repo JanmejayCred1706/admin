@@ -2,7 +2,7 @@ import {
   InputDateProps,
   NotificationContextType,
 } from '@interface/globalInterface';
-import { getCookies } from '@utils/cookies';
+import { getCookies, getCookiesFrom } from '@utils/cookies';
 import dayjs from 'dayjs';
 import { NextRequest } from 'next/server';
 // import { createContext } from 'react';
@@ -94,5 +94,58 @@ export const getTodaysDate = () => {
   const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
   const year = today.getFullYear();
   return `${date}/${month}/${year}`;
+};
+
+export let roleObj = {
+  Home: '/admin/dashboard',
+  Analytics: '/admin/dashboard/analytics',
+  Wallet: '/admin/dashboard/wallet',
+  'All Plans': '/admin/dashboard/all-plans',
+  'Cancelled Plans': '/admin/plans/cancel-plans',
+  'Active Retailers': '/admin/retailers/active-retailers',
+  'All Retailers': '/admin/retailers/all-retailers',
+  'All Service Centers': '/admin/service-center/all-service-center',
+  'Billing Report': '/admin/finance/billing-report',
+  'Waterfall Report': '/admin/finance/waterfall-report',
+  Franchise: '/admin/finance/franchise',
+  Invoice: '/admin/finance/invoice',
+  'All Claims': '/admin/claims/all-claims',
+};
+type Role = 'franchise' | 'admin';
+type Routes = string[];
+export const isRole = (userType: string): userType is Role => {
+  return ['franchise', 'admin'].includes(userType);
+};
+
+export const findUserRole = (userType: string): Routes | undefined => {
+  const obj: Record<Role, Routes> = {
+    franchise: [
+      'Home',
+      'Wallet',
+      'All Plans',
+      'Active Retailers',
+      'All Retailers',
+    ],
+    admin: [
+      'Home',
+      'Analytics',
+      'All Plans',
+      'Cancelled Plans',
+      'Active Retailers',
+      'All Retailers',
+      'All Service Centers',
+      'Billing Report',
+      'Waterfall Report',
+      'Franchise',
+      'Invoice',
+      'All Claims',
+    ],
+  };
+
+  if (isRole(userType)) {
+    return obj[userType];
+  } else {
+    return undefined;
+  }
 };
 

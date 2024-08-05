@@ -64,7 +64,7 @@ const Dashboard = () => {
       count: '90',
     },
   ];
-  const chipArr = ['ALL', 'COCO', 'FOCO', 'GT'];
+  const chipArr = ['ALL'];
   useEffect(() => {
     refetch();
   }, [params, refetch, dashboard]);
@@ -82,18 +82,6 @@ const Dashboard = () => {
             title="Plans"
             subTitleLeft="Product"
             subTitleRight="Sold"
-            {...{ dataArr, chipArr }}
-          />
-          <DashboardModule
-            title="Retailers"
-            subTitleLeft="Retailers"
-            subTitleRight="Sold"
-            {...{ dataArr, chipArr }}
-          />
-          <DashboardModule
-            title="Premium"
-            subTitleLeft="Product"
-            subTitleRight="Amount"
             {...{ dataArr, chipArr }}
           />
         </div>

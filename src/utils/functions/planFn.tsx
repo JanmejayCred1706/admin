@@ -59,7 +59,7 @@ export const planListingData = (listingData: any, keys: string[]) => {
     },
   ];
   let defData: any =
-    listingData?.length > 1 &&
+    listingData?.length > 0 &&
     listingData?.map((cur: any, id: any) => {
       return {
         key: cur.id,

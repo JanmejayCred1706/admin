@@ -52,7 +52,7 @@ const AllRetailers = (props: Props) => {
     setModelOpen(false);
   };
   const handleDocument = () => {
-    setModelOpen(true);
+    // setModelOpen(true);
   };
   const handleInactive = () => {
     setModelOpen(true);

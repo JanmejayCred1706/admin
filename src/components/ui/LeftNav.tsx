@@ -1,24 +1,40 @@
 'use client';
 import { MenuOutlined } from '@ant-design/icons';
-import { allowedLabels, navMenuItem } from '@functions/LayoutFn';
+import { allowedLabelsFor, navMenuItem } from '@functions/LayoutFn';
 import { leftNavProps } from '@interface/UiInterfaces';
 import { Layout, Menu } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 
 const LeftNav = (props: leftNavProps) => {
+  const [label, setLabel] = useState<string[]>([]);
+  console.log(label, '>>>');
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const { Sider } = Layout;
 
-  const items = useMemo(() => navMenuItem(allowedLabels), [allowedLabels]);
+  useLayoutEffect(() => {
+    const getRole = async () => {
+      try {
+        const role = await allowedLabelsFor();
+        setLabel(role || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getRole();
+  }, []);
+
+  const items = useMemo(() => navMenuItem(label), [label]);
+
   const redirection = useCallback(
     (path: string) => {
       router.push(path, { scroll: false });
     },
     [router]
   );
+
   return (
     <Sider
       collapsible
@@ -26,18 +42,17 @@ const LeftNav = (props: leftNavProps) => {
       onCollapse={(value) => setCollapsed(value)}
     >
       <div
-        className={`demo-logo-vertical m-4 flex  ${collapsed ? 'display-center' : 'justify-between'}`}
+        className={`demo-logo-vertical m-4 flex ${collapsed ? 'display-center' : 'justify-between'}`}
       >
         {!collapsed && (
           <Image src="/logo.png" height={120} width={120} alt="logo" priority />
         )}
         <MenuOutlined
           onClick={() => setCollapsed(!collapsed)}
-          className={`${!collapsed} && display-center `}
+          className={`${!collapsed && 'display-center'}`}
         />
       </div>
       <Menu
-        // theme="dark"
         defaultSelectedKeys={['1']}
         mode="inline"
         items={items}
