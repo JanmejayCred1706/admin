@@ -2,7 +2,7 @@
 import { UserOutlined } from '@ant-design/icons';
 import { states } from '@functions/LayoutFn';
 import { TopNavProps } from '@interface/UiInterfaces';
-import { deleteCookies } from '@utils/cookies';
+import { deleteCookies, getCookiesFrom } from '@utils/cookies';
 import {
   Avatar,
   Dropdown,
@@ -13,14 +13,15 @@ import {
   Typography,
   theme,
 } from 'antd';
-import React, { useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { useAppStore } from 'src/utils/Store';
 
 const TopNav: React.FC<TopNavProps> = () => {
   const { Header } = Layout;
   const router = useRouter();
   const { updateState } = useAppStore();
+  const [userName, setUserName] = useState<string>('');
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -55,6 +56,18 @@ const TopNav: React.FC<TopNavProps> = () => {
       )),
     [states]
   );
+  const getUserName = async () => {
+    try {
+      const name = await getCookiesFrom('userName');
+      setUserName(name?.value || '');
+    } catch (err) {
+    } finally {
+    }
+  };
+  useLayoutEffect(() => {
+    getUserName();
+  }, []);
+
   return (
     <Header
       style={{
@@ -102,7 +115,7 @@ const TopNav: React.FC<TopNavProps> = () => {
             ))}
           </Select>
           <Typography style={{ fontSize: '1.5rem', color: '#fff' }}>
-            Admin
+            {userName}
           </Typography>
           <Dropdown
             menu={{ items: menuItems }}

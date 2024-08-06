@@ -14,8 +14,7 @@ import {
   StateInterfaceProps,
   getItem,
 } from '@interface/LayoutInterface';
-import { getCookies, getCookiesFrom } from '@utils/cookies';
-import { NextRequest } from 'next/server';
+import { getCookiesFrom } from '@utils/cookies';
 
 export const states: StateInterfaceProps[] = [
   { id: 'all', name: 'All State', code: 'allState', category: 'all' },

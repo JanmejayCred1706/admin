@@ -14,7 +14,10 @@ const LoginForm: FC = () => {
   const mutation = usePostRequest('user/login', {}, (data) => {
     showNotification('success', 'User Login Successfully');
     if (data?.data?.token) {
-      addCookies(['token', 'role'], [data.data.token, data.data.role]);
+      addCookies(
+        ['token', 'role', 'userName'],
+        [data.data.token, data.data.role, data.data.name]
+      );
     }
     if (data?.success) {
       router.push('/admin/dashboard');
