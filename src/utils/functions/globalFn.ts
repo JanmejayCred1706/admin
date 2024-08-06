@@ -91,12 +91,12 @@ export const fetchToken = async (req: NextRequest): Promise<string | null> => {
 export const getTodaysDate = () => {
   const today = new Date();
   const date = String(today.getDate()).padStart(2, '0');
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const month = String(today.getMonth() + 1).padStart(2, '0');
   const year = today.getFullYear();
   return `${date}/${month}/${year}`;
 };
 
-export let roleObj = {
+export let allRoutes = {
   Home: '/admin/dashboard',
   Analytics: '/admin/dashboard/analytics',
   Wallet: '/admin/dashboard/wallet',
@@ -111,10 +111,10 @@ export let roleObj = {
   Invoice: '/admin/finance/invoice',
   'All Claims': '/admin/claims/all-claims',
 };
-type Role = 'franchise' | 'admin';
+type Role = 'franchise' | 'admin' | 'vivo_head';
 type Routes = string[];
 export const isRole = (userType: string): userType is Role => {
-  return ['franchise', 'admin'].includes(userType);
+  return ['franchise', 'admin', 'vivo_head', 'state_head'].includes(userType);
 };
 
 export const findUserRole = (userType: string): Routes | undefined => {
@@ -138,6 +138,24 @@ export const findUserRole = (userType: string): Routes | undefined => {
       'Waterfall Report',
       'Franchise',
       'Invoice',
+      'All Claims',
+    ],
+    vivo_head: [
+      'Home',
+      'Analytics',
+      'All Plans',
+      'Active Retailers',
+      'All Retailers',
+      'All Service Centers',
+      'All Claims',
+    ],
+    state_head: [
+      'Home',
+      'Analytics',
+      'All Plans',
+      'Active Retailers',
+      'All Retailers',
+      'All Service Centers',
       'All Claims',
     ],
   };

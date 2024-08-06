@@ -52,7 +52,7 @@ const CancelPlans = () => {
   return (
     <>
       <MixedHeadContent
-        titleHeader="Cancel Plans"
+        titleHeader="Cancelled Plans"
         searchPlaceHolder="Search"
         exportUrl="v2/orders"
         exportPayload={params}

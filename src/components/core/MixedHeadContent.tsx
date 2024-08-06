@@ -11,22 +11,22 @@ import useGetRequest from 'src/hooks/useGetRequest';
 import { useNotification } from '@higher-order-components/Notification';
 import DateFilter from '@components/ui/DateFilter';
 
-type exportPayloadProps = {
+type ExportPayloadProps = {
   page: number;
   state_id: number | string;
 };
 
-type MixedHeadContendProps = {
+type MixedHeadContentProps = {
   titleHeader: string;
   handleChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   searchPlaceHolder?: string;
   exportUrl?: string;
-  exportPayload?: exportPayloadProps;
+  exportPayload?: ExportPayloadProps;
   filter?: string;
   moduleKey?: string;
 };
 
-const MixedHeadContent: FC<MixedHeadContendProps> = ({
+const MixedHeadContent: FC<MixedHeadContentProps> = ({
   titleHeader,
   handleChange,
   searchPlaceHolder,
@@ -62,7 +62,7 @@ const MixedHeadContent: FC<MixedHeadContendProps> = ({
         'Data Exported Successfully',
         data?.data?.message
       );
-    } catch (err) {
+    } catch (err: any) {
       showNotification('error', 'Data Export Failed', err.message || err);
       console.error('Error exporting data:', err);
     }
