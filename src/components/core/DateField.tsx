@@ -24,6 +24,7 @@ const DateField: React.FC<DateFieldProps> = ({
   isDisabledDate = false,
   border = false,
 }) => {
+  console.log('>>>dateField');
   return (
     <Form.Item
       label={label}
