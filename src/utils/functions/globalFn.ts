@@ -35,11 +35,18 @@ export const modifyListingData = (
   return { columns, data };
 };
 
-export const dateFormatter = (val: InputDateProps, format?: string): string => {
-  if (val && format) {
-    return dayjs(val).format(format);
+interface InputDateProps {
+  date: string;
+}
+export const dateFormatter = (
+  val: InputDateProps,
+  format: string = 'DD/MM/YYYY'
+): string => {
+  const { date } = val;
+  if (date) {
+    return dayjs(date).format(format);
   } else {
-    return dayjs().format('DD/MM/YYYY'); // Default format if either val or format is missing
+    return dayjs().format('DD/MM/YYYY'); // Default format if date is missing
   }
 };
 

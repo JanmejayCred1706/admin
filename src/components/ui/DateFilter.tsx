@@ -1,241 +1,186 @@
 'use client';
 import { DownOutlined } from '@ant-design/icons';
-import DateField from '@components/core/DateField';
 import { useAppStore } from '@utils/Store';
-import { Button, Dropdown, Form, Space } from 'antd';
+import { Button, DatePicker, Dropdown, Menu, MenuProps, Space } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  useMemo,
-  useRef,
-} from 'react';
-import { disableFutureDates, getDateFormat } from 'src/utils/functions/utils';
-import { createPortal } from 'react-dom';
+import React, { useState, useCallback, useMemo } from 'react';
 
 interface DateFilterCompProps {
   moduleKey: string;
 }
 
 const DateFilterComponent: React.FC<DateFilterCompProps> = ({ moduleKey }) => {
-  const dateFormat = 'YYYY/MM/DD';
-  const [form] = Form.useForm();
-  const [visibility, setVisibility] = useState<boolean>(false);
-  const [tempFrom, setTempFrom] = useState<Dayjs | undefined>();
-  const [tempTo, setTempTo] = useState<Dayjs | undefined>();
-  const { dateFilters, setDateFilter } = useAppStore();
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dateFormat = 'DD/MM/YYYY';
+  const { setDateFilter } = useAppStore();
+  const [selectedDates, setSelectedDates] = useState<[Dayjs, Dayjs] | null>([
+    dayjs().startOf('day'),
+    dayjs().endOf('day'),
+  ]);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
 
-  const disableBeforeStartDate = useCallback(
-    (current: Dayjs | undefined): boolean => {
-      if (tempFrom) {
-        const fromDate = dayjs(tempFrom);
-        return current
-          ? current.isBefore(fromDate) || current.isAfter(dayjs())
-          : false;
-      }
-      return current ? current.isAfter(dayjs()) : false;
-    },
-    [tempFrom]
-  );
+  const { RangePicker } = DatePicker;
 
-  const setFormDates = useCallback(
-    (fromDate: Dayjs, toDate: Dayjs) => {
-      form.setFieldsValue({ from: fromDate, to: toDate });
-      setDateFilter(
-        moduleKey,
-        getDateFormat(fromDate.toISOString()),
-        getDateFormat(toDate.toISOString())
-      );
-      setVisibility(false);
-    },
-    [form, setDateFilter, moduleKey]
-  );
+  // Callback for handling date range change
+  const handleRangeChange = useCallback((dates: [Dayjs, Dayjs] | null) => {
+    setSelectedDates(dates);
+  }, []);
 
-  const subtractDaysFromDate = useCallback(
-    (daysToSubtract: number): void => {
-      const endDate = dayjs();
-      const fromDate = daysToSubtract
-        ? dayjs().subtract(daysToSubtract, 'days')
-        : dayjs().hour(23);
-
-      setFormDates(fromDate, endDate);
-    },
-    [setFormDates]
-  );
-
-  const subtractMonthsFromDate = useCallback(
-    (monthsToSubtract: number): void => {
-      const endDate = dayjs();
-      const fromDate = dayjs()
-        .subtract(monthsToSubtract, 'months')
-        .startOf('month');
-      const actualEndDate =
-        monthsToSubtract >= 1
-          ? dayjs().subtract(monthsToSubtract, 'months').endOf('month')
-          : endDate;
-
-      setFormDates(fromDate, actualEndDate);
-    },
-    [setFormDates]
-  );
-
-  useEffect(() => {
-    const initialDaysToSubtract = 0;
-    const initialEndDate = dayjs();
-    const initialStartDate = dayjs().subtract(initialDaysToSubtract, 'days');
-
-    setFormDates(initialStartDate, initialEndDate);
-  }, [setFormDates]);
-
-  const handleApply = () => {
-    if (tempFrom && tempTo) {
-      const fromDate = getDateFormat(tempFrom.toISOString());
-      const toDate = getDateFormat(tempTo.toISOString());
-
-      if (toDate < fromDate) {
-        form.setFieldsValue({ from: '', to: '' });
-        return;
-      }
-      setDateFilter(moduleKey, fromDate, toDate);
-      setVisibility(false);
+  // Callback for applying filters
+  const handleApply = useCallback(() => {
+    if (selectedDates && selectedDates[0] && selectedDates[1]) {
+      setDropdownVisible(false);
     }
-  };
+  }, [selectedDates, setDateFilter]);
 
-  const items = useMemo(
+  // Callback for handling menu item click
+  const handleMenuClick = useCallback(
+    (key: string) => {
+      const today = dayjs();
+      let newDates: [Dayjs, Dayjs] | null = null;
+
+      switch (key) {
+        case '0': // Today
+          newDates = [today.startOf('day'), today.endOf('day')];
+          break;
+        case '1': // Yesterday
+          newDates = [
+            today.subtract(1, 'day').startOf('day'),
+            today.subtract(1, 'day').endOf('day'),
+          ];
+          break;
+        case '2': // This Week
+          newDates = [today.startOf('week'), today.endOf('week')];
+          break;
+        case '3': // This Month
+          newDates = [today.startOf('month'), today.endOf('month')];
+          break;
+        case '4': // Last Week
+          newDates = [
+            today.subtract(1, 'week').startOf('week'),
+            today.subtract(1, 'week').endOf('week'),
+          ];
+          break;
+        case '5': // Last Month
+          newDates = [
+            today.subtract(1, 'month').startOf('month'),
+            today.subtract(1, 'month').endOf('month'),
+          ];
+          break;
+        default:
+          break;
+      }
+
+      if (newDates) {
+        setSelectedDates(newDates);
+        setDropdownVisible(false);
+      }
+    },
+    [setDateFilter]
+  );
+
+  // Memoize the items for the dropdown menu
+  const items: MenuProps['items'] = useMemo(
     () => [
       {
         label: (
-          <div
-            className="bg-white p-4 shadow-lg rounded"
-            style={{ backgroundColor: '#d7d7d7' }}
-          >
-            <Form form={form} className="flex flex-col gap-4">
-              <div className="flex flex-col">
-                <p>From</p>
-                <DateField
-                  name="from"
-                  width="12rem"
-                  disabledDate={disableFutureDates}
-                  isDisabledDate={true}
-                  onChange={(date) => setTempFrom(date)}
-                />
-              </div>
-              <div className="flex flex-col">
-                <p>To</p>
-                <DateField
-                  name="to"
-                  width="12rem"
-                  disabledDate={disableBeforeStartDate}
-                  isDisabledDate={true}
-                  onChange={(date) => setTempTo(date)}
-                />
-              </div>
-              <Button type="primary" onClick={handleApply}>
-                Apply
-              </Button>
-            </Form>
-          </div>
+          <>
+            <div onClick={(e) => e.stopPropagation()}>
+              <RangePicker
+                onChange={handleRangeChange}
+                format={dateFormat}
+                value={selectedDates}
+                disabledDate={(current) =>
+                  current && current > dayjs().endOf('day')
+                }
+              />
+            </div>
+            <Button
+              type="primary"
+              onClick={handleApply}
+              style={{ marginTop: '8px' }}
+            >
+              Apply Filters
+            </Button>
+          </>
+        ),
+        key: '6',
+      },
+      {
+        label: (
+          <p className="dateClass" onClick={() => handleMenuClick('0')}>
+            Today
+          </p>
         ),
         key: '0',
-        bifurcate: 'Custom',
       },
       {
         label: (
-          <Button onClick={() => subtractDaysFromDate(0)} block>
-            Today
-          </Button>
+          <p className="dateClass" onClick={() => handleMenuClick('1')}>
+            Yesterday
+          </p>
         ),
         key: '1',
-        bifurcate: 'Hourly',
       },
       {
         label: (
-          <Button onClick={() => subtractDaysFromDate(1)} block>
-            Yesterday
-          </Button>
+          <p className="dateClass" onClick={() => handleMenuClick('2')}>
+            This Week
+          </p>
         ),
         key: '2',
-        bifurcate: 'Hourly',
       },
       {
         label: (
-          <Button onClick={() => subtractDaysFromDate(7)} block>
-            Last 7 Days
-          </Button>
+          <p className="dateClass" onClick={() => handleMenuClick('3')}>
+            This Month
+          </p>
         ),
         key: '3',
-        bifurcate: 'Daily',
       },
       {
         label: (
-          <Button onClick={() => subtractMonthsFromDate(0)} block>
-            This Month
-          </Button>
+          <p className="dateClass" onClick={() => handleMenuClick('4')}>
+            Last Week
+          </p>
         ),
         key: '4',
-        bifurcate: 'Weekly',
       },
       {
         label: (
-          <Button onClick={() => subtractMonthsFromDate(1)} block>
-            Past Month
-          </Button>
+          <p className="dateClass" onClick={() => handleMenuClick('5')}>
+            Last Month
+          </p>
         ),
         key: '5',
-        bifurcate: 'Weekly',
       },
     ],
-    [
-      form,
-      disableBeforeStartDate,
-      subtractDaysFromDate,
-      subtractMonthsFromDate,
-      tempFrom,
-      tempTo,
-    ]
+    [handleRangeChange, handleApply, handleMenuClick, selectedDates, dateFormat]
   );
-
-  const handleDropdownClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setVisibility(!visibility);
-  };
-
-  const dropdownMenu = useMemo(() => {
-    return (
-      <div
-        ref={dropdownRef}
-        className="mt-2 bg-white p-4 shadow-lg rounded w-64 absolute z-10"
-      >
-        {items[0].label}
-        {items.slice(1).map((item) => (
-          <div key={item.key} className="mb-2">
-            {item.label}
-          </div>
-        ))}
-      </div>
-    );
-  }, [items]);
-
+  console.log(selectedDates, 'dates');
   return (
     <div className="relative">
       <Dropdown
-        overlay={dropdownMenu}
+        overlay={
+          <div onClick={(e) => e.stopPropagation()}>
+            <Menu items={items} />
+          </div>
+        }
         trigger={['click']}
-        open={visibility}
-        onOpenChange={(open) => setVisibility(open)}
+        visible={dropdownVisible}
+        onVisibleChange={setDropdownVisible}
         className="customBtn"
       >
-        <a href="" onClick={handleDropdownClick} className="block p-3">
+        <a onClick={(e) => e.preventDefault()}>
           <Space>
-            {dateFilters[moduleKey]?.startDate} -{' '}
-            {dateFilters[moduleKey]?.endDate}
+            {selectedDates
+              ? `${selectedDates[0].format(dateFormat)} - ${selectedDates[1].format(
+                  dateFormat
+                )}`
+              : 'Select Date Range'}
             <DownOutlined />
           </Space>
         </a>
       </Dropdown>
-      {visibility && createPortal(dropdownMenu, document.body)}
     </div>
   );
 };
