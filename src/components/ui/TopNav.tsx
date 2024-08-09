@@ -18,6 +18,7 @@ import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { useAppStore } from 'src/utils/Store';
 
 const TopNav: React.FC<TopNavProps> = () => {
+  console.log('>>>top');
   const { Header } = Layout;
   const router = useRouter();
   const { updateState } = useAppStore();
@@ -130,4 +131,4 @@ const TopNav: React.FC<TopNavProps> = () => {
   );
 };
 
-export default React.memo(TopNav);
+export default TopNav;

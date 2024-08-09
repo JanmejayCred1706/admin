@@ -5,13 +5,14 @@ const nextConfig = {
     // your project has ESLint errors.
     // ignoreDuringBuilds: true,
   },
-  typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    ignoreBuildErrors: true,
-  },
+  // typescript: {
+  //   // !! WARN !!
+  //   // Dangerously allow production builds to successfully complete even if
+  //   // your project has type errors.
+  //   // !! WARN !!
+  //   ignoreBuildErrors: true,
+  // },
+  sentry: { hideSourceMaps: true },
   async redirects() {
     return [
       {

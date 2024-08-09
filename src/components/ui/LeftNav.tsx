@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation';
 import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 
 const LeftNav = (props: leftNavProps) => {
+  console.log('>>>left');
   const [label, setLabel] = useState<string[]>([]);
-  console.log(label, '>>>');
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const { Sider } = Layout;
@@ -62,4 +62,4 @@ const LeftNav = (props: leftNavProps) => {
   );
 };
 
-export default React.memo(LeftNav);
+export default LeftNav;
