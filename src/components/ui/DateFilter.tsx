@@ -86,7 +86,7 @@ const DateFilterComponent: React.FC<DateFilterCompProps> = ({ moduleKey }) => {
           <>
             <div onClick={(e) => e.stopPropagation()}>
               <RangePicker
-                onChange={handleRangeChange}
+                onChange={() => handleRangeChange}
                 format={dateFormat}
                 value={selectedDates}
                 disabledDate={(current) =>
