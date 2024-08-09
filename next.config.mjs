@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  basePath: '/login',
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
@@ -12,16 +13,17 @@ const nextConfig = {
   //   // !! WARN !!
   //   ignoreBuildErrors: true,
   // },
-  sentry: { hideSourceMaps: true },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/login', // Replace this with your desired default route
-        permanent: true, // Use 'false' if you want a temporary redirect
-      },
-    ];
-  },
+  productionBrowserSourceMaps: true,
+  // sentry: { hideSourceMaps: true },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/login', // Replace this with your desired default route
+  //       permanent: true, // Use 'false' if you want a temporary redirect
+  //     },
+  //   ];
+  // },
 };
 
 export default nextConfig;
